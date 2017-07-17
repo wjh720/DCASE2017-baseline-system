@@ -28,7 +28,7 @@ sets:
           backend: theano
           backend_parameters:
             floatX: float64
-            device: cpu
+            device: gpu
             fastmath: false
             optimizer: None
             openmp: false
@@ -41,7 +41,7 @@ sets:
           validation_amount: 0.10
 
         training:
-          epochs: 200
+          epochs: 50
           batch_size: 256
           shuffle: true
           callbacks:
@@ -136,7 +136,7 @@ sets:
           validation_amount: 0.10
 
         training:
-          epochs: 200
+          epochs: 50
           batch_size: 256
           shuffle: true
           callbacks:
@@ -486,7 +486,7 @@ defaults:
         backend: theano
         backend_parameters:
           floatX: float64
-          device: cpu
+          device: gpu
           fastmath: false
           optimizer: None
           openmp: false
@@ -499,7 +499,7 @@ defaults:
         validation_amount: 0.10
 
       training:
-        epochs: 200
+        epochs: 50
         batch_size: 256
         shuffle: true
 
