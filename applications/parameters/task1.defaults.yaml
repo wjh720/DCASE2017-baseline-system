@@ -1,4 +1,4 @@
-active_set: dcase2017
+active_set: dcase2017_gpu
 
 sets:
 
@@ -28,7 +28,7 @@ sets:
           backend: theano
           backend_parameters:
             floatX: float64
-            device: gpu
+            device: cpu
             fastmath: false
             optimizer: None
             openmp: false
@@ -290,9 +290,13 @@ defaults:
   # Paths
   # ==========================================================
   path:
+<<<<<<< HEAD
 
     data: ../../data/
 
+=======
+    data: ../../data/
+>>>>>>> origin/master
     system_base: system/task1/
     feature_extractor: feature_extractor/
     feature_normalizer: feature_normalizer/
@@ -369,7 +373,7 @@ defaults:
   # Dataset
   # ==========================================================
   dataset:
-    method: development
+    method: TUTAcousticScenes_2017_DevelopmentSet
 
   dataset_method_parameters:
     development:
