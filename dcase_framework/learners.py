@@ -1093,13 +1093,13 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             import keras
 
 
-        printf("@#@$@@ Building !@#@#!!")
+        print("@#@$@@ Building !@#@#!!")
         time.sleep(5)
 
         # Create model
         self.create_model(input_shape=self._get_input_size(data=data))
 
-        printf("@#@$@@ Builded !@#@#!!")
+        print("@#@$@@ Builded !@#@#!!")
         time.sleep(5)
 
         if self.show_extra_debug:
@@ -1350,13 +1350,13 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
             input_shape = X_training.shape[-1]
             training_data_size = X_training.shape[0]
 
-        printf("@#@$@@ Building !@#@#!!")
+        print("@#@$@@ Building !@#@#!!")
         time.sleep(5)
 
         # Create model
         self.create_model(input_shape=input_shape)
 
-        printf("@#@$@@ Builded !@#@#!!")
+        print("@#@$@@ Builded !@#@#!!")
         time.sleep(5)
 
         # Get processing interval
