@@ -341,6 +341,11 @@ class KerasMixin(object):
         # Get model config parameters
         model_params = copy.deepcopy(self.learner_params.get_path('model.config'))
 
+        print("---------------")
+        print(input_shape)
+        print("...............")
+
+
         # Get constants for model
         constants = copy.deepcopy(self.learner_params.get_path('model.constants', {}))
         constants['CLASS_COUNT'] = len(self.class_labels)

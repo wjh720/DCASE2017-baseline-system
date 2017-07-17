@@ -1339,8 +1339,12 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
             input_shape = X_training.shape[-1]
             training_data_size = X_training.shape[0]
 
+        printf("@#@$@@ Building !@#@#!!")
+
         # Create model
         self.create_model(input_shape=input_shape)
+
+        printf("@#@$@@ Builded !@#@#!!")
 
         # Get processing interval
         processing_interval = self.get_processing_interval()
@@ -1469,6 +1473,9 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
                 if epoch_end > epochs:
                     epoch_end = epochs
 
+
+                printf("@#@$@@ Model fitting !@#@#!!")
+
                 # Model fitting
                 if self.learner_params.get_path('generator.enable'):
                     hist = self.model.fit_generator(
@@ -1496,6 +1503,8 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
                         shuffle=self.learner_params.get_path('training.shuffle', True),
                         callbacks=callback_list
                     )
+
+                printf("@#@$@@ Have Model fitted !@#@#!!")
 
                 # Store keras metrics into learning history log
                 for keras_metric in hist.history:
