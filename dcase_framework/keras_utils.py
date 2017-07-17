@@ -261,6 +261,12 @@ class KerasMixin(object):
 
         """
 
+        print("@#@$@@ asd !@#@#!!")
+        time.sleep(5)
+
+        print(self.learner_params.get_path('input_sequencer.enable'))
+        print(len(files))
+
         if self.learner_params.get_path('input_sequencer.enable'):
             processed_data = []
             for item in files:

@@ -1040,18 +1040,6 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         """
 
-        print("@#@$@@ asd !@#@#!!")
-        time.sleep(5)
-        print('Feature shape={shape}'.format(shape=data.shape))
-        print('Feature channels={channels}'.format(channels=data.channels))
-        print('Feature frames={frames}'.format(frames=data.frames))
-        print('Feature vector length={vector_length}'.format(vector_length=data.vector_length))
-        print(data.feat)
-        print(data.stat)
-        print(data.meta)
-        print("@#@$@@ asd !@#@#!!")
-        time.sleep(5)
-
         training_files = sorted(list(annotations.keys()))  # Collect training files
         if self.learner_params.get_path('validation.enable', False):
             validation_files = self._generate_validation(
