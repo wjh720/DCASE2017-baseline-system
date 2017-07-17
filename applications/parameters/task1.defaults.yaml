@@ -1,4 +1,4 @@
-active_set: dcase2017
+active_set: dcase2017_gpu
 
 sets:
 
