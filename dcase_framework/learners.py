@@ -114,6 +114,7 @@ import logging
 import random
 import warnings
 import copy
+import time
 
 from datetime import datetime
 from sklearn.metrics import mean_absolute_error
@@ -1115,6 +1116,9 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         # Set seed
         self.set_seed()
 
+        print("asdasd")
+        time.sleep(5)
+
         hist = self.model.fit(
             x=X_training,
             y=Y_training,
@@ -1340,12 +1344,13 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
             training_data_size = X_training.shape[0]
 
         printf("@#@$@@ Building !@#@#!!")
-        for(;;);
+        time.sleep(5)
 
         # Create model
         self.create_model(input_shape=input_shape)
 
         printf("@#@$@@ Builded !@#@#!!")
+        time.sleep(5)
 
         # Get processing interval
         processing_interval = self.get_processing_interval()
