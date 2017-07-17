@@ -1092,8 +1092,15 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             # Import keras and suppress backend announcement printed to stderr
             import keras
 
+
+        printf("@#@$@@ Building !@#@#!!")
+        time.sleep(5)
+
         # Create model
         self.create_model(input_shape=self._get_input_size(data=data))
+
+        printf("@#@$@@ Builded !@#@#!!")
+        time.sleep(5)
 
         if self.show_extra_debug:
             self.log_model_summary()
