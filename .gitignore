@@ -76,4 +76,3 @@ tests/material/saved.mfcc.cpickle
 tests/material/test.mfcc.cpickle
 tests/material/saved.txt
 tests/material/saved.yaml
-dcase_framework/keras_utils.py

@@ -300,6 +300,7 @@ defaults:
   # Paths
   # ==========================================================
   path:
+
     data: ../../data/
 
     system_base: system/task1/
@@ -379,6 +380,7 @@ defaults:
   # ==========================================================
   dataset:
     method: challenge_train
+
 
   dataset_method_parameters:
     development:
