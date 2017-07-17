@@ -280,7 +280,7 @@ defaults:
   # Paths
   # ==========================================================
   path:
-    data: ../../../data/
+    data:  ../../../data/
 
     system_base: system/task1/
     feature_extractor: feature_extractor/
