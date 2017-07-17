@@ -969,7 +969,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     'backend': 'theano',
                     'backend_parameters': {
                         'CNR': True,
-                        'device': 'cpu',
+                        'device': 'gpu',
                         'fastmath': False,
                         'floatX': 'float64',
                         'openmp': False,

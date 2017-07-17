@@ -482,7 +482,7 @@ defaults:
         backend: theano
         backend_parameters:
           floatX: float64
-          device: cpu
+          device: gpu
           fastmath: false
           optimizer: None
           openmp: false
