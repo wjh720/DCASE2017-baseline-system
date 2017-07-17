@@ -28,7 +28,7 @@ sets:
           backend: theano
           backend_parameters:
             floatX: float64
-            device: gpu
+            device: cpu
             fastmath: false
             optimizer: None
             openmp: false
