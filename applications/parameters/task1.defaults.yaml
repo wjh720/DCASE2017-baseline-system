@@ -41,7 +41,7 @@ sets:
           validation_amount: 0.10
 
         training:
-          epochs: 50
+          epochs: 1
           batch_size: 256
           shuffle: true
           callbacks:
@@ -146,7 +146,7 @@ sets:
           validation_amount: 0.10
 
         training:
-          epochs: 50
+          epochs: 1
           batch_size: 256
           shuffle: true
           callbacks:
@@ -517,7 +517,7 @@ defaults:
         validation_amount: 0.10
 
       training:
-        epochs: 50
+        epochs: 1
         batch_size: 256
         shuffle: true
 
