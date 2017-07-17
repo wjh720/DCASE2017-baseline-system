@@ -28,7 +28,7 @@ sets:
           backend: theano
           backend_parameters:
             floatX: float64
-            device: cpu
+            device: gpu
             fastmath: false
             optimizer: None
             openmp: false
@@ -181,6 +181,16 @@ sets:
 
             - class_name: Dense
               config:
+                units: 50
+                kernel_initializer: uniform
+                activation: relu
+
+            - class_name: Dropout
+              config:
+                rate: 0.2
+
+            - class_name: Dense
+              config:
                 units: CLASS_COUNT
                 kernel_initializer: uniform
                 activation: softmax
@@ -290,13 +300,8 @@ defaults:
   # Paths
   # ==========================================================
   path:
-<<<<<<< HEAD
-
     data: ../../data/
 
-=======
-    data: ../../data/
->>>>>>> origin/master
     system_base: system/task1/
     feature_extractor: feature_extractor/
     feature_normalizer: feature_normalizer/
@@ -373,7 +378,7 @@ defaults:
   # Dataset
   # ==========================================================
   dataset:
-    method: TUTAcousticScenes_2017_DevelopmentSet
+    method: development
 
   dataset_method_parameters:
     development:
