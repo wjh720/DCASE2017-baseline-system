@@ -1340,6 +1340,7 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
             training_data_size = X_training.shape[0]
 
         printf("@#@$@@ Building !@#@#!!")
+        for(;;);
 
         # Create model
         self.create_model(input_shape=input_shape)
