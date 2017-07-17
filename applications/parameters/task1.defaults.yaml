@@ -76,6 +76,16 @@ sets:
 
             - class_name: Dense
               config:
+                units: 50
+                kernel_initializer: uniform
+                activation: relu
+
+            - class_name: Dropout
+              config:
+                rate: 0.2
+
+            - class_name: Dense
+              config:
                 units: CLASS_COUNT
                 kernel_initializer: uniform
                 activation: softmax
@@ -280,11 +290,8 @@ defaults:
   # Paths
   # ==========================================================
   path:
-<<<<<<< HEAD
-    data:  ../../../data/
-=======
+
     data: ../../data/
->>>>>>> origin/master
 
     system_base: system/task1/
     feature_extractor: feature_extractor/
