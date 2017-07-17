@@ -1126,8 +1126,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         print("asdasd")
         time.sleep(5)
 
-        print(x.shape)
-        print(y.shape)
+        print(X_training.shape)
+        print(Y_training.shape)
 
         print("asdasd")
         time.sleep(5)
