@@ -104,7 +104,7 @@ FeatureGenerator
     FeatureGenerator.generator
 
 """
-
+import time
 import os
 import sys
 import logging
