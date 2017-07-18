@@ -264,7 +264,7 @@ class KerasMixin(object):
 
         """
 
-        '''
+        
         print("@#@$@@ avd !@#@#!!")
         time.sleep(5)
 
@@ -310,7 +310,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([data[x].feat[0] for x in files])
-        
+        '''
 
     def prepare_activity(self, activity_matrix_dict, files, processor='default'):
         """Concatenate activity matrices into one activity matrix
@@ -329,7 +329,7 @@ class KerasMixin(object):
         numpy.ndarray
             Activity matrix
         """
-        '''
+        
         pdata = []
         for item in files:
             print(activity_matrix_dict[item].shape)
@@ -353,7 +353,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([activity_matrix_dict[x] for x in files])
-        
+        '''
 
     def create_model(self, input_shape):
         """Create sequential Keras model
@@ -368,7 +368,7 @@ class KerasMixin(object):
         print(input_shape)
         #X=input_shape[0]
         #Y=input_shape[1]
-        self.model.add(Conv1D(32, 3, activation='relu', input_shape=(input_shape,1)))
+        self.model.add(Conv1D(32, 3, activation='relu', input_shape=(501,200)))
         self.model.add(MaxPooling1D(pool_size=2))
         self.model.add(Dropout(0.25))
         self.model.add(Flatten())
