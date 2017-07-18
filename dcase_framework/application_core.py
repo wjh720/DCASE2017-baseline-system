@@ -1371,7 +1371,7 @@ class AcousticSceneClassificationAppCore(AppCore):
 
                     self.logger.exception(message)
                     raise IOError(message)
-                '''
+                
                 if 'learning_history' in model_container:
                     import matplotlib.pyplot as plt
                     fig = plt.figure()
@@ -1409,7 +1409,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                         else:
                             ax2.legend(['train'], loc='upper left')
                     plt.show()
-                '''
+                
 
     @before_and_after_function_wrapper
     def system_testing(self, overwrite=None):
