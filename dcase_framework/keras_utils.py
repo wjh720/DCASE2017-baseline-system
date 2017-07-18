@@ -337,7 +337,7 @@ class KerasMixin(object):
         print("pppppppppppppppppp")
         print(pp.shape)
 
-        asd = np.transpose(pp, (2, 1, 3))
+        asd = np.transpose(pp, (1, 0, 2))
         sd = asd[0:1]
         print(sd.shape)
         print(pp[0:10,0:15])
