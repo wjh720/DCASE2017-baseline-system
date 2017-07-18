@@ -290,16 +290,12 @@ class KerasMixin(object):
             for item in files:
                 if processor == 'training':
                     processed_data.append(
-                        self.data_processor_training.prepare_data(
-                            data=data[item].feat[0]
-                        )
+                        data=data[item].feat[0]
                     )
 
                 else:
                     processed_data.append(
-                        self.data_processor.prepare_data(
-                            data=data[item].feat[0]
-                        )
+                        data=data[item].feat[0]
                     )
 
             return numpy.concatenate(processed_data)
