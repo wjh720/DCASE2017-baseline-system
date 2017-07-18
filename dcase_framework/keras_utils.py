@@ -274,7 +274,7 @@ class KerasMixin(object):
             print(b.shape)
             print(b[0:5,0:5])
             tt = tt - 1
-            if (!tt):
+            if (tt == 0):
                 break
             time.sleep(3)
 
