@@ -322,7 +322,6 @@ class KerasMixin(object):
             for item in files:
                 if processor == 'training':
                     processed_activity.append(activity_data=activity_matrix_dict[item])
-                    )
 
                 else:
                     processed_activity.append(activity_matrix_dict[item])
