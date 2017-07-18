@@ -406,7 +406,7 @@ class KerasMixin(object):
         self.model.add(Dense(512,activation='relu'))
         #self.model.add(Dropout(0.25))        
         self.model.add(Dense(15, activation='softmax'))
-        #self.model.compile(loss='categorical_crossentropy', optimizer=adam,metrics=self.learner_params.get_path('model.metrics'))
+        model.compile(loss='categorical_crossentropy', optimizer=adam,metrics=["accuracy"])
         '''
         tuple_fields = [
             'input_shape',
@@ -544,11 +544,13 @@ class KerasMixin(object):
             raise AttributeError(message)
     '''
         # Compile the model
+        '''
         self.model.compile(
             loss=self.learner_params.get_path('model.loss'),
             optimizer='adam',#optimizer_class(**dict(self.learner_params.get_path('model.optimizer.parameters', {}))),
             metrics=self.learner_params.get_path('model.metrics')
         )
+        '''
     
 
     def create_callback_list(self):
