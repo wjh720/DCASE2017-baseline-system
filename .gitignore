@@ -79,3 +79,5 @@ tests/material/saved.yaml
 dcase_framework/keras_utils.py
 
 dcase_framework/keras_utils.py
+
+dcase_framework/learners.py

@@ -126,9 +126,12 @@ sets:
       hop_length_seconds: 0.02
     learner:
       method: mlp
-      show_model_information: false
+      show_model_information: true
+    
     learner_method_parameters:
       mlp:
+        input_sequencer:
+            enable: true
         seed: 1
         keras:
           backend: theano
@@ -471,9 +474,6 @@ defaults:
   # ==========================================================
   learner:
     method: mlp                             #
-
-    input_sequencer:
-        enable: true
             
     audio_error_handling: false             # Handling audio errors (temporary microphone failure and radio signal interferences from mobile phones)
     show_model_information: false           # Show extra model information after model is ready
