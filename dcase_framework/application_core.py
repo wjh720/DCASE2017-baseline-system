@@ -1478,9 +1478,6 @@ class AcousticSceneClassificationAppCore(AppCore):
                     self.logger.exception(message)
                     raise IOError(message)
 
-                print("have loaded !! ")
-                time.sleep(1)
-
                 item_progress = tqdm(self.dataset.test(fold),
                                      desc="           {0: >15s}".format('Testing '),
                                      file=sys.stdout,
@@ -1488,6 +1485,10 @@ class AcousticSceneClassificationAppCore(AppCore):
                                      disable=self.disable_progress_bar,
                                      ascii=self.use_ascii_progress_bar
                                      )
+
+                print("have loaded !! ")
+                time.sleep(1)
+                
                 for item_id, item in enumerate(item_progress):
                     if self.log_system_progress:
                         self.logger.info('  {title:<15s} [{item_id:d}/{total:d}] {item:<20s}'.format(
