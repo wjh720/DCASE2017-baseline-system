@@ -375,9 +375,9 @@ class KerasMixin(object):
         #Y=input_shape[1]
         #self.model.add(Conv1D(32, 3, activation='relu', input_shape=(501,200)))
         #self.model.add(MaxPooling1D(pool_size=2))
-        sefl.model.add(Dense(64,activation='relu',input_shape=(501,200)))
+        self.model.add(Dense(64,activation='relu',input_shape=(501,200)))
         self.model.add(Dropout(0.25))
-        sefl.model.add(Dense(64,activation='relu',input_shape=(501,200)))
+        self.model.add(Dense(64,activation='relu',input_shape=(501,200)))
         self.model.add(Dropout(0.25))
         #self.model.add(Flatten())
         self.model.add(Dense(256, activation='relu'))
