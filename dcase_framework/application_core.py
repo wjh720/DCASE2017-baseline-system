@@ -1559,9 +1559,10 @@ class AcousticSceneClassificationAppCore(AppCore):
                     # Frame probabilities
                     print("ffffffffffffffffffffffffff")
                     import numpy as np    
-                    print(type(feature_data))
+                    print(type(feature_data.feat[0]))
+                    print(feature_data.feat[0].shape)
+
                     feature_data=np.array(feature_data)
-                    print(feature_data.shape)
 
                     feature_data=feature_data.reshape(1,feature_data.shape[0],feature_data.shape[1]);
                     frame_probabilities = model_container.predict(feature_data=feature_data)
