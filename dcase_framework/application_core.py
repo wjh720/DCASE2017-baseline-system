@@ -3002,6 +3002,11 @@ class BinarySoundEventAppCore(SoundEventAppCore):
 
         """
 
+
+        print("safsvdvd")
+        time.sleep(4)
+        print(self.params.get_path('learner.parameters.input_sequencer.enable'))
+
         if not overwrite:
             overwrite = self.params.get_path('general.overwrite', False)
 
