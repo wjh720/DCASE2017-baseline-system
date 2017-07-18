@@ -1456,7 +1456,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                 results = MetaDataContainer(filename=current_result_file)
 
                 print("testing !! ")
-                time.sleep(3)
+                time.sleep(1)
 
                 # Load class model container
                 model_filename = self._get_model_filename(
@@ -1477,6 +1477,9 @@ class AcousticSceneClassificationAppCore(AppCore):
 
                     self.logger.exception(message)
                     raise IOError(message)
+
+                print("have loaded !! ")
+                time.sleep(1)
 
                 item_progress = tqdm(self.dataset.test(fold),
                                      desc="           {0: >15s}".format('Testing '),
