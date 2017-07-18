@@ -286,7 +286,7 @@ class KerasMixin(object):
 
         pdata = []
         for item in files:
-            print(data[item].feat[0].shape)
+            #print(data[item].feat[0].shape)
             pdata.append(data[item].feat[0])
         pp = numpy.array(pdata)
         print(pp.shape)
@@ -331,7 +331,7 @@ class KerasMixin(object):
 
         pdata = []
         for item in files:
-            print(activity_matrix_dict[item].shape)
+            #print(activity_matrix_dict[item].shape)
             pdata.append(activity_matrix_dict[item])
         pp = numpy.array(pdata)
         print("pppppppppppppppppp")
