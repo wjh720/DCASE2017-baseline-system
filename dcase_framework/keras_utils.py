@@ -267,6 +267,7 @@ class KerasMixin(object):
         time.sleep(5)
 
         print(self.learner_params.get_path('input_sequencer.enable'))
+        print(len(files))
 
         print("@#@$@@ avd !@#@#!!")
         time.sleep(5)
