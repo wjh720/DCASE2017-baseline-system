@@ -334,6 +334,7 @@ class KerasMixin(object):
         pp = numpy.array(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
+        print(pp[0:10,0:15])
 
         return pp
 
