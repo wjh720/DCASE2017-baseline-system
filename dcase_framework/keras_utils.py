@@ -401,10 +401,10 @@ class KerasMixin(object):
         '''
 
         self.model.add(Conv1D(256, 3, activation='relu', input_shape=(501,200)))
-        self.model.add(LSTM(256))
+        self.model.add(LSTM(512))
         
-        self.model.add(Dense(512,activation='relu'))
-        #self.model.add(Dropout(0.25))        
+        self.model.add(Dense(1024,activation='relu'))
+        self.model.add(Dropout(0.25))        
         self.model.add(Dense(15, activation='softmax'))
         self.model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=["accuracy"])
         '''
