@@ -135,7 +135,7 @@ def scene_classifier_factory(*args, **kwargs):
     if kwargs.get('method', None) == 'gmm':
         return SceneClassifierGMM(*args, **kwargs)
     elif kwargs.get('method', None) == 'mlp':
-        return SceneClassifierMLP(*args, **kwargs)
+        return SceneClassifierKerasSequential(*args, **kwargs)
     else:
         raise ValueError('{name}: Invalid SegmentClassifier method [{method}]'.format(
             name='segment_classifier_factory',
