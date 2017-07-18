@@ -321,18 +321,11 @@ class KerasMixin(object):
             processed_activity = []
             for item in files:
                 if processor == 'training':
-                    processed_activity.append(
-                        self.data_processor_training.process_activity_data(
-                            activity_data=activity_matrix_dict[item]
-                        )
+                    processed_activity.append(activity_data=activity_matrix_dict[item])
                     )
 
                 else:
-                    processed_activity.append(
-                        self.data_processor.process_activity_data(
-                            activity_data=activity_matrix_dict[item]
-                        )
-                    )
+                    processed_activity.append(activity_matrix_dict[item])
 
             return numpy.concatenate(processed_activity)
 
