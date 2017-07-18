@@ -379,7 +379,7 @@ class KerasMixin(object):
         self.model.add(Dropout(0.25))
         self.model.add(Dense(64,activation='relu',input_shape=(501,200)))
         self.model.add(Dropout(0.25))
-        #self.model.add(Flatten())
+        self.model.add(Flatten())
         self.model.add(Dense(256, activation='relu'))
         self.model.add(Dropout(0.2))
         self.model.add(Dense(15, activation='softmax'))
