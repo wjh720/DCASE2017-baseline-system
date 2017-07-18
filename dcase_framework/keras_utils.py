@@ -269,7 +269,7 @@ class KerasMixin(object):
         print(self.learner_params.get_path('input_sequencer.enable'))
 
         print(len(files))
-        tt = 5
+        tt = 2
         for x in files:
             print(x)
             b = data[x].feat[0]
