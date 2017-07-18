@@ -385,6 +385,7 @@ class LearnerContainer(DataFile, ContainerMixin):
 
         """
 
+
         if 'parameters' in self['params']:
             parameters = self['params']['parameters']
         else:
@@ -1066,6 +1067,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         # Process data
         X_training = self.prepare_data(data=data, files=training_files)
+
+
         Y_training = self.prepare_activity(activity_matrix_dict=activity_matrix_dict, files=training_files)
 
         if self.show_extra_debug:
@@ -1094,13 +1097,11 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
 
         print("@#@$@@ Building !@#@#!!")
-        time.sleep(5)
 
         # Create model
         self.create_model(input_shape=self._get_input_size(data=data))
 
         print("@#@$@@ Builded !@#@#!!")
-        time.sleep(5)
 
         if self.show_extra_debug:
             self.log_model_summary()
@@ -1123,14 +1124,13 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         # Set seed
         self.set_seed()
 
+        X_training = X_training.reshape(X_training.shape[0], X_training.shape[1], 1)
         print("asdasd")
-        time.sleep(5)
 
         print(X_training.shape)
         print(Y_training.shape)
 
         print("asdasd")
-        time.sleep(5)
 
         hist = self.model.fit(
             x=X_training,
@@ -1357,13 +1357,11 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
             training_data_size = X_training.shape[0]
 
         print("@#@$@@ Building !@#@#!!")
-        time.sleep(5)
 
         # Create model
         self.create_model(input_shape=input_shape)
 
         print("@#@$@@ Builded !@#@#!!")
-        time.sleep(5)
 
         # Get processing interval
         processing_interval = self.get_processing_interval()
@@ -1493,8 +1491,6 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
                     epoch_end = epochs
 
 
-                printf("@#@$@@ Model fitting !@#@#!!")
-
                 # Model fitting
                 if self.learner_params.get_path('generator.enable'):
                     hist = self.model.fit_generator(
@@ -1511,6 +1507,8 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
                     )
 
                 else:
+                    #!!!!!!!!
+                    X_training = X_training.reshape(X_training.shape[0], X_training.shape[1], 1)
                     hist = self.model.fit(
                         x=X_training,
                         y=Y_training,
@@ -1655,6 +1653,7 @@ class SceneClassifierKerasSequential(SceneClassifierMLP):
                 )
 
             else:
+                X_training = X_training.reshape(X_training.shape[0], X_training.shape[1], 1)
                 hist = self.model.fit(
                     x=X_training,
                     y=Y_training,
@@ -2379,7 +2378,7 @@ class EventDetectorMLP(EventDetector, KerasMixin):
 
         # Set seed
         self.set_seed()
-
+        X_training = X_training.reshape(X_training.shape[0], X_training.shape[1], 1)
         hist = self.model.fit(
             x=X_training,
             y=Y_training,
@@ -2789,6 +2788,8 @@ class EventDetectorKerasSequential(EventDetectorMLP):
                     )
 
                 else:
+                    X_training = X_training.reshape(X_training.shape[0], X_training.shape[1], 1)
+
                     hist = self.model.fit(
                         x=X_training,
                         y=Y_training,
@@ -2926,6 +2927,8 @@ class EventDetectorKerasSequential(EventDetectorMLP):
                 )
 
             else:
+                X_training = X_training.reshape(X_training.shape[0], X_training.shape[1], 1)
+
                 hist = self.model.fit(
                     x=X_training,
                     y=Y_training,

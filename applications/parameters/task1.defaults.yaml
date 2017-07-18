@@ -41,7 +41,7 @@ sets:
           validation_amount: 0.10
 
         training:
-          epochs: 50
+          epochs: 1
           batch_size: 256
           shuffle: true
           callbacks:
@@ -146,7 +146,7 @@ sets:
           validation_amount: 0.10
 
         training:
-          epochs: 50
+          epochs: 1
           batch_size: 256
           shuffle: true
           callbacks:
@@ -276,8 +276,8 @@ defaults:
   # ==========================================================
   flow:
     initialize: true
-    extract_features: true
-    feature_normalizer: true
+    extract_features: false
+    feature_normalizer: false
     train_system: true
     test_system: true
     evaluate_system: true
@@ -286,7 +286,7 @@ defaults:
   # General
   # ==========================================================
   general:
-    overwrite: false                    # Overwrite previously stored data
+    overwrite: true                    # Overwrite previously stored data
 
     challenge_submission_mode: false    # Save results into path->challenge_results for challenge submission
 
@@ -379,7 +379,7 @@ defaults:
   # Dataset
   # ==========================================================
   dataset:
-    method: challenge_train
+    method: development
 
 
   dataset_method_parameters:
@@ -472,6 +472,9 @@ defaults:
   learner:
     method: mlp                             #
 
+    input_sequencer:
+        enable: true
+            
     audio_error_handling: false             # Handling audio errors (temporary microphone failure and radio signal interferences from mobile phones)
     show_model_information: false           # Show extra model information after model is ready
 
@@ -517,7 +520,7 @@ defaults:
         validation_amount: 0.10
 
       training:
-        epochs: 50
+        epochs: 1
         batch_size: 256
         shuffle: true
 

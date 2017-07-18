@@ -104,6 +104,7 @@ FeatureGenerator
     FeatureGenerator.generator
 
 """
+
 import time
 import os
 import sys
@@ -120,6 +121,8 @@ from .utils import SuppressStdoutAndStderr, Timer, SimpleMathStringEvaluator, ge
 from .features import FeatureContainer
 from .metadata import EventRoll
 from .data import DataBuffer
+
+
 
 
 class KerasMixin(object):
@@ -261,6 +264,26 @@ class KerasMixin(object):
 
         """
 
+
+        print("@#@$@@ avd !@#@#!!")
+
+        print(self.learner_params.get_path('input_sequencer.enable'))
+
+        print(len(files))
+        tt = 5
+        for x in files:
+            print(x)
+            b = data[x].feat[0]
+            print(b.shape)
+            print(b[0:5,0:5])
+            tt = tt - 1
+            if (tt == 0):
+                break
+
+
+        print("@#@$@@ avd !@#@#!!")
+
+
         if self.learner_params.get_path('input_sequencer.enable'):
             processed_data = []
             for item in files:
@@ -328,8 +351,23 @@ class KerasMixin(object):
         """
 
         from keras.models import Sequential
+        from keras.layers import Dense, Dropout, Flatten
+        from keras.layers import Conv1D, MaxPooling1D
+        from keras.optimizers import Adam
         self.model = Sequential()
-
+        print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+        print(input_shape)
+        #X=input_shape[0]
+        #Y=input_shape[1]
+        self.model.add(Conv1D(32, 3, activation='relu', input_shape=(input_shape,1)))
+        self.model.add(MaxPooling1D(pool_size=2))
+        self.model.add(Dropout(0.25))
+        self.model.add(Flatten())
+        self.model.add(Dense(256, activation='relu'))
+        self.model.add(Dropout(0.5))
+        self.model.add(Dense(15, activation='softmax'))
+        #self.model.compile(loss='categorical_crossentropy', optimizer=adam,metrics=self.learner_params.get_path('model.metrics'))
+        '''
         tuple_fields = [
             'input_shape',
             'kernel_size',
@@ -464,13 +502,14 @@ class KerasMixin(object):
             )
             self.logger.exception(message)
             raise AttributeError(message)
-
+    '''
         # Compile the model
         self.model.compile(
             loss=self.learner_params.get_path('model.loss'),
-            optimizer=optimizer_class(**dict(self.learner_params.get_path('model.optimizer.parameters', {}))),
+            optimizer='adam',#optimizer_class(**dict(self.learner_params.get_path('model.optimizer.parameters', {}))),
             metrics=self.learner_params.get_path('model.metrics')
         )
+    
 
     def create_callback_list(self):
         """Create list of Keras callbacks
