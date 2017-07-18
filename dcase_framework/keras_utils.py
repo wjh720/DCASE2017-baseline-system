@@ -335,6 +335,7 @@ class KerasMixin(object):
             print(activity_matrix_dict[item].shape)
             pdata.append(activity_matrix_dict[item])
         pp = numpy.array(pdata)
+        print("pppppppppppppppppp")
         print(pp.shape)
 
         return pp
