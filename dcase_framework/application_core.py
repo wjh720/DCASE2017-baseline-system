@@ -1488,8 +1488,14 @@ class AcousticSceneClassificationAppCore(AppCore):
 
                 print("have loaded !! ")
                 time.sleep(1)
-                
+
                 for item_id, item in enumerate(item_progress):
+
+                    print(item_id)
+                    print(item)
+                    print("asdasdsa")
+                    time.sleep(1)
+
                     if self.log_system_progress:
                         self.logger.info('  {title:<15s} [{item_id:d}/{total:d}] {item:<20s}'.format(
                             title='Testing',
