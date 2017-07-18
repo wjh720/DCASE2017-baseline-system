@@ -126,11 +126,12 @@ sets:
       hop_length_seconds: 0.02
     learner:
       method: mlp
-      show_model_information: false
-    input_sequencer:
-        enable: true
+      show_model_information: true
+    
     learner_method_parameters:
       mlp:
+        input_sequencer:
+            enable: true
         seed: 1
         keras:
           backend: theano
