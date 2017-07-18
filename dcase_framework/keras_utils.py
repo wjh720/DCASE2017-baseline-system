@@ -287,6 +287,7 @@ class KerasMixin(object):
 
         pdata = []
         for item in files:
+            print(data[item].feat[0].shape)
             pdata.append(data[item].feat[0])
         pp = numpy.concatenate(pdata)
         print(pp.shape)
