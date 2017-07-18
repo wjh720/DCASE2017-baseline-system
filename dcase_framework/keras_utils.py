@@ -264,13 +264,14 @@ class KerasMixin(object):
 
         """
 
-
+        '''
         print("@#@$@@ avd !@#@#!!")
+        time.sleep(5)
 
         print(self.learner_params.get_path('input_sequencer.enable'))
 
         print(len(files))
-        tt = 5
+        tt = 2
         for x in files:
             print(x)
             b = data[x].feat[0]
@@ -279,32 +280,37 @@ class KerasMixin(object):
             tt = tt - 1
             if (tt == 0):
                 break
+            time.sleep(3)
 
 
         print("@#@$@@ avd !@#@#!!")
+        time.sleep(5)
 
 
+        pdata = []
+        for item in files:
+            print(data[item].feat[0].shape)
+            pdata.append(data[item].feat[0])
+        pp = numpy.array(pdata)
+        print(pp.shape)
+
+        return pp
+
+        '''
         if self.learner_params.get_path('input_sequencer.enable'):
             processed_data = []
             for item in files:
                 if processor == 'training':
-                    processed_data.append(
-                        self.data_processor_training.prepare_data(
-                            data=data[item].feat[0]
-                        )
-                    )
+                    processed_data.append(data[item].feat[0])
 
                 else:
-                    processed_data.append(
-                        self.data_processor.prepare_data(
-                            data=data[item].feat[0]
-                        )
-                    )
+                    processed_data.append(data[item].feat[0])
 
             return numpy.concatenate(processed_data)
 
         else:
             return numpy.vstack([data[x].feat[0] for x in files])
+        
 
     def prepare_activity(self, activity_matrix_dict, files, processor='default'):
         """Concatenate activity matrices into one activity matrix
@@ -323,28 +329,31 @@ class KerasMixin(object):
         numpy.ndarray
             Activity matrix
         """
+        '''
+        pdata = []
+        for item in files:
+            print(activity_matrix_dict[item].shape)
+            pdata.append(activity_matrix_dict[item])
+        pp = numpy.array(pdata)
+        print(pp.shape)
 
+        return pp
+
+        '''
         if self.learner_params.get_path('input_sequencer.enable'):
             processed_activity = []
             for item in files:
                 if processor == 'training':
-                    processed_activity.append(
-                        self.data_processor_training.process_activity_data(
-                            activity_data=activity_matrix_dict[item]
-                        )
-                    )
+                    processed_activity.append(activity_data=activity_matrix_dict[item])
 
                 else:
-                    processed_activity.append(
-                        self.data_processor.process_activity_data(
-                            activity_data=activity_matrix_dict[item]
-                        )
-                    )
+                    processed_activity.append(activity_matrix_dict[item])
 
             return numpy.concatenate(processed_activity)
 
         else:
             return numpy.vstack([activity_matrix_dict[x] for x in files])
+        
 
     def create_model(self, input_shape):
         """Create sequential Keras model
@@ -352,7 +361,7 @@ class KerasMixin(object):
 
         from keras.models import Sequential
         from keras.layers import Dense, Dropout, Flatten
-        from keras.layers import Conv1D, MaxPooling1D
+        from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
         from keras.optimizers import Adam
         self.model = Sequential()
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
