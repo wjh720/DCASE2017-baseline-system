@@ -123,6 +123,7 @@ Base class for all application cores.
 from __future__ import print_function, absolute_import
 from six import iteritems
 
+import time
 import sys
 import os
 import logging
@@ -1453,6 +1454,9 @@ class AcousticSceneClassificationAppCore(AppCore):
             current_result_file = self._get_result_filename(fold=fold, path=self.params.get_path('path.recognizer'))
             if not os.path.isfile(current_result_file) or overwrite:
                 results = MetaDataContainer(filename=current_result_file)
+
+                print("testing !! ")
+                time.sleep(3)
 
                 # Load class model container
                 model_filename = self._get_model_filename(
