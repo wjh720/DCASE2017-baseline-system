@@ -289,7 +289,7 @@ class KerasMixin(object):
         for item in files:
             print(data[item].feat[0].shape)
             pdata.append(data[item].feat[0])
-        pp = numpy.concatenate(pdata)
+        pp = numpy.array(pdata)
         print(pp.shape)
 
         return pp
@@ -328,6 +328,16 @@ class KerasMixin(object):
             Activity matrix
         """
 
+        pdata = []
+        for item in files:
+            print(activity_matrix_dict[item].shape)
+            pdata.append(activity_matrix_dict[item])
+        pp = numpy.array(pdata)
+        print(pp.shape)
+
+        return pp
+
+        '''
         if self.learner_params.get_path('input_sequencer.enable'):
             processed_activity = []
             for item in files:
@@ -341,6 +351,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([activity_matrix_dict[x] for x in files])
+        '''
 
     def create_model(self, input_shape):
         """Create sequential Keras model
