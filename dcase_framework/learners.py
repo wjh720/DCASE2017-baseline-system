@@ -707,6 +707,8 @@ class SceneClassifierGMM(SceneClassifier):
 
         from sklearn.mixture import GaussianMixture
 
+        self.learner_params.get_path('input_sequencer.enable') = 1
+
         training_files = sorted(list(annotations.keys()))  # Collect training files
         activity_matrix_dict = self._get_target_matrix_dict(data, annotations)
         X_training = numpy.vstack([data[x].feat[0] for x in training_files])
