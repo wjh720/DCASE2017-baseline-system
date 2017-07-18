@@ -385,7 +385,7 @@ class LearnerContainer(DataFile, ContainerMixin):
 
         """
 
-        print(self['params']['learner'])
+        print(self['params'])
 
         if 'parameters' in self['params']:
             parameters = self['params']['parameters']
