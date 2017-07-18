@@ -1494,7 +1494,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                     #print(item_id)
                     #print(item)
                     #print("asdasdsa")
-                    time.sleep(1)
+                    #time.sleep(1)
 
                     if self.log_system_progress:
                         self.logger.info('  {title:<15s} [{item_id:d}/{total:d}] {item:<20s}'.format(
