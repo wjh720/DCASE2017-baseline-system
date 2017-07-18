@@ -265,23 +265,23 @@ class KerasMixin(object):
         """
 
         
-        print("@#@$@@ avd !@#@#!!")
+        #print("@#@$@@ avd !@#@#!!")
 
-        print(self.learner_params.get_path('input_sequencer.enable'))
+        #print(self.learner_params.get_path('input_sequencer.enable'))
 
         print(len(files))
         tt = 2
         for x in files:
-            print(x)
+            #print(x)
             b = data[x].feat[0]
-            print(b.shape)
-            print(b[0:5,0:5])
+            #print(b.shape)
+            #print(b[0:5,0:5])
             tt = tt - 1
             if (tt == 0):
                 break
 
 
-        print("@#@$@@ avd !@#@#!!")
+        #print("@#@$@@ avd !@#@#!!")
 
 
         pdata = []
@@ -289,7 +289,7 @@ class KerasMixin(object):
             #print(data[item].feat[0].shape)
             pdata.append(data[item].feat[0])
         pp = numpy.array(pdata)
-        print(pp.shape)
+        #print(pp.shape)
 
         return pp
 
@@ -334,13 +334,13 @@ class KerasMixin(object):
             #print(activity_matrix_dict[item].shape)
             pdata.append(activity_matrix_dict[item])
         pp = numpy.array(pdata)
-        print("pppppppppppppppppp")
-        print(pp.shape)
+        #print("pppppppppppppppppp")
+        #print(pp.shape)
 
         asd = np.transpose(pp, (1, 0, 2))
         sd = np.squeeze(asd[0:1])
-        print(sd.shape)
-        print(pp[0:10,0:15])
+        #print(sd.shape)
+        #print(pp[0:10,0:15])
 
         return sd
 
