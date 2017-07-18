@@ -1557,6 +1557,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                             feature_data = model_container.feature_aggregator.process(feature_data)
 
                     # Frame probabilities
+                    print("ffffffffffffffffffffffffff")
                     print(feature_data.shape)
                     frame_probabilities = model_container.predict(feature_data=feature_data)
 
