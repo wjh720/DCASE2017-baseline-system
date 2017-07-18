@@ -380,14 +380,14 @@ class KerasMixin(object):
         #self.model.add(BatchNormalization())
         self.model.add(MaxPooling1D(pool_size=2))
         self.model.add(Dropout(0.25))
-        '''
+        
         self.model.add(Conv1D(64, 3, activation='relu'))
-        self.model.add(BatchNormalization())
+        #self.model.add(BatchNormalization())
         self.model.add(Conv1D(64, 3, activation='relu'))
-        self.model.add(BatchNormalization())
+        #self.model.add(BatchNormalization())
         self.model.add(MaxPooling1D(pool_size=2))
         self.model.add(Dropout(0.25))
-        '''
+        
         #self.model.add(Dense(64,activation='relu',input_shape=(501,200)))
         #self.model.add(Dropout(0.25))
         #self.model.add(Dense(64,activation='relu',input_shape=(501,200)))
