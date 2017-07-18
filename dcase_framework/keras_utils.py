@@ -342,7 +342,7 @@ class KerasMixin(object):
         print(sd.shape)
         print(pp[0:10,0:15])
 
-        return pp
+        return sd
 
         '''
         if self.learner_params.get_path('input_sequencer.enable'):
