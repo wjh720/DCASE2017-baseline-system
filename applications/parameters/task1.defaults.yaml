@@ -472,7 +472,10 @@ defaults:
   learner:
     method: mlp                             #
 
-    input_sequencer.enable: true
+    parameters:
+        input_sequencer:
+            enable: true
+            
     audio_error_handling: false             # Handling audio errors (temporary microphone failure and radio signal interferences from mobile phones)
     show_model_information: false           # Show extra model information after model is ready
 
