@@ -373,12 +373,15 @@ class KerasMixin(object):
         print(input_shape)
         #X=input_shape[0]
         #Y=input_shape[1]
-        self.model.add(Conv1D(32, 3, activation='relu', input_shape=(501,200)))
-        self.model.add(MaxPooling1D(pool_size=2))
+        #self.model.add(Conv1D(32, 3, activation='relu', input_shape=(501,200)))
+        #self.model.add(MaxPooling1D(pool_size=2))
+        sefl.model.add(Dense(64,activation='relu',input_shape=(501,200)))
         self.model.add(Dropout(0.25))
-        self.model.add(Flatten())
+        sefl.model.add(Dense(64,activation='relu',input_shape=(501,200)))
+        self.model.add(Dropout(0.25))
+        #self.model.add(Flatten())
         self.model.add(Dense(256, activation='relu'))
-        self.model.add(Dropout(0.5))
+        self.model.add(Dropout(0.2))
         self.model.add(Dense(15, activation='softmax'))
         #self.model.compile(loss='categorical_crossentropy', optimizer=adam,metrics=self.learner_params.get_path('model.metrics'))
         '''
