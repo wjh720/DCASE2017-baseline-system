@@ -267,9 +267,15 @@ class KerasMixin(object):
         time.sleep(5)
 
         print(len(files))
-
+        tt = 5
         for x in files:
-            print(data[x].feat[0].shape)
+            print(x)
+            b = data[x].feat[0]
+            print(b.shape)
+            print(b[0:5,0:5])
+            tt = tt - 1
+            if (!tt):
+                break
             time.sleep(3)
 
 
