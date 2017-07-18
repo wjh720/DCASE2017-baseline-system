@@ -1139,8 +1139,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             epochs=100,
             validation_data=validation,
             verbose=2,
-            shuffle=True,
-            
+            shuffle=True
         )
 
         print(" End training ! ")
