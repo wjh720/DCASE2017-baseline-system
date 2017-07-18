@@ -1491,9 +1491,9 @@ class AcousticSceneClassificationAppCore(AppCore):
 
                 for item_id, item in enumerate(item_progress):
 
-                    print(item_id)
-                    print(item)
-                    print("asdasdsa")
+                    #print(item_id)
+                    #print(item)
+                    #print("asdasdsa")
                     time.sleep(1)
 
                     if self.log_system_progress:
@@ -1557,10 +1557,10 @@ class AcousticSceneClassificationAppCore(AppCore):
                             feature_data = model_container.feature_aggregator.process(feature_data)
 
                     # Frame probabilities
-                    print("ffffffffffffffffffffffffff")
+                    #print("ffffffffffffffffffffffffff")
                     import numpy as np    
-                    print(type(feature_data.feat[0]))
-                    print(feature_data.feat[0].shape)
+                    #print(type(feature_data.feat[0]))
+                    #print(feature_data.feat[0].shape)
 
                     #feature_data=np.array(feature_data)
 
