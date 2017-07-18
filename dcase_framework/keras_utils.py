@@ -406,7 +406,7 @@ class KerasMixin(object):
         self.model.add(Dense(512,activation='relu'))
         #self.model.add(Dropout(0.25))        
         self.model.add(Dense(15, activation='softmax'))
-        self.model.compile(loss='categorical_crossentropy', optimizer=adam,metrics=["accuracy"])
+        self.model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=["accuracy"])
         '''
         tuple_fields = [
             'input_shape',
