@@ -266,7 +266,6 @@ class KerasMixin(object):
 
         
         print("@#@$@@ avd !@#@#!!")
-        time.sleep(5)
 
         print(self.learner_params.get_path('input_sequencer.enable'))
 
@@ -280,11 +279,9 @@ class KerasMixin(object):
             tt = tt - 1
             if (tt == 0):
                 break
-            time.sleep(3)
 
 
         print("@#@$@@ avd !@#@#!!")
-        time.sleep(5)
 
 
         pdata = []
