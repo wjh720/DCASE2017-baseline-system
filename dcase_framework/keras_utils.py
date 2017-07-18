@@ -285,6 +285,15 @@ class KerasMixin(object):
         time.sleep(5)
 
 
+        pdata = []
+        for item in files:
+            pdata.append(data[item].feat[0])
+        pp = numpy.concatenate(pdata)
+        print(pp.shape)
+
+        return pp
+
+        '''
         if self.learner_params.get_path('input_sequencer.enable'):
             processed_data = []
             for item in files:
@@ -298,6 +307,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([data[x].feat[0] for x in files])
+        '''
 
     def prepare_activity(self, activity_matrix_dict, files, processor='default'):
         """Concatenate activity matrices into one activity matrix
