@@ -1066,6 +1066,11 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         # Process data
         X_training = self.prepare_data(data=data, files=training_files)
+
+        print("time 1")
+        time.sleep(5)
+
+
         Y_training = self.prepare_activity(activity_matrix_dict=activity_matrix_dict, files=training_files)
 
         if self.show_extra_debug:
