@@ -392,8 +392,8 @@ class KerasMixin(object):
         def Loss1(y_true, y_pred):
             l_i, l_k, f_i, f_k = y_pred[:, 0 : dim_vector], y_pred[:, dim_vector : dim_vector * 2], \
                                 y_pred[:, dim_vector * 2 : dim_vector * 3], y_pred[:, dim_vector * 3 : dim_vector * 4]
-            #return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
-            return Cos_is(l_i, f_i) - Cos_is(l_i, f_k) - Cos_is(l_k, f_i)
+            return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
+            #return Cos_is(l_i, f_i) - Cos_is(l_i, f_k) - Cos_is(l_k, f_i)
 
         def Norm(X):
             return K.transpose(K.transpose(X) / (K.sqrt(tf.reduce_sum(K.square(X), 1) + 1e-9)))
@@ -412,8 +412,8 @@ class KerasMixin(object):
         k_label = Input(shape = (1, ), dtype = 'int32', name = 'k_label')
 
         ### Embed
-        Embed = Embedding(input_dim = num_label, output_dim = dim_vector, input_length = 1, \
-                            embeddings_constraint = max_norm(max_value=2, axis=0))
+        Embed = Embedding(input_dim = num_label, output_dim = dim_vector, input_length = 1)
+        # embeddings_constraint = max_norm(max_value=2, axis=0))
         vector_label_i_1 = Embed(input_label)
         vector_label_k_1 = Embed(k_label)
 
@@ -421,7 +421,7 @@ class KerasMixin(object):
         vector_label_k = Reshape((dim_vector, ))(vector_label_k_1)
 
         ### Dense
-        Dense_feature = Dense(dim_vector, activation = 'relu', kernel_constraint = max_norm(max_value=2, axis=0))
+        Dense_feature = Dense(dim_vector, activation = 'relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
         vector_feature_i = Dense_feature(input_feature)
         vector_feature_k = Dense_feature(k_feature)
 
