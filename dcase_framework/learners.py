@@ -1078,6 +1078,9 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             n = X_training.shape[0]
 
+            print(type(X_training))
+            print(type(Y_training))
+
             for i in range(num_epoch):
 
                 self.model.load_weights(path + 'log_new/model_trivial_%d.h5' % i)
