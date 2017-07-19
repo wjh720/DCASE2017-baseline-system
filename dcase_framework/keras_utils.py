@@ -384,7 +384,7 @@ class KerasMixin(object):
         k_size = 256
 
         def hinge(A, B, C):
-            return K.mean(K.maximum(0.0, margin + K.sum(tf.mul(A, C), axis=-1) - K.sum(tf.mul(A, B), axis=-1)))
+            return K.mean(K.maximum(0.0, margin + K.sum(tf.multiply(A, C), axis=-1) - K.sum(tf.multiply(A, B), axis=-1)))
 
         def Loss1(y_true, y_pred):
             l_i, l_k, f_i, f_k = y_pred[:, 0 : dim_vector], y_pred[:, dim_vector : dim_vector * 2], \
