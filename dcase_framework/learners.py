@@ -1068,7 +1068,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             C=np.dot(A,B.T);
             C=np.argsort(C)[::-1]
-            acc=K.mean(K.equal(C, Label))
+            acc=np.mean(np.equal(C, Label))
             return acc
 
             '''
