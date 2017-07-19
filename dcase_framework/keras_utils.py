@@ -408,8 +408,11 @@ class KerasMixin(object):
 
         ### Embed
         Embed = Embedding(input_dim = num_label, output_dim = dim_vector, input_length = 1)
-        vector_label_i = Embed(input_label)
-        vector_label_k = Embed(k_label)
+        vector_label_i_1 = Embed(input_label)
+        vector_label_k_1 = Embed(k_label)
+
+        vector_label_i = Reshape((dim_vector, ))(vector_label_i_1)
+        vector_label_k = Reshape((dim_vector, ))(vector_label_k_1)
 
         ### Dense
         Dense_feature = Dense(dim_vector)
