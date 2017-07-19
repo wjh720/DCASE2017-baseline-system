@@ -1068,8 +1068,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             C=np.dot(A,B.T);
             print("dot product result")
-            print(C);
+            print(C[0:5,0:5])
+            print(Label[0:5])
             C=np.argsort(C)[::-1]
+            print(C[0:5])
             acc=np.mean(np.equal(C, Label))
             return acc
 
@@ -1105,8 +1107,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             
             print("fiiiiiiiiiiiiiiiiiiiiiii")
-            for i in range(15):
-                print(l_i[i,0:5]);
+            print(l_i[0:5,0:5])
             print(f_i[0:5,:5])
             acc=Calculation(f_i, l_i[0 : 15], B)
             print(str + ": ")
