@@ -1075,11 +1075,12 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             print(C[0:2,10:15])
             print()
 
+            Label = Label.reshape(Label.shape[0])
             print(Label[0:5])
             C=np.argmax(C, axis=1)
             print(C[0:5])
-            print("------------------")
             acc=np.mean(np.equal(C, Label))
+            print("------------------")
             return acc
 
             '''
@@ -1102,10 +1103,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 C[i,0]=i;
             output = self.model.predict(       
                 {
-                    'input_feature' : A,
-                    'input_label' : C,
-                    'k_feature' : A,
-                    'k_label' : B
+                    'input_feature' : A[0:3000],
+                    'input_label' : C[0:3000],
+                    'k_feature' : A[0:3000],
+                    'k_label' : B[0:3000]
                 },
                 batch_size = batch_size,
                 verbose = 2
