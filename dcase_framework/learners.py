@@ -1129,7 +1129,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     epochs=1,
                     verbose=2,
                     shuffle = False,
-                    #callbacks = [checkpointer]
+                    callbacks = [checkpointer]
                 )
 
                 self.model.save_weights(path + 'log_new/model_trivial_%d.h5' % (i + 1))
