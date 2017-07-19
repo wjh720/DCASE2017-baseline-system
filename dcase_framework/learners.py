@@ -1134,8 +1134,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     k_feature=np.vstack((k_feature,X_training[t]))
                     k_lable=np.vstack((k_lable,Y_training[t]))
             '''
-            print(X_training[0:5])
-            print(Y_training[0:5])
+            #print(X_training[0:5])
+            #print(Y_training[0:5])
 
 
             for i in range(num_epoch):
