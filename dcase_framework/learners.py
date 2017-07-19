@@ -1085,8 +1085,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     'k_label' : B
                 },
                 batch_size = batch_size,
-                verbose = 2,
-                shuffle = False
+                verbose = 2
             )
 
             l_i, f_i= output[ : , 0 : out_dim], output[ : , dim_vector * 2 : dim_vector * 3]
@@ -1142,7 +1141,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     batch_size=256,
                     epochs=1,
                     verbose=2,
-                    shuffle = True,
+                    shuffle = False,
                     callbacks = [checkpointer]
                 )
 
