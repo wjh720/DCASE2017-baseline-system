@@ -1091,9 +1091,6 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             num_epoch = 100
             batch_size = 256
 
-            tf.cast(X_training, tf.float32)
-            tf.cast(Y_training, tf.int32)
-
             k_feature = np.random.shuffle(X_training)
             k_lable = np.random.shuffle(Y_training)
             '''

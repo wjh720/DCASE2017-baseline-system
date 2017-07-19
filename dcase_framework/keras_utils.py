@@ -327,13 +327,12 @@ class KerasMixin(object):
             Activity matrix
         """
         
-        import numpy as np    
-
+        import numpy as np
         pdata = []
         for item in files:
             #print(activity_matrix_dict[item].shape)
             ve = activity_matrix_dict[item]
-            pdata.append(np.argmax(ve, axis = 1).reshape(501, 1))
+            pdata.append(np.argmax(ve, axis = 1).reshape(501, 1).astype(np.int32))
         pp = np.concatenate(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
