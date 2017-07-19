@@ -1088,7 +1088,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 verbose = 2
             )
 
-            l_i, f_i= output[ : , 0 : out_dim], output[ : , dim_vector * 2 : dim_vector * 3]
+            l_i, f_i= output[ : , 0 : dim_vector], output[ : , dim_vector * 2 : dim_vector * 3]
 
             print(str + ": ")
             Calculation(l_i, f_i[0 : 15], B)
