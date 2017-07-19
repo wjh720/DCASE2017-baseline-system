@@ -1042,7 +1042,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         """
 
         def Calculation(A, B):
-
+            x = 1
 
         def Validation(A, B, str):
             output = self.model.predict(       
