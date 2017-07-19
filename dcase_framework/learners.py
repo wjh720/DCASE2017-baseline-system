@@ -1185,8 +1185,9 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     print(g)
                     print(weights)
                 '''
-                Validation(validation[0], validation[1], "Validation")
-                Validation(X_training, Y_training, "Train")
+
+                if (i % 3 == 0 and i > 0) Validation(validation[0], validation[1], "Validation")
+                #Validation(X_training, Y_training, "Train")
 
             print(" End training ! ")
             time.sleep(3)
