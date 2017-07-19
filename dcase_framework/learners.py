@@ -1073,10 +1073,19 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             num_epoch = 100
             batch_size = 256
 
-            k_feature = np.random.shuffle(X_training)
-            k_lable = np.random.shuffle(Y_training)
-
+            #k_feature = np.random.shuffle(X_training)
+            #k_lable = np.random.shuffle(Y_training)
             n = X_training.shape[0]
+            for i in range(n)
+                t=random.randint(0,n-1);
+                while Y_training[t]!=Y_training[i]:
+                    t=random.randint(0,n-1)
+                if i==0:
+                    k_feature=X_training[t]
+                    k_lable=Y_training[t]
+                else:
+                    k_feature=vstack(k_feature,X_training[t])
+                    k_lable=vstack(k_lable,Y_training[t])
 
             print(type(X_training))
             print(type(Y_training))
