@@ -1139,8 +1139,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
 
             for i in range(num_epoch):
-                k_feature[:] = np.random.shuffle(X_training)
-                k_lable[:] = np.random.shuffle(Y_training)
+                k_feature=np.copy(X_training)
+                k_lable=np.copy(Y_training)
+                np.random.shuffle(k_feature)
+                np.random.shuffle(k_lable)
                 print(k_feature[0:5])
                 print(k_lable[:5])
                 self.model.load_weights(path + 'log_new/model_trivial_%d.h5' % i)
