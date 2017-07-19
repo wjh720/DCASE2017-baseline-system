@@ -1150,7 +1150,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
                 checkpointer = ModelCheckpoint(filepath= path + 'log_new/checkpointer_%d' % i, save_best_only=True) 
 
-                model=self.model.fit(
+                self.model.fit(
                     {
                         'input_feature' : X_training,
                         'input_label' : Y_training,
@@ -1170,7 +1170,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 self.model.save_weights(path + 'log_new/model_trivial_%d.h5' % (i + 1))
                 print('save_file''s name : ' + path + 'log_new/model_trivial_%d.h5' % (i + 1))
 
-                for layer in model.layers:
+                for layer in self.model.layers:
                     g=layer.get_config()
                     weights = layer.get_weights()
                     print(g)
