@@ -420,6 +420,18 @@ class KerasMixin(object):
         vector_label_i = Reshape((dim_vector, ))(vector_label_i_1)
         vector_label_k = Reshape((dim_vector, ))(vector_label_k_1)
 
+        Dense_label_1 = (Dense(dim_vector,activation='relu'))#, kernel_constraint = max_norm(max_value=2, axis=0))
+        vector_label_i_1 = Dense_label_1(input_label)
+        vector_label_k_1 = Dense_label_1(k_label)
+
+        Dropout_2 = Dropout(0.2)
+        vector_label_i_1_drop = Dropout_2(vector_label_i_1)
+        vector_label_k_1_drop = Dropout_2(vector_label_k_1)
+
+        Dense_label_2 = Dense(dim_vector)
+        vector_label_i = Dense_label_2(vector_label_i_1_drop)
+        vector_label_k = Dense_label_2(vector_label_k_1_drop)
+
         ### Dense
         Dense_feature_1 = (Dense(dim_vector,activation='relu'))#, kernel_constraint = max_norm(max_value=2, axis=0))
         vector_feature_i_1 = Dense_feature_1(input_feature)
