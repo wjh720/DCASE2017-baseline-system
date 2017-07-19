@@ -1117,7 +1117,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             print("fiiiiiiiiiiiiiiiiiiiiiii")
             print(l_i[0:5,0:5])
             print(f_i[0:5,:5])
-            acc=Calculation(f_i, l_i[0 : 15], B)
+            acc=Calculation(f_i, l_i[0 : 15], B[0:3000])
             print(str + ": ")
             print(acc)
 
