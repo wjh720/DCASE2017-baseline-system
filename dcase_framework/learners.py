@@ -1116,7 +1116,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
                 checkpointer = ModelCheckpoint(filepath= path + 'log_new/checkpointer_%d' % i, save_best_only=True) 
 
-                hist = self.model.fit(
+                self.model.fit(
                     {
                         'input_feature' : X_training,
                         'input_label' : Y_training,
