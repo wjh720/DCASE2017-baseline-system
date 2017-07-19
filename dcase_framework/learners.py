@@ -1051,6 +1051,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         from keras.layers import LSTM
         from keras import backend as K
         import tensorflow as tf
+        import numpy as np
 
         path = '/data/tmpsrt1/DCASE2017-baseline-system/applications/'
         num_epoch = 100
@@ -1109,8 +1110,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             k_feature = np.zeros(X_training.shape)
             k_lable = np.zeros(Y_training.shape)
-            k_feature[:] = np.random.shuffle(X_training)
-            k_lable[:] = np.random.shuffle(Y_training)
+            
             '''
             n = X_training.shape[0]
             for i in range(n):
@@ -1128,7 +1128,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             print(type(Y_training))
 
             for i in range(num_epoch):
-
+                k_feature[:] = np.random.shuffle(X_training)
+                k_lable[:] = np.random.shuffle(Y_training)
                 self.model.load_weights(path + 'log_new/model_trivial_%d.h5' % i)
                 print(path + 'log_new/model_trivial_%d.h5' % i)
 
