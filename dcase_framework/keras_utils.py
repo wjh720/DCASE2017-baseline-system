@@ -397,7 +397,7 @@ class KerasMixin(object):
         def shit_ik(X):
             l_i, l_k, f_i, f_k = Norm(X[:, 0 : dim_vector]), Norm(X[:, dim_vector : dim_vector * 2]), \
                                 Norm(X[:, dim_vector * 2 : dim_vector * 3]), Norm(X[:, dim_vector * 3 : dim_vector * 4])
-            return tf.concat(1, [l_i, l_k, f_i, f_k])
+            return tf.concat([l_i, l_k, f_i, f_k], 1)
 
         print(" Begin ! ")
 
