@@ -425,7 +425,7 @@ class KerasMixin(object):
         IK = Lambda(shit_ik, output_shape = (dim_vector * 4, ), name = 'out1')(concat_ik)
 
         ### Model
-        self.model = Model(input = [input_feature, input_label, k_feature, k_label], output = [IK])
+        self.model = Model(inputs = [input_feature, input_label, k_feature, k_label], outputs = [IK])
 
         ### Compile
         self.model.compile(loss = {'out1' : Loss1}, loss_weights={'out1' : 1.}, optimizer = 'adam')
