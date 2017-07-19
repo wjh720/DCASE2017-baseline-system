@@ -421,13 +421,13 @@ class KerasMixin(object):
 
         ### Loss1
         concat_ik = Concatenate(axis = 1)([vector_label_i, vector_label_k, vector_feature_i, vector_feature_k])
-        IK = Lambda(shit_ik, output_shape = (dim_vector * 4, ), name = 'out1')(concat_ik)
+        IK = Lambda(shit_ik, output_shape = (dim_vector * 4, ), name = 'out_1')(concat_ik)
 
         ### Model
         self.model = Model(inputs = [input_feature, input_label, k_feature, k_label], outputs = [IK])
 
         ### Compile
-        self.model.compile(loss = {'out1' : Loss1}, loss_weights={'out1' : 1.}, optimizer = 'adam')
+        self.model.compile(loss = {'out_1' : Loss1}, loss_weights={'out_1' : 1.}, optimizer = 'adam')
 
         #Save
         self.model.save_weights('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/model_trivial_0.h5')
