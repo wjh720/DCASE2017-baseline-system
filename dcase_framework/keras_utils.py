@@ -375,11 +375,11 @@ class KerasMixin(object):
         print(input_shape)
         #X=input_shape[0]
         #Y=input_shape[1]
-        self.model.add(Dense(50,activation='relu',input_shape=200,kernel_initializer=uniform))
+        self.model.add(Dense(50,activation='relu',input_shape=200,kernel_initializer='uniform'))
         self.model.add(Dropout(0.2))
-        self.model.add(Dense(50,activation='relu',kernel_initializer=uniform))
+        self.model.add(Dense(50,activation='relu',kernel_initializer='uniform'))
         self.model.add(Dropout(0.2))
-        self.model.add(Dense(15,activation='relu',kernel_initializer=softmax))
+        self.model.add(Dense(15,activation='relu',kernel_initializer='softmax'))
         
 
         '''
