@@ -76,16 +76,6 @@ sets:
 
             - class_name: Dense
               config:
-                units: 50
-                kernel_initializer: uniform
-                activation: relu
-
-            - class_name: Dropout
-              config:
-                rate: 0.2
-
-            - class_name: Dense
-              config:
                 units: CLASS_COUNT
                 kernel_initializer: uniform
                 activation: softmax
@@ -162,16 +152,6 @@ sets:
                 mode: max
         model:
           config:
-            - class_name: Dense
-              config:
-                units: 50
-                kernel_initializer: uniform
-                activation: relu
-
-            - class_name: Dropout
-              config:
-                rate: 0.2
-
             - class_name: Dense
               config:
                 units: 50
