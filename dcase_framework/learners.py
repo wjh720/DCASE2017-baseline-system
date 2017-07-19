@@ -1041,8 +1041,25 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         """
 
-        def Calculation(A, B):
-            x = 1
+        def Calculation(A, B, Label):
+
+            import numpy as np
+
+            n=A.shape[0]
+            correct=0
+
+            for i in range(n):
+                pre=0
+                prod=np.dot(A[i],B[0])
+                for j in range(1,15):
+                    tp=np.dot(A[i],B[j])
+                    if tp>prod:
+                        pre=j
+                        prod=tp
+                if pre==Label[i]:
+                    correct=correct+1
+            return 1.0*correct/n;
+
 
         def Validation(A, B, str):
             output = self.model.predict(       
@@ -1073,8 +1090,9 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             num_epoch = 100
             batch_size = 256
 
-            #k_feature = np.random.shuffle(X_training)
-            #k_lable = np.random.shuffle(Y_training)
+            k_feature = np.random.shuffle(X_training)
+            k_lable = np.random.shuffle(Y_training)
+            '''
             n = X_training.shape[0]
             for i in range(n):
                 t=random.randint(0,n-1);
@@ -1086,7 +1104,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 else:
                     k_feature=np.vstack((k_feature,X_training[t]))
                     k_lable=np.vstack((k_lable,Y_training[t]))
-
+            '''
             print(type(X_training))
             print(type(Y_training))
 
