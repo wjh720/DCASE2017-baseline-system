@@ -386,7 +386,7 @@ class KerasMixin(object):
             return K.mean(K.maximum(0.0, margin + K.sum(tf.mul(A, C), axis=-1) - K.sum(tf.mul(A, B), axis=-1)))
 
         def Loss1(y_true, y_pred):
-            l_i, l_k, f_i, f_k = y_pred[:,0:out_dim], y_pred[:, dim_vector : dim_vector * 2], \
+            l_i, l_k, f_i, f_k = y_pred[:, 0 : dim_vector], y_pred[:, dim_vector : dim_vector * 2], \
                                 y_pred[:, dim_vector * 2 : dim_vector * 3], y_pred[:, dim_vector * 3 : dim_vector * 4]
             return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
 
@@ -394,7 +394,7 @@ class KerasMixin(object):
             return K.transpose(K.transpose(X) / (K.sqrt(tf.reduce_sum(K.square(X), 1) + 1e-9)))
 
         def shit_ik(X):
-            l_i, l_k, f_i, f_k = Norm(X[:,0:out_dim]), Norm(X[:, dim_vector : dim_vector * 2]), \
+            l_i, l_k, f_i, f_k = Norm(X[:, 0 : dim_vector]), Norm(X[:, dim_vector : dim_vector * 2]), \
                                 Norm(X[:, dim_vector * 2 : dim_vector * 3]), Norm(X[:, dim_vector * 3 : dim_vector * 4])
             return tf.concat(1, [l_i, l_k, f_i, f_k])
 
