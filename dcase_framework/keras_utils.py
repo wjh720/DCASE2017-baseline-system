@@ -431,7 +431,7 @@ class KerasMixin(object):
         self.model.compile(loss = {'out1' : Loss1}, loss_weights={'out1' : 1.}, optimizer = 'adam')
 
         #Save
-        self.model.save_weights('log_new/model_trivial_0.h5')
+        self.model.save_weights('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/model_trivial_0.h5')
 
 
 

@@ -1069,6 +1069,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             from keras.callbacks import ModelCheckpoint
             import numpy as np
 
+            path = '/data/tmpsrt1/DCASE2017-baseline-system/applications/'
             num_epoch = 100
             batch_size = 256
 
@@ -1079,10 +1080,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             for i in range(num_epoch):
 
-                self.model.load_weights('log_new/model_trivial_%d.h5' % i)
-                print('log_new/model_trivial_%d.h5' % i)
+                self.model.load_weights(path + 'log_new/model_trivial_%d.h5' % i)
+                print(path + 'log_new/model_trivial_%d.h5' % i)
 
-                checkpointer = ModelCheckpoint(filepath='log_new/checkpointer_%d' % i, save_best_only=True) 
+                checkpointer = ModelCheckpoint(filepath= path + 'log_new/checkpointer_%d' % i, save_best_only=True) 
 
                 hist = self.model.fit(
                     {
@@ -1101,8 +1102,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     callbacks = [checkpointer]
                 )
 
-                self.model.save_weights('log_new/model_trivial_%d.h5' % (i + 1))
-                print('save_file''s name : log_new/model_trivial_%d.h5' % (i + 1))
+                self.model.save_weights(path + 'log_new/model_trivial_%d.h5' % (i + 1))
+                print('save_file''s name : ' path + 'log_new/model_trivial_%d.h5' % (i + 1))
 
                 Validation(validation[0], validation[1], "Validation")
                 Validation(X_training, Y_training, "Train")
