@@ -369,7 +369,8 @@ class KerasMixin(object):
         from keras.models import Sequential, Model
         from keras.layers import Dense, Dropout, Flatten
         from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
-        from keras.layers import Dense, Dropout, Activation, Flatten, Input, Dense, LSTM, Lambda, merge, Embedding, Reshape
+        from keras.layers import Dense, Dropout, Activation, Flatten, Input, Dense, LSTM, Lambda, Embedding, Reshape
+        from keras.layers.merge import Concatenate
         from keras.layers import BatchNormalization
         from keras.optimizers import Adam
         from keras.layers import LSTM
@@ -420,7 +421,7 @@ class KerasMixin(object):
         vector_feature_k = Dense_feature(k_feature)
 
         ### Loss1
-        concat_ik = merge([vector_label_i, vector_label_k, vector_feature_i, vector_feature_k], mode = 'concat', concat_axis = 1)
+        concat_ik = Concatenate([vector_label_i, vector_label_k, vector_feature_i, vector_feature_k], axis = 1)
         IK = Lambda(shit_ik, output_shape = (dim_vector * 4, ), name = 'out1')(concat_ik)
 
         ### Model
