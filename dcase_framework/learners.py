@@ -1168,6 +1168,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 self.model.save_weights(path + 'log_new/model_trivial_%d.h5' % (i + 1))
                 print('save_file''s name : ' + path + 'log_new/model_trivial_%d.h5' % (i + 1))
 
+                for layer in model.layers:
+                    weights = layer.get_weights()
+                    print(weights)
+
                 Validation(validation[0], validation[1], "Validation")
                 Validation(X_training, Y_training, "Train")
 
