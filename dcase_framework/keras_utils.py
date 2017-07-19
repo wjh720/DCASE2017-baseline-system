@@ -371,7 +371,7 @@ class KerasMixin(object):
         from keras.optimizers import Adam
         from keras.layers import LSTM
         self.model = Sequential()
-        '''
+        
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
         print(input_shape)
         #X=input_shape[0]
@@ -383,7 +383,7 @@ class KerasMixin(object):
         self.model.add(Dense(15,activation='softmax',kernel_initializer='uniform'))
         
 
-        
+        '''
         self.model.add(Conv1D(256, 3, activation='relu', input_shape=(501,200)))
         self.model.add(Dropout(0.25))
         #self.model.add(BatchNormalization())
@@ -418,7 +418,7 @@ class KerasMixin(object):
         self.model.add(Dense(15, activation='softmax'))
         
         self.model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=["accuracy"])
-        
+        '''
         '''
         tuple_fields = [
             'input_shape',
@@ -556,7 +556,7 @@ class KerasMixin(object):
             raise AttributeError(message)
     
         # Compile the model
-        
+        '''
         self.model.compile(
             loss=self.learner_params.get_path('model.loss'),
             optimizer='adam',#optimizer_class(**dict(self.learner_params.get_path('model.optimizer.parameters', {}))),
