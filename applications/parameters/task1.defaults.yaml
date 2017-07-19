@@ -41,7 +41,7 @@ sets:
           validation_amount: 0.10
 
         training:
-          epochs: 200
+          epochs: 1
           batch_size: 256
           shuffle: true
           callbacks:
@@ -120,8 +120,6 @@ sets:
     
     learner_method_parameters:
       mlp:
-        input_sequencer:
-            enable: true
         seed: 1
         keras:
           backend: theano
@@ -139,7 +137,7 @@ sets:
           validation_amount: 0.10
 
         training:
-          epochs: 200
+          epochs: 1
           batch_size: 256
           shuffle: true
           callbacks:
@@ -500,7 +498,7 @@ defaults:
         validation_amount: 0.10
 
       training:
-        epochs: 200
+        epochs: 1
         batch_size: 256
         shuffle: true
 
