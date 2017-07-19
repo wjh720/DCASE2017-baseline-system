@@ -1136,7 +1136,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             x=X_training,
             y=Y_training,
             batch_size=256,
-            epochs=100,
+            epochs=1,
             validation_data=validation,
             verbose=2,
             shuffle=True
