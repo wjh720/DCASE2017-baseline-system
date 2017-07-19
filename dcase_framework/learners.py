@@ -1076,7 +1076,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             #k_feature = np.random.shuffle(X_training)
             #k_lable = np.random.shuffle(Y_training)
             n = X_training.shape[0]
-            for i in range(n)
+            for i in range(n):
                 t=random.randint(0,n-1);
                 while Y_training[t]!=Y_training[i]:
                     t=random.randint(0,n-1)
