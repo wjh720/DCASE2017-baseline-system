@@ -1056,6 +1056,11 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         path = '/data/tmpsrt1/DCASE2017-baseline-system/applications/'
         num_epoch = 100
         batch_size = 256
+        num_feature = 200
+        num_label = 15
+        dim_vector = 256
+        margin = 0.8
+        k_size = 256
 
         def Calculation(A, B, Label):
 
@@ -1094,7 +1099,6 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 batch_size = batch_size,
                 verbose = 2
             )
-
             l_i, f_i= output[ : , 0 : dim_vector], output[ : , dim_vector * 2 : dim_vector * 3]
 
             print(str + ": ")
