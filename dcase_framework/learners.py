@@ -1052,6 +1052,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         from keras import backend as K
         import tensorflow as tf
 
+        path = '/data/tmpsrt1/DCASE2017-baseline-system/applications/'
+        num_epoch = 100
+        batch_size = 256
+
         def Calculation(A, B, Label):
 
             import numpy as np
@@ -1097,10 +1101,6 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             from keras.callbacks import ModelCheckpoint
             import numpy as np
             import tensorflow as tf
-
-            path = '/data/tmpsrt1/DCASE2017-baseline-system/applications/'
-            num_epoch = 100
-            batch_size = 256
 
             k_feature = np.zeros(X_training.shape)
             k_lable = np.zeros(Y_training.shape)

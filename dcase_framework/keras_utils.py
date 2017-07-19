@@ -379,7 +379,7 @@ class KerasMixin(object):
         num_feature = 200
         num_label = 15
         dim_vector = 256
-        margin = 0.2
+        margin = 0.8
         k_size = 256
 
         def hinge(A, B, C):
@@ -427,7 +427,7 @@ class KerasMixin(object):
         self.model = Model(inputs = [input_feature, input_label, k_feature, k_label], outputs = [IK])
 
         ### Compile
-        self.model.compile(loss = {'out_1' : Loss1}, loss_weights={'out_1' : 1.}, optimizer = 'adam')
+        self.model.compile(loss = {'out_1' : Loss1}, loss_weights={'out_1' : 1000.}, optimizer = 'adam')
 
         #Save
         self.model.save_weights('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/model_trivial_0.h5')
