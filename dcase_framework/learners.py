@@ -1134,12 +1134,15 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     k_feature=np.vstack((k_feature,X_training[t]))
                     k_lable=np.vstack((k_lable,Y_training[t]))
             '''
-            print(type(X_training))
-            print(type(Y_training))
+            print(X_training[0:5])
+            print(Y_training[0:5])
+
 
             for i in range(num_epoch):
                 k_feature[:] = np.random.shuffle(X_training)
                 k_lable[:] = np.random.shuffle(Y_training)
+                print(k_feature[0:5])
+                print(k_lable[:5])
                 self.model.load_weights(path + 'log_new/model_trivial_%d.h5' % i)
                 print(path + 'log_new/model_trivial_%d.h5' % i)
 
