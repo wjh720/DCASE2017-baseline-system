@@ -421,7 +421,7 @@ class KerasMixin(object):
         vector_label_k = Reshape((dim_vector, ))(vector_label_k_1)
 
         ### Dense
-        Dense_feature = Dense(dim_vector, activation = 'relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
+        Dense_feature = Dense(dim_vector)#, kernel_constraint = max_norm(max_value=2, axis=0))
         vector_feature_i = Dense_feature(input_feature)
         vector_feature_k = Dense_feature(k_feature)
 

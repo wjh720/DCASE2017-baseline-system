@@ -1068,7 +1068,12 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             C=np.dot(A,B.T);
             print("------------------")
-            print(C[0:5,0:5])
+            print(C[0:2,0:5])
+            print()
+            print(C[0:2,5:10])
+            print()
+            print(C[0:2,10:15])
+            print()
 
             print(Label[0:5])
             C=np.argmax(C, axis=1)
