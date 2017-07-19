@@ -379,7 +379,7 @@ class KerasMixin(object):
         self.model.add(Dropout(0.2))
         self.model.add(Dense(50,activation='relu',kernel_initializer='uniform'))
         self.model.add(Dropout(0.2))
-        self.model.add(Dense(15,activation='relu',kernel_initializer='softmax'))
+        self.model.add(Dense(15,activation='softmax',kernel_initializer='uniform'))
         
 
         '''
