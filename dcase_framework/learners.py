@@ -1060,9 +1060,12 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             import numpy as np
 
-            n=A.shape[0]
-            correct=0
+            C=np.dot(A,B.T);
+            C=np.argsort(C)[::-1]
+            acc=K.mean(K.equal(C, Label))
+            return acc
 
+            '''
             for i in range(n):
                 pre=0
                 prod=np.dot(A[i],B[0])
@@ -1074,13 +1077,16 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 if pre==Label[i]:
                     correct=correct+1
             return 1.0*correct/n;
-
+            '''
 
         def Validation(A, B, str):
+            C=np.zeros(A.shape[0],1);
+            for i in range(15):
+                C[i,1]=i;
             output = self.model.predict(       
                 {
                     'input_feature' : A,
-                    'input_label' : B,
+                    'input_label' : C,
                     'k_feature' : A,
                     'k_label' : B
                 },
@@ -1091,8 +1097,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             l_i, f_i= output[ : , 0 : dim_vector], output[ : , dim_vector * 2 : dim_vector * 3]
 
             print(str + ": ")
-            Calculation(l_i, f_i[0 : 15], B)
-
+            acc=Calculation(l_i, f_i[0 : 15], B)
+            print(acc)
 
 
         def Train(X_training, Y_training, validation):
