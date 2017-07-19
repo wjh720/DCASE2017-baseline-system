@@ -421,7 +421,7 @@ class KerasMixin(object):
         vector_feature_k = Dense_feature(k_feature)
 
         ### Loss1
-        concat_ik = Concatenate([vector_label_i, vector_label_k, vector_feature_i, vector_feature_k], axis = 1)
+        concat_ik = Concatenate(inputs = [vector_label_i, vector_label_k, vector_feature_i, vector_feature_k], axis = 1)
         IK = Lambda(shit_ik, output_shape = (dim_vector * 4, ), name = 'out1')(concat_ik)
 
         ### Model
