@@ -380,7 +380,7 @@ class KerasMixin(object):
         num_feature = 200
         num_label = 15
         dim_vector = 256
-        margin = 0.2
+        margin = 0.8
         k_size = 256
 
         def hinge(A, B, C):
