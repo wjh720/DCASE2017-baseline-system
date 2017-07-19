@@ -1067,6 +1067,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             import numpy as np
 
             C=np.dot(A,B.T);
+            print("dot product result")
+            print(C);
             C=np.argsort(C)[::-1]
             acc=np.mean(np.equal(C, Label))
             return acc
@@ -1102,6 +1104,9 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             l_i, f_i= output[ : , 0 : dim_vector], output[ : , dim_vector * 2 : dim_vector * 3]
 
             print(str + ": ")
+            print("fiiiiiiiiiiiiiiiiiiiiiii")
+            for i in range(15):
+                print(f_i[i]);
             acc=Calculation(l_i, f_i[0 : 15], B)
             print(acc)
 
