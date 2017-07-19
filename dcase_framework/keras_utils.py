@@ -429,8 +429,8 @@ class KerasMixin(object):
         vector_label_k_1_drop = Dropout_2(vector_label_k_1)
 
         Dense_label_2 = Dense(dim_vector)
-        vector_label_i = Dense_label_2(vector_label_i_1_drop)
-        vector_label_k = Dense_label_2(vector_label_k_1_drop)
+        vector_label_i_2 = Dense_label_2(vector_label_i_1_drop)
+        vector_label_k_2 = Dense_label_2(vector_label_k_1_drop)
 
         ### Dense
         Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
@@ -447,7 +447,7 @@ class KerasMixin(object):
 
 
         ### Loss1
-        concat_ik = Concatenate(axis = 1)([vector_label_i, vector_label_k, vector_feature_i, vector_feature_k])
+        concat_ik = Concatenate(axis = 1)([vector_label_i_2, vector_label_k_2, vector_feature_i, vector_feature_k])
         IK = Lambda(shit_ik, output_shape = (dim_vector * 4, ), name = 'out_1')(concat_ik)
 
         ### Model
