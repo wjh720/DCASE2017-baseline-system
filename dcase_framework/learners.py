@@ -1041,6 +1041,79 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         """
 
+        def Calculation(A, B):
+
+
+        def Validation(A, B, str):
+            output = self.model.predict(       
+                {
+                    'input_feature' : A,
+                    'input_label' : B,
+                    'k_feature' : A,
+                    'k_label' : B
+                },
+                batch_size = batch_size,
+                verbose = 2,
+                shuffle = False
+            )
+
+            l_i, f_i= output[ : , 0 : out_dim], output[ : , dim_vector * 2 : dim_vector * 3]
+
+            print(str + ": ")
+            Calculation(l_i, f_i, B)
+
+
+
+        def Train(X_training, Y_training, validation):
+
+            from keras.callbacks import ModelCheckpoint
+            import numpy as np
+
+            num_epoch = 100
+            batch_size = 256
+
+            k_feature = np.random.shuffle(X_training)
+            k_lable = np.random.shuffle(Y_training)
+
+            n = X_training.shape[0]
+
+            for i in range(num_epoch):
+
+                self.model.load_weights('log_new/model_trivial_%d.h5' % i)
+                print('log_new/model_trivial_%d.h5' % i)
+
+                checkpointer = ModelCheckpoint(filepath='log_new/checkpointer_%d' % i, save_best_only=True) 
+
+                hist = self.model.fit(
+                    {
+                        'input_feature' : X_training,
+                        'input_label' : Y_training,
+                        'k_feature' : k_feature,
+                        'k_label' : k_lable
+                    },
+                    {
+                        'out_1' : Y_training
+                    },
+                    batch_size=256,
+                    epochs=1,
+                    verbose=2,
+                    shuffle = False,
+                    callbacks = [checkpointer]
+                )
+
+                self.model.save_weights('log_new/model_trivial_%d.h5' % (i + 1))
+                print('save_file''s name : log_new/model_trivial_%d.h5' % (i + 1))
+
+                Validation(validation[0], validation[1], "Validation")
+                Validation(X_training, Y_training, "Train")
+
+            print(" End training ! ")
+            time.sleep(3)
+
+
+
+
+
         training_files = sorted(list(annotations.keys()))  # Collect training files
         if self.learner_params.get_path('validation.enable', False):
             validation_files = self._generate_validation(
@@ -1132,18 +1205,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         print("asdasd")
 
-        hist = self.model.fit(
-            x=X_training,
-            y=Y_training,
-            batch_size=256,
-            epochs=1,
-            validation_data=validation,
-            verbose=2,
-            shuffle=True
-        )
+        Train(X_training, Y_training, validation)
 
-        print(" End training ! ")
-        time.sleep(3)
 
         '''
         # Manually update callbacks

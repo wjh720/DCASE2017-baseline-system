@@ -333,7 +333,7 @@ class KerasMixin(object):
         for item in files:
             #print(activity_matrix_dict[item].shape)
             ve = activity_matrix_dict[item]
-            pdata.append(np.argmax(ve, axis = 1))
+            pdata.append(np.argmax(ve, axis = 1).reshape(501, 1))
         pp = np.concatenate(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
@@ -365,12 +365,71 @@ class KerasMixin(object):
         """Create sequential Keras model
         """
 
+
         from keras.models import Sequential, Model
         from keras.layers import Dense, Dropout, Flatten
         from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
         from keras.layers import BatchNormalization
         from keras.optimizers import Adam
         from keras.layers import LSTM
+        from keras import backend as K
+        import tensorflow as tf
+
+        num_feature = 200
+        num_label = 15
+        dim_vector = 256
+        margin = 0.2
+        k_size = 256
+
+        def hinge(A, B, C):
+            return K.mean(K.maximum(0.0, margin + K.sum(tf.mul(A, C), axis=-1) - K.sum(tf.mul(A, B), axis=-1)))
+
+        def Loss1(y_true, y_pred):
+            l_i, l_k, f_i, f_k = y_pred[:,0:out_dim], y_pred[:, dim_vector : dim_vector * 2],
+                                y_pred[:, dim_vector * 2 : dim_vector * 3], y_pred[:, dim_vector * 3 : dim_vector * 4]
+            return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
+
+        def Norm(X):
+            return K.transpose(K.transpose(X) / (K.sqrt(tf.reduce_sum(K.square(X), 1) + 1e-9)))
+
+        def shit_ik(X):
+            l_i, l_k, f_i, f_k = Norm(X[:,0:out_dim]), Norm(X[:, dim_vector : dim_vector * 2]),
+                                Norm(X[:, dim_vector * 2 : dim_vector * 3]), Norm(X[:, dim_vector * 3 : dim_vector * 4])
+            return tf.concat(1, [l_i, l_k, f_i, f_k])
+
+
+        ### Input
+        input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
+        input_label = Input(shape = (1, ), dtype = 'int32', name = 'input_label')
+        k_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'k_feature')
+        k_label = Input(shape = (1, ), dtype = 'int32', name = 'k_label')
+
+        ### Embed
+        Embed = Embedding(input_dim = num_label, output_dim = dim_vector, input_length = 1)
+        vector_label_i = Embed(input_label)
+        vector_label_k = Embed(k_label)
+
+        ### Dense
+        Dense_feature = Dense(dim_vector)
+        vector_feature_i = Dense_feature(input_feature)
+        vector_feature_k = Dense_feature(k_feature)
+
+        ### Loss1
+        concat_ik = merge([vector_label_i, vector_label_k, vector_feature_i, vector_feature_k], mode = 'concat', concat_axis = 1)
+        IK = Lambda(shit_ik, output_shape = (dim_vector * 4, ), name = 'out1')(concat_ik)
+
+        ### Model
+        self.model = Model(input = [input_feature, input_label, k_feature, k_label], output = [IK])
+
+        ### Compile
+        self.model.compile(loss = {'out1' : Loss1}, loss_weights={'out1' : 1.}, optimizer = 'adam')
+
+        #Save
+        self.model.save_weights('log_new/model_trivial_0.h5')
+
+
+
+        '''
         self.model = Sequential()
         
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -382,7 +441,7 @@ class KerasMixin(object):
         self.model.add(Dense(50,activation='relu',kernel_initializer='uniform'))
         self.model.add(Dropout(0.2))
         self.model.add(Dense(15,activation='softmax',kernel_initializer='uniform'))
-        
+        '''
 
         '''
         self.model.add(Conv1D(256, 3, activation='relu', input_shape=(501,200)))
@@ -557,12 +616,13 @@ class KerasMixin(object):
             raise AttributeError(message)
     
         # Compile the model
-        '''
+        
         self.model.compile(
             loss=self.learner_params.get_path('model.loss'),
             optimizer='adam',#optimizer_class(**dict(self.learner_params.get_path('model.optimizer.parameters', {}))),
             metrics=self.learner_params.get_path('model.metrics')
         )
+        '''
         
     
 
