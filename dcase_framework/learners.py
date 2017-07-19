@@ -1106,8 +1106,9 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             print(str + ": ")
             print("fiiiiiiiiiiiiiiiiiiiiiii")
             for i in range(15):
-                print(f_i[i]);
-            acc=Calculation(l_i, f_i[0 : 15], B)
+                print(l_i[i,0:5]);
+            print(f_i[0:5,:5])
+            acc=Calculation(f_i, l_i[0 : 15], B)
             print(acc)
 
 
@@ -1157,7 +1158,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     batch_size=256,
                     epochs=1,
                     verbose=2,
-                    shuffle = False,
+                    shuffle = True,
                     callbacks = [checkpointer]
                 )
 
