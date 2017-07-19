@@ -326,23 +326,23 @@ class KerasMixin(object):
         numpy.ndarray
             Activity matrix
         """
-        '''
+        
         import numpy as np    
 
         pdata = []
         for item in files:
             #print(activity_matrix_dict[item].shape)
-            pdata.append(activity_matrix_dict[item])
-        pp = numpy.array(pdata)
-        #print("pppppppppppppppppp")
-        #print(pp.shape)
+            ve = activity_matrix_dict[item]
+            pdata.append(np.argmax(ve, axis = 1))
+        pp = np.concatenate(pdata)
+        print("pppppppppppppppppp")
+        print(pp.shape)
+        print(pp[0:5])
 
-        asd = np.transpose(pp, (1, 0, 2))
-        sd = np.squeeze(asd[0:1])
         #print(sd.shape)
         #print(pp[0:10,0:15])
 
-        return sd
+        return pp
 
         '''
         if self.learner_params.get_path('input_sequencer.enable'):
@@ -358,13 +358,14 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([activity_matrix_dict[x] for x in files])
+        '''
         
 
     def create_model(self, input_shape):
         """Create sequential Keras model
         """
 
-        from keras.models import Sequential
+        from keras.models import Sequential, Model
         from keras.layers import Dense, Dropout, Flatten
         from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
         from keras.layers import BatchNormalization
