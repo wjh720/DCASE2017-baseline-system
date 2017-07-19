@@ -369,6 +369,7 @@ class KerasMixin(object):
         from keras.models import Sequential, Model
         from keras.layers import Dense, Dropout, Flatten
         from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
+        from keras.layers import Dense, Dropout, Activation, Flatten, Input, Dense, LSTM, Lambda, merge, Embedding, Reshape
         from keras.layers import BatchNormalization
         from keras.optimizers import Adam
         from keras.layers import LSTM
@@ -397,6 +398,7 @@ class KerasMixin(object):
                                 Norm(X[:, dim_vector * 2 : dim_vector * 3]), Norm(X[:, dim_vector * 3 : dim_vector * 4])
             return tf.concat(1, [l_i, l_k, f_i, f_k])
 
+        print(" Begin ! ")
 
         ### Input
         input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
