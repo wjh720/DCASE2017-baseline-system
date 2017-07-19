@@ -1041,6 +1041,17 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         """
 
+        from keras.models import Sequential, Model
+        from keras.layers import Dense, Dropout, Flatten
+        from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
+        from keras.layers import Dense, Dropout, Activation, Flatten, Input, Dense, LSTM, Lambda, Embedding, Reshape
+        from keras.layers.merge import Concatenate
+        from keras.layers import BatchNormalization
+        from keras.optimizers import Adam
+        from keras.layers import LSTM
+        from keras import backend as K
+        import tensorflow as tf
+
         def Calculation(A, B, Label):
 
             import numpy as np
@@ -1091,6 +1102,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             num_epoch = 100
             batch_size = 256
 
+            k_feature = np.zeros(X_training.shape)
+            k_lable = np.zeros(Y_training.shape)
             k_feature = np.random.shuffle(X_training)
             k_lable = np.random.shuffle(Y_training)
             '''
@@ -1129,7 +1142,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     batch_size=256,
                     epochs=1,
                     verbose=2,
-                    shuffle = False,
+                    shuffle = True,
                     callbacks = [checkpointer]
                 )
 
