@@ -379,16 +379,20 @@ class KerasMixin(object):
         num_feature = 200
         num_label = 15
         dim_vector = 256
-        margin = 0.8
+        margin = 0.2
         k_size = 256
 
         def hinge(A, B, C):
             return K.mean(K.maximum(0.0, margin + K.sum(tf.multiply(A, C), axis=-1) - K.sum(tf.multiply(A, B), axis=-1)))
 
+        def Cos_is(x, v):
+            return K.mean(K.maximum(0.0, 1 - margin - K.sum(tf.multiply(x, v), axis=-1)))
+
         def Loss1(y_true, y_pred):
             l_i, l_k, f_i, f_k = y_pred[:, 0 : dim_vector], y_pred[:, dim_vector : dim_vector * 2], \
                                 y_pred[:, dim_vector * 2 : dim_vector * 3], y_pred[:, dim_vector * 3 : dim_vector * 4]
-            return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
+            #return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
+            return Cos_is(l_i, f_i) - Cos_is(l_i, f_k) - Cos_is(l_k, f_i)
 
         def Norm(X):
             return K.transpose(K.transpose(X) / (K.sqrt(tf.reduce_sum(K.square(X), 1) + 1e-9)))
