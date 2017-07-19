@@ -1084,8 +1084,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     k_feature=X_training[t]
                     k_lable=Y_training[t]
                 else:
-                    k_feature=vstack(k_feature,X_training[t])
-                    k_lable=vstack(k_lable,Y_training[t])
+                    k_feature=vstack((k_feature,X_training[t]))
+                    k_lable=vstack((k_lable,Y_training[t]))
 
             print(type(X_training))
             print(type(Y_training))
