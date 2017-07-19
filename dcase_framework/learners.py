@@ -1103,12 +1103,13 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             )
             l_i, f_i= output[ : , 0 : dim_vector], output[ : , dim_vector * 2 : dim_vector * 3]
 
-            print(str + ": ")
+            
             print("fiiiiiiiiiiiiiiiiiiiiiii")
             for i in range(15):
                 print(l_i[i,0:5]);
             print(f_i[0:5,:5])
             acc=Calculation(f_i, l_i[0 : 15], B)
+            print(str + ": ")
             print(acc)
 
 
@@ -1143,8 +1144,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 k_lable=np.copy(Y_training)
                 np.random.shuffle(k_feature)
                 np.random.shuffle(k_lable)
-                print(k_feature[0:5])
-                print(k_lable[:5])
+                print(k_feature[0:5,:5])
+                print(k_lable[:5,:5])
                 self.model.load_weights(path + 'log_new/model_trivial_%d.h5' % i)
                 print(path + 'log_new/model_trivial_%d.h5' % i)
 
@@ -1169,13 +1170,13 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
                 self.model.save_weights(path + 'log_new/model_trivial_%d.h5' % (i + 1))
                 print('save_file''s name : ' + path + 'log_new/model_trivial_%d.h5' % (i + 1))
-
+                '''
                 for layer in self.model.layers:
                     g=layer.get_config()
                     weights = layer.get_weights()
                     print(g)
                     print(weights)
-
+                '''
                 Validation(validation[0], validation[1], "Validation")
                 Validation(X_training, Y_training, "Train")
 
