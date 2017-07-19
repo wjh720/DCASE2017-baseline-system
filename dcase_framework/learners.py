@@ -1081,7 +1081,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             '''
 
         def Validation(A, B, str):
-            C=np.zeros(A.shape[0],1);
+            C=np.zeros((A.shape[0],1));
             for i in range(15):
                 C[i,1]=i;
             output = self.model.predict(       
