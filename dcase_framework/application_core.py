@@ -1564,7 +1564,7 @@ class AcousticSceneClassificationAppCore(AppCore):
 
                     #feature_data=np.array(feature_data)
 
-                    feature_data=feature_data.feat[0].reshape(1,feature_data.feat[0].shape[0],feature_data.feat[0].shape[1]);
+                    #feature_data=feature_data.feat[0].reshape(1,feature_data.feat[0].shape[0],feature_data.feat[0].shape[1]);
                     frame_probabilities = model_container.predict(feature_data=feature_data)
 
                     # Scene recognizer

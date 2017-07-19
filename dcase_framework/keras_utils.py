@@ -268,7 +268,7 @@ class KerasMixin(object):
         #print("@#@$@@ avd !@#@#!!")
 
         #print(self.learner_params.get_path('input_sequencer.enable'))
-
+        '''
         print(len(files))
         tt = 2
         for x in files:
@@ -307,7 +307,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([data[x].feat[0] for x in files])
-        '''
+        
 
     def prepare_activity(self, activity_matrix_dict, files, processor='default'):
         """Concatenate activity matrices into one activity matrix
@@ -326,7 +326,7 @@ class KerasMixin(object):
         numpy.ndarray
             Activity matrix
         """
-        
+        '''
         import numpy as np    
 
         pdata = []
@@ -358,7 +358,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([activity_matrix_dict[x] for x in files])
-        '''
+        
 
     def create_model(self, input_shape):
         """Create sequential Keras model
@@ -375,7 +375,14 @@ class KerasMixin(object):
         print(input_shape)
         #X=input_shape[0]
         #Y=input_shape[1]
+        self.model.add(Dense(50,activation='relu',input_shape=200,kernel_initializer=uniform))
+        self.model.add(Dropout(0.2))
+        self.model.add(Dense(50,activation='relu',kernel_initializer=uniform))
+        self.model.add(Dropout(0.2))
+        self.model.add(Dense(15,activation='relu',kernel_initializer=softmax))
         
+
+        '''
         self.model.add(Conv1D(256, 3, activation='relu', input_shape=(501,200)))
         self.model.add(Dropout(0.25))
         #self.model.add(BatchNormalization())
@@ -391,7 +398,7 @@ class KerasMixin(object):
         #self.model.add(BatchNormalization())
         #self.model.add(MaxPooling1D(pool_size=2))
         #self.model.add(Dropout(0.25))
-        '''
+        
 
         self.model.add(Dense(64,activation='relu',input_shape=(501,200)))
         self.model.add(Dropout(0.25))
