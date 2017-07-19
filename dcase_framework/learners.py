@@ -1085,10 +1085,14 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             from keras.callbacks import ModelCheckpoint
             import numpy as np
+            import tensorflow as tf
 
             path = '/data/tmpsrt1/DCASE2017-baseline-system/applications/'
             num_epoch = 100
             batch_size = 256
+
+            tf.cast(X_training, tf.float32)
+            tf.cast(Y_training, tf.int32)
 
             k_feature = np.random.shuffle(X_training)
             k_lable = np.random.shuffle(Y_training)
