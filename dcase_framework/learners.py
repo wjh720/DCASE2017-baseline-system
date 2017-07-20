@@ -1054,7 +1054,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         import numpy as np
 
         path = '/data/tmpsrt1/DCASE2017-baseline-system/applications/'
-        num_epoch = 1
+        num_epoch = 30
         batch_size = 256
         num_feature = 200
         num_label = 15
