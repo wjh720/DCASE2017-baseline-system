@@ -287,14 +287,14 @@ class KerasMixin(object):
         pdata=[]
         ppdata = []
         for item in files:
-            print(item)
-            y, sr=soundfile.read(item)
-            print(y.shape)
+            #print(item)
+            y, sr=soundfile.read(item, samplerate = 22050)
+            #print(y.shape)
             ldata=[]
             for i in range(499):
                 ldata.append(y[i*sr/50:(i+2)*sr/50])
             tp=numpy.array(ldata)
-            print(tp.shape)
+            #print(tp.shape)
             ppdata.append(tp)
 
             x=data[item].feat[0]
@@ -309,7 +309,9 @@ class KerasMixin(object):
             '''
 
             #pdata.append(data[item].feat[0])
+        print('ad')
         pp = np.concatenate(ppdata)
+        print('sfv')
         asd = np.concatenate(pdata)
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
