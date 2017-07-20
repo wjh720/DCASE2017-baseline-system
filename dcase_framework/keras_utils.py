@@ -113,6 +113,7 @@ import numpy
 import copy
 import importlib
 import librosa
+import soundfile
 import collections
 from tqdm import tqdm
 from six import iteritems
