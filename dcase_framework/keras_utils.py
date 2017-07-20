@@ -298,7 +298,8 @@ class KerasMixin(object):
             ppdata.append(tp)
 
             x=data[item].feat[0]
-            pdata.append(x[1:500])
+            x=numpy.concatenate([tp,x[1:500]], axis = 1)
+            pdata.append(x)
             '''
             for i in range(0,491,5):
                 tdata=[]
@@ -578,7 +579,7 @@ class KerasMixin(object):
         LSTM_6 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
 
-        vector_feature_lstm_1 = LSTM_1(input_feature);
+        vector_feature_lstm_1 = LSTM_1(vector_feature_i_1_drop);
         vector_feature_1=Add()([vector_feature_i_1_drop,vector_feature_lstm_1])
 
 
