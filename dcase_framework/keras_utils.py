@@ -334,7 +334,7 @@ class KerasMixin(object):
             Activity matrix
         """
         '''
-        import numpy as np
+        
         pdata = []
         for item in files:
             #print(activity_matrix_dict[item].shape)
@@ -345,11 +345,12 @@ class KerasMixin(object):
         print(pp.shape)
         print(pp[0:5])
         '''
+        import numpy as np
         pdata=[]
         for item in files:
             for i in range(0,491,5):
                 ve = activity_matrix_dict[item]
-                pdata.append(np.argmax(ve, axis = 1).reshape(501, 1).astype(np.int32))
+                pdata.append(numpy.argmax(ve, axis = 1).reshape(501, 1).astype(np.int32))
         pp = numpy.array(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
