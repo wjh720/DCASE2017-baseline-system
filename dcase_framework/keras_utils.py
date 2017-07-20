@@ -490,7 +490,7 @@ class KerasMixin(object):
         vector_feature_lstm_k = LSTM_1(k_feature);
 
         vector_feature_lstm_1 = LSTM_1(input_feature);
-        vector_feature_1=Add()([input_feature,vector_feature_lstm_1])
+        vector_feature_1=vector_feature_lstm_1
 
 
         vector_feature_lstm_2=LSTM_2(vector_feature_1)
