@@ -376,6 +376,7 @@ class KerasMixin(object):
         from keras.layers import LSTM
         from keras import backend as K
         import tensorflow as tf
+        import numpy as np
 
         num_feature = 200
         num_label = 15
