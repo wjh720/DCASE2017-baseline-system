@@ -461,7 +461,7 @@ class KerasMixin(object):
 
         #Save
         self.model.save_weights('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/model_trivial_0.h5')
-        self.model.save('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/jb.h5')
+        #self.model.save('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/jb.h5')
 
 
 
