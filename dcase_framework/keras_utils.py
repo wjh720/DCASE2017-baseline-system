@@ -413,6 +413,12 @@ class KerasMixin(object):
         import tensorflow as tf
         import numpy as np
         
+        num_feature = 200
+        num_label = 15
+        dim_vector = 256
+        margin = 0.5
+        k_size = 256
+        word_num = 10
 
         '''
         a = np.array(dim_vector)
@@ -549,16 +555,9 @@ class KerasMixin(object):
 
         '''
 
-        num_feature = 200
-        num_label = 15
-        dim_vector = 256
-        margin = 0.5
-        k_size = 256
-        word_num = 1764
-
         ### Input
-        input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (word_num, 2), dtype = 'float32', name = 'raw_feature')
+        input_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'input_feature')
+        raw_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'raw_feature')
 
         ### Dense
         Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
