@@ -284,7 +284,6 @@ class KerasMixin(object):
 
         #print("@#@$@@ avd !@#@#!!")
         pdata=[]
-        sr=22050
         for item in files:
             print(item)
             y, sr=librosa.load(item)
