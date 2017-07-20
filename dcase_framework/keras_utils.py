@@ -333,7 +333,7 @@ class KerasMixin(object):
         numpy.ndarray
             Activity matrix
         """
-        
+        '''
         import numpy as np
         pdata = []
         for item in files:
@@ -344,7 +344,17 @@ class KerasMixin(object):
         print("pppppppppppppppppp")
         print(pp.shape)
         print(pp[0:5])
-
+        '''
+        pdata=[]
+        for item in files:
+            x=data[item].feat[0]
+            for i in range(0,491,5):
+                ve = activity_matrix_dict[item]
+                pdata.append(np.argmax(ve, axis = 1).reshape(501, 1).astype(np.int32))
+        pp = numpy.array(pdata)
+        print("pppppppppppppppppp")
+        print(pp.shape)
+        print(pp[0:5])
         #print(sd.shape)
         #print(pp[0:10,0:15])
 
