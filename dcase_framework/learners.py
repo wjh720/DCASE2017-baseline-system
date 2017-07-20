@@ -1297,8 +1297,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             epochs=1,#self.learner_params.get_path('training.epochs', 1),
             validation_data=validation,
             verbose=0,
-            shuffle=self.learner_params.get_path('training.shuffle', True),
-            callbacks=callback_list
+            shuffle=self.learner_params.get_path('training.shuffle', True)
+            #callbacks=callback_list
         )
 
         '''

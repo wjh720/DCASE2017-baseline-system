@@ -491,9 +491,9 @@ class KerasMixin(object):
         #X=input_shape[0]
         #Y=input_shape[1]
         self.model.add(LSTM(256,input_shape=(10,200)))
-        self.model.add(Dense(512,activation='relu',kernel_initializer='uniform'))
+        self.model.add(Dense(512,activation='relu'))
         self.model.add(Dropout(0.2))
-        self.model.add(Dense(15,activation='softmax',kernel_initializer='uniform'))
+        self.model.add(Dense(15,activation='softmax'))
         self.model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=["accuracy"])
 
         '''
