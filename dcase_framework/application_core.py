@@ -1435,6 +1435,8 @@ class AcousticSceneClassificationAppCore(AppCore):
 
         """
 
+        print("dfsdfds")
+
         if not overwrite:
             overwrite = self.params.get_path('general.overwrite', False)
         fold_progress = tqdm(self._get_active_folds(),
