@@ -490,17 +490,17 @@ class KerasMixin(object):
         vector_feature_lstm_k = LSTM_1(k_feature);
 
         vector_feature_lstm_1 = LSTM_1(input_feature);
-        vector_feature_1=Add([input_feature,vector_feature_lstm_1])
+        vector_feature_1=Add()([input_feature,vector_feature_lstm_1])
 
 
         vector_feature_lstm_2=LSTM_2(vector_feature_1)
-        vector_feature_2=Add([vector_feature_1,vector_feature_lstm_2])
+        vector_feature_2=Add()([vector_feature_1,vector_feature_lstm_2])
 
         vector_feature_lstm_3=LSTM_3(vector_feature_2)
-        vector_feature_3=Add([vector_feature_2,vector_feature_lstm_3])
+        vector_feature_3=Add()([vector_feature_2,vector_feature_lstm_3])
 
         vector_feature_lstm_4=LSTM_4(vector_feature_3)
-        vector_feature_4=Add([vector_feature_3,vector_feature_lstm_4])
+        vector_feature_4=Add()([vector_feature_3,vector_feature_lstm_4])
 
         vector_feature_lstm_5=LSTM_5(vector_feature_4)
         #vector_feature_lstm_i=Add([vector_feature_lstm_1,vector_feature_lstm_2,vector_feature_lstm_3,vector_feature_lstm_4,vector_feature_lstm_5])
