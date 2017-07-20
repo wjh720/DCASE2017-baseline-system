@@ -557,8 +557,10 @@ class KerasMixin(object):
         LSTM_6 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
 
+
+        ### ad
         vector_feature_lstm_1 = LSTM_1(input_feature);
-        vector_feature_1=Add()([input_feature,vector_feature_lstm_1])
+        vector_feature_1=vector_feature_lstm_1
 
 
         vector_feature_lstm_2=LSTM_2(vector_feature_1)
