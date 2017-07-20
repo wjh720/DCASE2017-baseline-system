@@ -350,7 +350,7 @@ class KerasMixin(object):
         for item in files:
             for i in range(0,491,5):
                 ve = activity_matrix_dict[item]
-                ve = numpy.argmax(ve, axis = 1)
+                #ve = numpy.argmax(ve, axis = 1)
                 pdata.append(ve[0].reshape(1, ))
         pp = numpy.array(pdata)
         print("pppppppppppppppppp")
@@ -403,6 +403,7 @@ class KerasMixin(object):
         k_size = 256
         word_num = 10
 
+        '''
         a = np.array(dim_vector)
 
         def hinge(A, B, C):
@@ -466,14 +467,12 @@ class KerasMixin(object):
         vector_label_k_2 = Dense_label_2(vector_label_k_1_drop)
 
         ### Dense
-        '''
         Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
         vector_feature_i_1 = Dense_feature_1(input_feature)
         vector_feature_k_1 = Dense_feature_1(k_feature)
         Dropout_1 = Dropout(0.2);
         vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
         vector_feature_k_1_drop = Dropout_1(vector_feature_k_1);
-        '''
 
         LSTM_0 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
@@ -536,6 +535,67 @@ class KerasMixin(object):
         #Save
         self.model.save_weights('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/model_trivial_0.h5')
         #self.model.save('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/jb.h5')
+
+        '''
+
+        ### Input
+        input_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'input_feature')
+
+        ### Dense
+        Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
+        vector_feature_i_1 = Dense_feature_1(input_feature)
+        Dropout_1 = Dropout(0.2);
+        vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
+
+        LSTM_0 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=False)
+        LSTM_1 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_2 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_3 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_4 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_5 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_6 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=False)
+        vector_feature_lstm_k = LSTM_0(k_feature);
+
+        vector_feature_lstm_1 = LSTM_1(vector_feature_i_1_drop);
+        vector_feature_1=Add()([vector_feature_i_1_drop,vector_feature_lstm_1])
+
+
+        vector_feature_lstm_2=LSTM_2(vector_feature_1)
+        vector_feature_2=Add()([vector_feature_1,vector_feature_lstm_2])
+
+        vector_feature_lstm_3=LSTM_3(vector_feature_2)
+        vector_feature_3=Add()([vector_feature_2,vector_feature_lstm_3])
+
+        vector_feature_lstm_4=LSTM_4(vector_feature_3)
+        vector_feature_4=Add()([vector_feature_3,vector_feature_lstm_4])
+
+        vector_feature_lstm_5=LSTM_5(vector_feature_4)
+        
+        concat_feature=Concatenate(axis=1)([vector_feature_lstm_1,vector_feature_lstm_2,vector_feature_lstm_3,vector_feature_lstm_4,vector_feature_lstm_5])
+        vector_feature_lstm_i=LSTM_6(concat_feature)
+
+        Dense_feature_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
+        vector_feature_i_1 = Dense_feature_1(vector_feature_lstm_i)
+
+        Dropout_1 = Dropout(0.2);
+        vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
+
+        Dense_feature_2 = Dense(num_label, kernel_initializer = 'glorot_normal', name = 'out_1')
+        vector_feature_i = Dense_feature_2(vector_feature_i_1_drop)
+
+        ### Model
+        self.model = Model(inputs = [input_feature], outputs = [vector_feature_i])
+
+        ### Compile
+        self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
+
 
 
         '''
