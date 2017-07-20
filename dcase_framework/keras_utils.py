@@ -288,7 +288,10 @@ class KerasMixin(object):
         ppdata = []
         for item in files:
             #print(item)
-            y, sr=soundfile.read(item, samplerate = 22050)
+            y, sr=soundfile.read(item)
+
+            y = np.mean(y.T, axis=0)
+            y = librosa.core.resample(y, sr, 22050)
             #print(y.shape)
             ldata=[]
             for i in range(499):
