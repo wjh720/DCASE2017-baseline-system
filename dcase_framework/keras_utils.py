@@ -351,7 +351,7 @@ class KerasMixin(object):
             for i in range(0,491,5):
                 ve = activity_matrix_dict[item]
                 #ve = numpy.argmax(ve, axis = 1)
-                pdata.append(ve[0].reshape(1, ))
+                pdata.append(ve[0].reshape(15, ))
         pp = numpy.array(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
