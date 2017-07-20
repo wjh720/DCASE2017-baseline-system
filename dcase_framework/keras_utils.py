@@ -295,7 +295,7 @@ class KerasMixin(object):
 
             #pdata.append(data[item].feat[0])
         pp = numpy.array(pdata)
-        #print(pp.shape)
+        print(pp.shape)
 
         return pp
 
