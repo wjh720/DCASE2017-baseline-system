@@ -1177,6 +1177,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     callbacks = [checkpointer]
                 )
 
+
                 self.model.save_weights(path + 'log_new/model_trivial_%d.h5' % (i + 1))
                 print('save_file''s name : ' + path + 'log_new/model_trivial_%d.h5' % (i + 1))
                 '''
