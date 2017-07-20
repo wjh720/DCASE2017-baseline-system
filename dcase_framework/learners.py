@@ -1228,7 +1228,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         activity_matrix_dict = self._get_target_matrix_dict(data=data, annotations=annotations)
 
         # Process data
-        X_training = self.prepare_data(data=data, files=training_files)
+        (X_training, X_1) = self.prepare_data(data=data, files=training_files)
 
 
         Y_training = self.prepare_activity(activity_matrix_dict=activity_matrix_dict, files=training_files)
