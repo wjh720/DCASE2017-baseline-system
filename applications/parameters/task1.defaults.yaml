@@ -25,7 +25,7 @@ sets:
       mlp:
         seed: 0
         keras:
-          backend: theano
+          backend: tensorflow
           backend_parameters:
             floatX: float64
             device: gpu
@@ -122,7 +122,7 @@ sets:
       mlp:
         seed: 1
         keras:
-          backend: theano
+          backend: tensorflow
           backend_parameters:
             floatX: float32
             device: gpu
@@ -482,7 +482,7 @@ defaults:
       seed: 1
 
       keras:
-        backend: theano
+        backend: tensorflow
         backend_parameters:
           floatX: float64
           device: gpu
