@@ -290,13 +290,13 @@ class KerasMixin(object):
             print(item)
             y, sr=soundfile.read(item)
 
-            y = np.mean(y.T, axis=0)
+            #y = np.mean(y.T, axis=0)
             #print(y.shape)
             ldata=[]
             for i in range(499):
                 ldata.append(y[i*sr/50:(i+2)*sr/50])
             tp=numpy.array(ldata)
-            print(tp.shape)
+            #print(tp.shape)
             ppdata.append(tp)
 
             x=data[item].feat[0]
@@ -563,7 +563,7 @@ class KerasMixin(object):
 
         ### Input
         input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (word_num, ), dtype = 'float32', name = 'raw_feature')
+        raw_feature = Input(shape = (word_num, 2), dtype = 'float32', name = 'raw_feature')
 
         ### LSTM
         LSTM_1 = LSTM(units = dim_vector, activation='tanh', recurrent_activation='hard_sigmoid', \
