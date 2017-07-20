@@ -286,25 +286,12 @@ class KerasMixin(object):
         #print("@#@$@@ avd !@#@#!!")
         pdata=[]
         for item in files:
-            print(item)
-            y, sr=soundfile.read(item)
-            ldata=[]
-            for i in range(499):
-                ldata.append(y[i*sr/25:(i+2)*sr/25])
-            tp=numpy.array(ldata)
-            print(tp.shape)
-            #tp=tp.reshape(tp.shape[0],1)
-            x=data[item].feat[0]
-            tp=numpy.concatenate([tp,x[1:500]], axis = 1)
-            pdata.append(tp)
-            '''
             for i in range(0,491,5):
                 tdata=[]
                 for j in range(i,i+10):
                     tdata.append(x[j])
                 tp=numpy.array(tdata)
                 pdata.append(tp)
-            '''
 
             #pdata.append(data[item].feat[0])
         pp = numpy.array(pdata)
@@ -555,10 +542,6 @@ class KerasMixin(object):
         input_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'input_feature')
 
         ### Dense
-        Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
-        vector_feature_i_1 = Dense_feature_1(input_feature)
-        Dropout_1 = Dropout(0.2);
-        vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
 
         LSTM_1 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=True)
@@ -573,7 +556,7 @@ class KerasMixin(object):
         LSTM_6 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
 
-        vector_feature_lstm_1 = LSTM_1(vector_feature_i_1_drop);
+        vector_feature_lstm_1 = LSTM_1(input_feature);
         vector_feature_1=Add()([vector_feature_i_1_drop,vector_feature_lstm_1])
 
 
