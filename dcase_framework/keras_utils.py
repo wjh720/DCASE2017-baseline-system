@@ -286,6 +286,7 @@ class KerasMixin(object):
         #print("@#@$@@ avd !@#@#!!")
         pdata=[]
         for item in files:
+            x = data[item].feat[0]
             for i in range(0,491,5):
                 tdata=[]
                 for j in range(i,i+10):
@@ -557,7 +558,7 @@ class KerasMixin(object):
                     kernel_initializer='glorot_normal',return_sequences=False)
 
         vector_feature_lstm_1 = LSTM_1(input_feature);
-        vector_feature_1=Add()([vector_feature_i_1_drop,vector_feature_lstm_1])
+        vector_feature_1=Add()([input_feature,vector_feature_lstm_1])
 
 
         vector_feature_lstm_2=LSTM_2(vector_feature_1)
