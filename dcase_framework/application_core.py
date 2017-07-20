@@ -1188,7 +1188,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                                                                               fold=fold,
                                                                               total=len(fold_progress)))
 
-            #current_model_file = self._get_model_filename(fold=fold, path=self.params.get_path('path.learner'))
+            current_model_file = self._get_model_filename(fold=fold, path=self.params.get_path('path.learner'))
             if overwrite:
                 feature_processing_chain = self.ProcessingChain()
 
