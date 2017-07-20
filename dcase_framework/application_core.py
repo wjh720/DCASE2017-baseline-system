@@ -1189,6 +1189,9 @@ class AcousticSceneClassificationAppCore(AppCore):
                                                                               total=len(fold_progress)))
 
             current_model_file = self._get_model_filename(fold=fold, path=self.params.get_path('path.learner'))
+
+            print(fold)
+
             if overwrite:
                 feature_processing_chain = self.ProcessingChain()
 
@@ -1354,23 +1357,6 @@ class AcousticSceneClassificationAppCore(AppCore):
                 )
                 #learner.save()
 
-            if self.params.get_path('learner.show_model_information'):
-                # Load class model container
-                model_filename = self._get_model_filename(fold=fold, path=self.params.get_path('path.learner'))
-
-                if os.path.isfile(model_filename):
-                    model_container = self._get_learner(
-                        method=self.params.get_path('learner.method')
-                    ).load(filename=model_filename)
-
-                else:
-                    message = '{name}: Model file not found [{file}]'.format(
-                        name=self.__class__.__name__,
-                        file=model_filename
-                    )
-
-                    self.logger.exception(message)
-                    raise IOError(message)
                 '''
                 if 'learning_history' in model_container:
                     import matplotlib.pyplot as plt
