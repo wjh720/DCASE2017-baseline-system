@@ -294,6 +294,7 @@ class KerasMixin(object):
         return pp
 
         '''
+        ##
         if self.learner_params.get_path('input_sequencer.enable'):
             processed_data = []
             for item in files:
