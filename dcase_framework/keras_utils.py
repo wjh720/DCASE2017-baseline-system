@@ -279,15 +279,21 @@ class KerasMixin(object):
             tt = tt - 1
             if (tt == 0):
                 break
-
+        '''
 
         #print("@#@$@@ avd !@#@#!!")
 
-
-        pdata = []
+        pdata=[]
         for item in files:
-            #print(data[item].feat[0].shape)
-            pdata.append(data[item].feat[0])
+            x=data[item].feat[0]
+            for i in range(0,501,5):
+                tdata=[]
+                for j in range(i,i+10):
+                    tdata.append(x[j])
+                tp=numpy.array(tdata)
+                pdata.append(tp)
+
+            #pdata.append(data[item].feat[0])
         pp = numpy.array(pdata)
         #print(pp.shape)
 
@@ -307,7 +313,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([data[x].feat[0] for x in files])
-        
+        '''
 
     def prepare_activity(self, activity_matrix_dict, files, processor='default'):
         """Concatenate activity matrices into one activity matrix
