@@ -285,6 +285,7 @@ class KerasMixin(object):
 
         pdata=[]
         for item in files:
+            print(item)
             x=data[item].feat[0]
             for i in range(0,491,5):
                 tdata=[]
