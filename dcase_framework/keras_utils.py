@@ -292,6 +292,8 @@ class KerasMixin(object):
             for i in range(499):
                 ldata.append(y[i*sr/25:(i+2)*sr/25])
             tp=numpy.array(ldata)
+            print(tp.shape)
+            #tp=tp.reshape(tp.shape[0],1)
             x=data[item].feat[0]
             tp=numpy.concatenate([tp,x[1:500]], axis = 1)
             pdata.append(tp)
