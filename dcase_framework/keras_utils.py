@@ -282,7 +282,7 @@ class KerasMixin(object):
             if (tt == 0):
                 break
         '''
-
+        import numpy as np
         #print("@#@$@@ avd !@#@#!!")
         pdata=[]
         for item in files:
@@ -291,9 +291,9 @@ class KerasMixin(object):
             ldata=[]
             for i in range(499):
                 ldata.append(y[i*sr/25:(i+2)*sr/25])
-            tp=np.array(ldata)
+            tp=numpy.array(ldata)
             x=data[item].feat[0]
-            tp=np.concatenate([tp,x[1:500]], axis = 1)
+            tp=numpy.concatenate([tp,x[1:500]], axis = 1)
             pdata.append(tp)
             '''
             for i in range(0,491,5):
