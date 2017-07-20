@@ -291,12 +291,12 @@ class KerasMixin(object):
             y, sr=soundfile.read(item)
 
             y = np.mean(y.T, axis=0)
-            print(y.shape)
+            #print(y.shape)
             ldata=[]
             for i in range(499):
                 ldata.append(y[i*sr/50:(i+2)*sr/50])
             tp=numpy.array(ldata)
-            #print(tp.shape)
+            print(tp.shape)
             ppdata.append(tp)
 
             x=data[item].feat[0]
@@ -318,6 +318,7 @@ class KerasMixin(object):
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
         print(asd.shape)
+        time.sleep(3)
 
         return (asd, pp)
 
@@ -562,7 +563,7 @@ class KerasMixin(object):
 
         ### Input
         input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (word_num, 2), dtype = 'float32', name = 'raw_feature')
+        raw_feature = Input(shape = (word_num, ), dtype = 'float32', name = 'raw_feature')
 
         ### LSTM
         LSTM_1 = LSTM(units = dim_vector, activation='tanh', recurrent_activation='hard_sigmoid', \
@@ -579,7 +580,8 @@ class KerasMixin(object):
         LSTM_2 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=True)
 
-        concat_1 = Concatenate()([featuer_drop_1, vector_feature_lstm_1])
+        feature_tmp_1 = Reshape((1, dim_vector))(featuer_drop_1)
+        concat_1 = Concatenate()([feature_tmp_1, vector_feature_lstm_1])
         vector_feature_lstm_2 = LSTM_2(concat_1)
 
         ### Dense
@@ -591,7 +593,8 @@ class KerasMixin(object):
         LSTM_3 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
 
-        concat_2 = Concatenate()([featuer_drop_2, vector_feature_lstm_2])
+        feature_tmp_2 = Reshape((1, dim_vector))(featuer_drop_2)
+        concat_2 = Concatenate()([feature_tmp_2, vector_feature_lstm_2])
         vector_feature_lstm_3 = LSTM_3(concat_2)
 
         ### Answer Dense
