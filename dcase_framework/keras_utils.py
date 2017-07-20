@@ -289,7 +289,7 @@ class KerasMixin(object):
             print(item)
             y, sr=librosa.load(item)
             ldata=[]
-            for i in range(499)
+            for i in range(499):
                 ldata.append(y[i*sr/25:(i+2)*sr/25])
             tp=np.array(ldata)
             x=data[item].feat[0]
