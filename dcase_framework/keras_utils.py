@@ -287,7 +287,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             print(item)
-            y, sr=librosa.load(item)
+            y, sr=soundfile.read(item)
             ldata=[]
             for i in range(499):
                 ldata.append(y[i*sr/25:(i+2)*sr/25])
