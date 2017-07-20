@@ -1238,10 +1238,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         # Process validation data
         if validation_files:
-            X_validation = self.prepare_data(data=data, files=validation_files)
+            (X_validation, X_v_1) = self.prepare_data(data=data, files=validation_files)
             Y_validation = self.prepare_activity(activity_matrix_dict=activity_matrix_dict, files=validation_files)
 
-            validation = (X_validation, Y_validation)
+            validation = ({'raw_feature' : X_v_1, 'input_feature' : X_validation}, Y_validation)
             if self.show_extra_debug:
                 self.logger.debug('  Validation items \t[{validation:d}]'.format(validation=len(X_validation)))
         else:
@@ -1297,7 +1297,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         #Train(X_training, Y_training, validation)
         
-        hist = self.model.fit(
+        self.model.fit(
             {
                 'raw_feature' : X_1,
                 'input_feature' : X_training
