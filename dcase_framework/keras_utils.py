@@ -288,6 +288,7 @@ class KerasMixin(object):
         for item in files:
             print(item)
             y, sr=soundfile.read(item)
+            print(y.shape)
             ldata=[]
             for i in range(499):
                 ldata.append(y[i*sr/25:(i+2)*sr/25])
