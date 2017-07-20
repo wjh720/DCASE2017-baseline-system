@@ -347,7 +347,6 @@ class KerasMixin(object):
         '''
         pdata=[]
         for item in files:
-            x=data[item].feat[0]
             for i in range(0,491,5):
                 ve = activity_matrix_dict[item]
                 pdata.append(np.argmax(ve, axis = 1).reshape(501, 1).astype(np.int32))
