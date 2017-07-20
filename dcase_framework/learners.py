@@ -1059,7 +1059,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         num_feature = 200
         num_label = 15
         dim_vector = 256
-        margin = 0.8
+        margin = 0.5
         k_size = 256
 
         def Calculation(A, B, Label):
@@ -1076,9 +1076,9 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             print()
 
             Label = Label.reshape(Label.shape[0])
-            print(Label[1000:1020])
+            print(Label[0:100])
             C=np.argmax(C, axis=1)
-            print(C[1000:1020])
+            print(C[0:100])
             acc=np.mean(np.equal(C, Label))
             print("------------------")
             return acc
@@ -1130,6 +1130,11 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
             k_feature = np.zeros(X_training.shape)
             k_lable = np.zeros(Y_training.shape)
+
+            k_feature=np.copy(X_training)
+            k_lable=np.copy(Y_training)
+            np.random.shuffle(k_feature)
+            np.random.shuffle(k_lable)
             
             '''
             n = X_training.shape[0]
@@ -1149,10 +1154,6 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
 
             for i in range(num_epoch):
-                k_feature=np.copy(X_training)
-                k_lable=np.copy(Y_training)
-                np.random.shuffle(k_feature)
-                np.random.shuffle(k_lable)
                 print(k_feature[0:5,:5])
                 print(k_lable[:5,:5])
                 self.model.load_weights(path + 'log_new/model_trivial_%d.h5' % i)

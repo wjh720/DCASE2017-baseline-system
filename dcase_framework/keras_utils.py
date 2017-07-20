@@ -399,7 +399,7 @@ class KerasMixin(object):
         num_feature = 200
         num_label = 15
         dim_vector = 256
-        margin = 0.8
+        margin = 0.5
         k_size = 256
         word_num = 10
 
@@ -411,10 +411,21 @@ class KerasMixin(object):
         def Cos_is(x, v):
             return K.mean(K.maximum(0.0, 1 - margin - K.sum(tf.multiply(x, v), axis=-1)))
 
+        def hinge_loss(A, B, C):
+            return K.mean(K.maximum(margin
+                             + K.transpose(K.transpose(tf.matmul(A, K.transpose(C))) - 
+                                K.sum(tf.multiply(A, B), axis = -1)),
+                             0.0),
+                             axis=-1, keepdims=True)
+
+        def hinge_1(A, B):
+            return hinge_loss(A, B, B)
+
         def Loss1(y_true, y_pred):
             l_i, l_k, f_i, f_k = y_pred[:, a * 0 : a], y_pred[:, a : a * 2], \
                                 y_pred[:, a * 2 : a * 3], y_pred[:, a * 3 : a * 4]
-            return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
+            return hinge_1(l_i, f_i)
+            #return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
             #return Cos_is(l_i, f_i) - Cos_is(l_i, f_k) - Cos_is(l_k, f_i)
 
         def Norm(X):
