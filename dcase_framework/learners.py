@@ -1076,9 +1076,9 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             print()
 
             Label = Label.reshape(Label.shape[0])
-            print(Label[0:100])
+            print(Label[0:1000])
             C=np.argmax(C, axis=1)
-            print(C[0:100])
+            print(C[0:1000])
             acc=np.mean(np.equal(C, Label))
             print("------------------")
             return acc
