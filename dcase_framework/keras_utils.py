@@ -391,7 +391,7 @@ class KerasMixin(object):
         from keras.layers import BatchNormalization
         from keras.optimizers import Adam
         from keras.constraints import max_norm
-        from keras.layers import LSTM
+        from keras.layers import LSTM,Add
         from keras import backend as K
         import tensorflow as tf
         import numpy as np
@@ -481,7 +481,7 @@ class KerasMixin(object):
 
         vector_feature_lstm_i = LSTM(input_feature);
         vector_feature_lstm_k = LSTM(k_feature);
-        vector_feature_1=Add_1(input_feature,vector_feature_lstm_i)
+        vector_feature_1=Add(input_feature,vector_feature_lstm_i)
 
 
         Dense_feature_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
