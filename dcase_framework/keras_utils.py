@@ -395,12 +395,13 @@ class KerasMixin(object):
         from keras import backend as K
         import tensorflow as tf
         import numpy as np
-        '''
+        
         num_feature = 200
         num_label = 15
         dim_vector = 256
         margin = 0.8
         k_size = 256
+        word_num = 10
 
         a = np.array(dim_vector)
 
@@ -427,13 +428,13 @@ class KerasMixin(object):
         print(" Begin ! ")
 
         ### Input
-        input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
+        input_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'input_feature')
         input_label = Input(shape = (1, ), dtype = 'int32', name = 'input_label')
-        k_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'k_feature')
+        k_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'k_feature')
         k_label = Input(shape = (1, ), dtype = 'int32', name = 'k_label')
 
         ### Embed
-        Embed = Embedding(input_dim = num_label, output_dim = dim_vector, input_length = 1)
+        Embed = Embedding(input_dim = num_label, output_dim = dim_vector, input_length = 1, embeddings_initializer= 'glorot_normal')
         # embeddings_constraint = max_norm(max_value=2, axis=0))
         vector_label_i_1 = Embed(input_label)
         vector_label_k_1 = Embed(k_label)
@@ -441,7 +442,7 @@ class KerasMixin(object):
         vector_label_i = Reshape((dim_vector, ))(vector_label_i_1)
         vector_label_k = Reshape((dim_vector, ))(vector_label_k_1)
 
-        Dense_label_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
+        Dense_label_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
         vector_label_i_1 = Dense_label_1(vector_label_i)
         vector_label_k_1 = Dense_label_1(vector_label_k)
 
@@ -449,20 +450,34 @@ class KerasMixin(object):
         vector_label_i_1_drop = Dropout_2(vector_label_i_1)
         vector_label_k_1_drop = Dropout_2(vector_label_k_1)
 
-        Dense_label_2 = Dense(dim_vector)
+        Dense_label_2 = Dense(dim_vector, kernel_initializer = 'glorot_normal')
         vector_label_i_2 = Dense_label_2(vector_label_i_1_drop)
         vector_label_k_2 = Dense_label_2(vector_label_k_1_drop)
 
         ### Dense
+        '''
         Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
         vector_feature_i_1 = Dense_feature_1(input_feature)
         vector_feature_k_1 = Dense_feature_1(k_feature)
+        Dropout_1 = Dropout(0.2);
+        vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
+        vector_feature_k_1_drop = Dropout_1(vector_feature_k_1);
+        '''
+
+        LSTM = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal')
+        vector_feature_lstm_i = LSTM(input_feature);
+        vector_feature_lstm_k = LSTM(k_feature);
+
+        Dense_feature_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
+        vector_feature_i_1 = Dense_feature_1(vector_feature_lstm_i)
+        vector_feature_k_1 = Dense_feature_1(vector_feature_lstm_k)
 
         Dropout_1 = Dropout(0.2);
         vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
         vector_feature_k_1_drop = Dropout_1(vector_feature_k_1);
 
-        Dense_feature_2 = Dense(dim_vector)
+        Dense_feature_2 = Dense(dim_vector, kernel_initializer = 'glorot_normal')
         vector_feature_i = Dense_feature_2(vector_feature_i_1_drop)
         vector_feature_k = Dense_feature_2(vector_feature_k_1_drop)
 
@@ -482,8 +497,8 @@ class KerasMixin(object):
         #self.model.save('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/jb.h5')
 
 
-
         '''
+        
         self.model = Sequential()
         
         print("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -495,6 +510,8 @@ class KerasMixin(object):
         self.model.add(Dropout(0.2))
         self.model.add(Dense(15,activation='softmax'))
         self.model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=["accuracy"])
+
+        '''
 
         '''
         self.model.add(Conv1D(256, 3, activation='relu', input_shape=(501,200)))

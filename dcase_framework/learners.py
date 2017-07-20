@@ -1289,7 +1289,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         print("asdasd")
 
-        #Train(X_training, Y_training, validation)
+        Train(X_training, Y_training, validation)
+        '''
         hist = self.model.fit(
             x=X_training,
             y=Y_training,
@@ -1300,6 +1301,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             shuffle=self.learner_params.get_path('training.shuffle', True)
             #callbacks=callback_list
         )
+        '''
 
         '''
         # Manually update callbacks
