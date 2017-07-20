@@ -548,7 +548,7 @@ class KerasMixin(object):
         vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
 
         LSTM_0 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
-                    kernel_initializer='glorot_normal',return_sequences=False)
+                    kernel_initializer='glorot_normal',return_sequences=True)
         LSTM_1 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=True)
         LSTM_2 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
