@@ -584,7 +584,7 @@ class KerasMixin(object):
         Dropout_1 = Dropout(0.2);
         vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
 
-        Dense_feature_2 = Dense(num_label, kernel_initializer = 'glorot_normal', name = 'out_1')
+        Dense_feature_2 = Dense(num_label, activation='softmax'), kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_feature_2(vector_feature_i_1_drop)
 
         ### Model
