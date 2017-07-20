@@ -285,37 +285,21 @@ class KerasMixin(object):
         import numpy as np
         #print("@#@$@@ avd !@#@#!!")
         pdata=[]
-        ppdata = []
         for item in files:
-            print(item)
-            y, sr=soundfile.read(item)
-            print(y.shape)
-            ldata=[]
-            for i in range(499):
-                ldata.append(y[i*sr/50:(i+2)*sr/50])
-            tp=numpy.array(ldata)
-            print(tp.shape)
-            ppdata.append(tp)
-
-            x=data[item].feat[0]
-            pdata.append(x[1:500])
-            '''
+            x = data[item].feat[0]
             for i in range(0,491,5):
                 tdata=[]
                 for j in range(i,i+10):
                     tdata.append(x[j])
                 tp=numpy.array(tdata)
                 pdata.append(tp)
-            '''
 
             #pdata.append(data[item].feat[0])
-        pp = np.concatenate(ppdata)
-        asd = np.concatenate(pdata)
+        pp = numpy.array(pdata)
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
-        print(asd.shape)
 
-        return (asd, pp)
+        return pp
 
         '''
         if self.learner_params.get_path('input_sequencer.enable'):
@@ -365,9 +349,10 @@ class KerasMixin(object):
         import numpy as np
         pdata=[]
         for item in files:
-            ve = activity_matrix_dict[item]
-            #ve = numpy.argmax(ve, axis = 1)
-            pdata.append(ve[1:500])
+            for i in range(0,491,5):
+                ve = activity_matrix_dict[item]
+                #ve = numpy.argmax(ve, axis = 1)
+                pdata.append(ve[0].reshape(15, ))
         pp = numpy.array(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
@@ -412,6 +397,12 @@ class KerasMixin(object):
         import tensorflow as tf
         import numpy as np
         
+        num_feature = 200
+        num_label = 15
+        dim_vector = 256
+        margin = 0.5
+        k_size = 256
+        word_num = 10
 
         '''
         a = np.array(dim_vector)
@@ -548,22 +539,10 @@ class KerasMixin(object):
 
         '''
 
-        num_feature = 200
-        num_label = 15
-        dim_vector = 256
-        margin = 0.5
-        k_size = 256
-        word_num = 1764
-
         ### Input
-        input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (word_num, 2), dtype = 'float32', name = 'raw_feature')
+        input_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'input_feature')
 
         ### Dense
-        Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
-        vector_feature_i_1 = Dense_feature_1(input_feature)
-        Dropout_1 = Dropout(0.2);
-        vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
 
         LSTM_1 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=True)
@@ -578,8 +557,10 @@ class KerasMixin(object):
         LSTM_6 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
 
+
+        ### ad
         vector_feature_lstm_1 = LSTM_1(input_feature);
-        vector_feature_1=Add()([vector_feature_i_1_drop,vector_feature_lstm_1])
+        vector_feature_1=vector_feature_lstm_1
 
 
         vector_feature_lstm_2=LSTM_2(vector_feature_1)

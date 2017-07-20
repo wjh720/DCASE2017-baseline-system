@@ -1228,7 +1228,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         activity_matrix_dict = self._get_target_matrix_dict(data=data, annotations=annotations)
 
         # Process data
-        (X_training, X_1) = self.prepare_data(data=data, files=training_files)
+        X_training = self.prepare_data(data=data, files=training_files)
 
 
         Y_training = self.prepare_activity(activity_matrix_dict=activity_matrix_dict, files=training_files)
@@ -1297,10 +1297,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         #Train(X_training, Y_training, validation)
         
         hist = self.model.fit(
-            {
-                'raw_feature' : X_1,
-                'input_feature' : X_training
-            },
+            x=X_training,
             y=Y_training,
             batch_size=self.learner_params.get_path('training.batch_size', 1),
             epochs=30,#self.learner_params.get_path('training.epochs', 1),
