@@ -394,7 +394,7 @@ class KerasMixin(object):
         from keras import backend as K
         import tensorflow as tf
         import numpy as np
-
+        '''
         num_feature = 200
         num_label = 15
         dim_vector = 256
@@ -489,12 +489,11 @@ class KerasMixin(object):
         print(input_shape)
         #X=input_shape[0]
         #Y=input_shape[1]
-        self.model.add(Dense(50,activation='relu',input_shape=(200,),kernel_initializer='uniform'))
-        self.model.add(Dropout(0.2))
-        self.model.add(Dense(50,activation='relu',kernel_initializer='uniform'))
+        self.model.add(LSTM(256))
+        self.model.add(Dense(512,activation='relu',kernel_initializer='uniform'))
         self.model.add(Dropout(0.2))
         self.model.add(Dense(15,activation='softmax',kernel_initializer='uniform'))
-        '''
+        self.model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=["accuracy"])
 
         '''
         self.model.add(Conv1D(256, 3, activation='relu', input_shape=(501,200)))
@@ -917,7 +916,7 @@ class KerasMixin(object):
         # Save keras model and weight
         keras_model_filename = os.path.splitext(self.filename)[0] + '.model.hdf5'
         model_weights_filename = os.path.splitext(self.filename)[0] + '.weights.hdf5'
-        #self.model.save(keras_model_filename)
+        self.model.save(keras_model_filename)
         self.model.save_weights(model_weights_filename)
 
     def _setup_keras(self):
