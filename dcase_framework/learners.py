@@ -1079,7 +1079,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             print(Label[0:1000])
             C=np.argmax(C, axis=1)
             print(C[0:1000])
-            acc=np.mean(np.equal(C, Label))
+            acc=np.mean(np.equal(C[:1000], Label[:1000]))
             print("------------------")
             return acc
 
