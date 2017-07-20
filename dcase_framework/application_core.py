@@ -1357,6 +1357,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                 )
                 learner.save()
 
+                '''
                 if self.params.get_path('learner.show_model_information'):
                 # Load class model container
                     model_filename = self._get_model_filename(fold=fold, path=self.params.get_path('path.learner'))
@@ -1374,6 +1375,7 @@ class AcousticSceneClassificationAppCore(AppCore):
 
                         self.logger.exception(message)
                         raise IOError(message)
+                '''
 
                 '''
                 if 'learning_history' in model_container:
