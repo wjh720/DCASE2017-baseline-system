@@ -1573,7 +1573,22 @@ class AcousticSceneClassificationAppCore(AppCore):
                     #feature_data=np.array(feature_data)
 
                     #feature_data=feature_data.feat[0].reshape(1,feature_data.feat[0].shape[0],feature_data.feat[0].shape[1]);
-                    frame_probabilities = model_container.predict(feature_data=feature_data)
+                    pdata=[]
+                    x=feature_data.feat[0]
+                    for i in range(0,491,5):
+                        tdata=[]
+                        for j in range(i,i+10):
+                            tdata.append(x[j])
+                        tp=numpy.array(tdata)
+                        pdata.append(tp)
+
+                    #pdata.append(data[item].feat[0])
+                    pp = numpy.array(pdata)
+                    #print("ppppppppppppppppppppppppppppppp")
+                    #print(pp.shape)
+
+                    #return pp
+                    frame_probabilities = model_container.predict(feature_data=pp)
 
                     # Scene recognizer
                     current_result = self.SceneRecognizer(
