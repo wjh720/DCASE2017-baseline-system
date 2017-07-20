@@ -581,7 +581,7 @@ class KerasMixin(object):
                     kernel_initializer='glorot_normal',return_sequences=True)
 
         feature_tmp_1 = Reshape((1, dim_vector))(featuer_drop_1)
-        concat_1 = Concatenate()([feature_tmp_1, vector_feature_lstm_1])
+        concat_1 = Concatenate(axis = 1)([feature_tmp_1, vector_feature_lstm_1])
         vector_feature_lstm_2 = LSTM_2(concat_1)
 
         ### Dense
@@ -594,7 +594,7 @@ class KerasMixin(object):
                     kernel_initializer='glorot_normal',return_sequences=False)
 
         feature_tmp_2 = Reshape((1, dim_vector))(featuer_drop_2)
-        concat_2 = Concatenate()([feature_tmp_2, vector_feature_lstm_2])
+        concat_2 = Concatenate(axis = 1)([feature_tmp_2, vector_feature_lstm_2])
         vector_feature_lstm_3 = LSTM_3(concat_2)
 
         ### Answer Dense
