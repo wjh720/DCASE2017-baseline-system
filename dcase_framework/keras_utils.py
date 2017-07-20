@@ -477,11 +477,11 @@ class KerasMixin(object):
 
         LSTM = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
-        Add=Add()
+        #Add=Add()
 
         vector_feature_lstm_i = LSTM(input_feature);
         vector_feature_lstm_k = LSTM(k_feature);
-        vector_feature_1=Add(input_feature,vector_feature_lstm_i)
+        #vector_feature_1=Add(input_feature,vector_feature_lstm_i)
 
 
         Dense_feature_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
