@@ -550,60 +550,53 @@ class KerasMixin(object):
 
         num_feature = 200
         num_label = 15
-        dim_vector = 256
+        dim_vector = 16
         margin = 0.5
         k_size = 256
         word_num = 1764
+        dense_size = 128
 
         ### Input
         input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
         raw_feature = Input(shape = (word_num, 2), dtype = 'float32', name = 'raw_feature')
 
-        ### Dense
-        Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
-        vector_feature_i_1 = Dense_feature_1(input_feature)
-        Dropout_1 = Dropout(0.2);
-        vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
-
-        LSTM_1 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+        ### LSTM
+        LSTM_1 = LSTM(units = dim_vector, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=True)
+
+        vector_feature_lstm_1 = LSTM_1(raw_feature)
+
+        ### Dense
+        Dense_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
+        feature_1 = Dense_1(input_feature)
+        featuer_drop_1 = Dropout(0.2)(feature_1)
+
+        ### LSTM
         LSTM_2 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=True)
+
+        concat_1 = Concatenate()([featuer_drop_1, vector_feature_lstm_1])
+        vector_feature_lstm_2 = LSTM_2(concat_1)
+
+        ### Dense
+        Dense_2 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
+        feature_2 = Dense_2(featuer_drop_1)
+        featuer_drop_2 = Dropout(0.2)(feature_2)
+
+        ### LSTM
         LSTM_3 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
-                    kernel_initializer='glorot_normal',return_sequences=True)
-        LSTM_4 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
-                    kernel_initializer='glorot_normal',return_sequences=True)
-        LSTM_5 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
-                    kernel_initializer='glorot_normal',return_sequences=True)
-        LSTM_6 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
 
-        vector_feature_lstm_1 = LSTM_1(input_feature);
-        vector_feature_1=Add()([vector_feature_i_1_drop,vector_feature_lstm_1])
+        concat_2 = Concatenate()([featuer_drop_2, vector_feature_lstm_2])
+        vector_feature_lstm_3 = LSTM_3(concat_2)
 
+        ### Answer Dense
+        Dense_3 = Dense(dense_size, activation='relu', kernel_initializer = 'glorot_normal')
+        answer_3 = Dense_3(vector_feature_lstm_3)
+        answer_drop_3 = Dropout(0.2)(vector_feature_i_1);
 
-        vector_feature_lstm_2=LSTM_2(vector_feature_1)
-        vector_feature_2=Add()([vector_feature_1,vector_feature_lstm_2])
-
-        vector_feature_lstm_3=LSTM_3(vector_feature_2)
-        vector_feature_3=Add()([vector_feature_2,vector_feature_lstm_3])
-
-        vector_feature_lstm_4=LSTM_4(vector_feature_3)
-        vector_feature_4=Add()([vector_feature_3,vector_feature_lstm_4])
-
-        vector_feature_lstm_5=LSTM_5(vector_feature_4)
-        
-        concat_feature=Concatenate(axis=1)([vector_feature_lstm_1,vector_feature_lstm_2,vector_feature_lstm_3,vector_feature_lstm_4,vector_feature_lstm_5])
-        vector_feature_lstm_i=LSTM_6(concat_feature)
-
-        Dense_feature_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
-        vector_feature_i_1 = Dense_feature_1(vector_feature_lstm_i)
-
-        Dropout_1 = Dropout(0.2);
-        vector_feature_i_1_drop = Dropout_1(vector_feature_i_1);
-
-        Dense_feature_2 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
-        vector_feature_i = Dense_feature_2(vector_feature_i_1_drop)
+        Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
+        vector_feature_i = Dense_4(answer_drop_3)
 
         ### Model
         self.model = Model(inputs = [input_feature], outputs = [vector_feature_i])
