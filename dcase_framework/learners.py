@@ -1291,10 +1291,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         #Train(X_training, Y_training, validation)
         hist = self.model.fit(
-            x=X_training,
+            x=X_training1
             y=Y_training,
             batch_size=self.learner_params.get_path('training.batch_size', 1),
-            epochs=1,#self.learner_params.get_path('training.epochs', 1),
+            epochs=10,#self.learner_params.get_path('training.epochs', 1),
             validation_data=validation,
             verbose=2,
             shuffle=self.learner_params.get_path('training.shuffle', True)
