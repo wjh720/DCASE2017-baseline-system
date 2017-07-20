@@ -399,8 +399,8 @@ class KerasMixin(object):
             l_i, l_k, f_i, f_k = y_pred[:, a * 0 : a], y_pred[:, a : a * 2], \
                                 y_pred[:, a * 2 : a * 3], y_pred[:, a * 3 : a * 4]
             #return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / NP(2)
-            #return Cos_is(l_i, f_i) - Cos_is(l_i, f_k) - Cos_is(l_k, f_i)
-            return tf.constant(0)
+            return Cos_is(l_i, f_i) - Cos_is(l_i, f_k) - Cos_is(l_k, f_i)
+            #return tf.constant(0)
 
         def Norm(X):
             return K.transpose(K.transpose(X) / (K.sqrt(tf.reduce_sum(K.square(X), 1) + 1e-9)))
