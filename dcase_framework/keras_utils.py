@@ -600,7 +600,7 @@ class KerasMixin(object):
         ### Answer Dense
         Dense_3 = Dense(dense_size, activation='relu', kernel_initializer = 'glorot_normal')
         answer_3 = Dense_3(vector_feature_lstm_3)
-        answer_drop_3 = Dropout(0.2)(vector_feature_i_1);
+        answer_drop_3 = Dropout(0.2)(answer_3);
 
         Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_4(answer_drop_3)
