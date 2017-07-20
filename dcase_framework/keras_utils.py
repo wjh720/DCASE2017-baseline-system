@@ -285,7 +285,6 @@ class KerasMixin(object):
         import numpy as np
         #print("@#@$@@ avd !@#@#!!")
         pdata=[]
-        ppdata = []
         for item in files:
             print(item)
             y, sr=soundfile.read(item)
@@ -295,11 +294,10 @@ class KerasMixin(object):
                 ldata.append(y[i*sr/50:(i+2)*sr/50])
             tp=numpy.array(ldata)
             print(tp.shape)
-            ppdata.append(tp)
-
+            
             x=data[item].feat[0]
-            x=numpy.concatenate([tp,x[1:500]], axis = 1)
-            pdata.append(x)
+            tp=numpy.concatenate([tp,x[1:500]], axis = 1)
+            pdata.append(tp)
             '''
             for i in range(0,491,5):
                 tdata=[]
@@ -310,13 +308,11 @@ class KerasMixin(object):
             '''
 
             #pdata.append(data[item].feat[0])
-        pp = np.concatenate(ppdata)
-        asd = np.concatenate(pdata)
+        pp = numpy.array(pdata)
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
-        print(asd.shape)
 
-        return (asd, pp)
+        return pp
 
         '''
         if self.learner_params.get_path('input_sequencer.enable'):
@@ -366,9 +362,10 @@ class KerasMixin(object):
         import numpy as np
         pdata=[]
         for item in files:
-            ve = activity_matrix_dict[item]
-            #ve = numpy.argmax(ve, axis = 1)
-            pdata.append(ve[1:500])
+            for i in range(0,491,5):
+                ve = activity_matrix_dict[item]
+                #ve = numpy.argmax(ve, axis = 1)
+                pdata.append(ve[0].reshape(15, ))
         pp = numpy.array(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
