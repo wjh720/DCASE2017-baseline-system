@@ -384,15 +384,19 @@ class KerasMixin(object):
         margin = 0.8
         k_size = 256
 
+        a = np.array(dim_vector)
+
+        def NP(a):
+            return np.array(a)
+
         def hinge(A, B, C):
-            return K.mean(K.maximum(0.0, margin + K.sum(tf.multiply(A, C), axis=-1) - K.sum(tf.multiply(A, B), axis=-1)))
+            return K.mean(K.maximum(NP(0.0), NP(margin) + K.sum(tf.multiply(A, C), axis=-1) - K.sum(tf.multiply(A, B), axis=-1)))
 
         def Cos_is(x, v):
-            return K.mean(K.maximum(0.0, 1 - margin - K.sum(tf.multiply(x, v), axis=-1)))
+            return K.mean(K.maximum(NP(0.0), NP(1) - NP(margin) - K.sum(tf.multiply(x, v), axis=-1)))
 
         def Loss1(y_true, y_pred):
-            a = np.array(dim_vector)
-            l_i, l_k, f_i, f_k = y_pred[:, 0 : a], y_pred[:, a : a * 2], \
+            l_i, l_k, f_i, f_k = y_pred[:, a * 0 : a], y_pred[:, a : a * 2], \
                                 y_pred[:, a * 2 : a * 3], y_pred[:, a * 3 : a * 4]
             return (hinge(l_i, f_i, f_k) + hinge(f_i, l_i, l_k)) / 2
             #return Cos_is(l_i, f_i) - Cos_is(l_i, f_k) - Cos_is(l_k, f_i)
@@ -401,8 +405,7 @@ class KerasMixin(object):
             return K.transpose(K.transpose(X) / (K.sqrt(tf.reduce_sum(K.square(X), 1) + 1e-9)))
 
         def shit_ik(X):
-            a = np.array(dim_vector)
-            l_i, l_k, f_i, f_k = Norm(X[:, 0 : a]), Norm(X[:, a : a * 2]), \
+            l_i, l_k, f_i, f_k = Norm(X[:, a * 0 : a]), Norm(X[:, a : a * 2]), \
                                 Norm(X[:, a * 2 : a * 3]), Norm(X[:, a * 3 : a * 4])
             return tf.concat([l_i, l_k, f_i, f_k], 1)
 
@@ -461,6 +464,7 @@ class KerasMixin(object):
 
         #Save
         self.model.save_weights('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/model_trivial_0.h5')
+        self.model.save('/data/tmpsrt1/DCASE2017-baseline-system/applications/log_new/jb.h5')
 
 
 
