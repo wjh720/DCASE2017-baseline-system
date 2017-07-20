@@ -390,10 +390,10 @@ class KerasMixin(object):
             return np.array(a)
 
         def hinge(A, B, C):
-            return K.mean(K.maximum(NP(0.0), NP(margin) + K.sum(tf.multiply(A, C), axis=-1) - K.sum(tf.multiply(A, B), axis=-1)))
+            return K.mean(K.maximum(NP(0).astype(np.float32), NP(margin) + K.sum(tf.multiply(A, C), axis=-1) - K.sum(tf.multiply(A, B), axis=-1)))
 
         def Cos_is(x, v):
-            return K.mean(K.maximum(NP(0.0), NP(1) - NP(margin) - K.sum(tf.multiply(x, v), axis=-1)))
+            return K.mean(K.maximum(NP(0).astype(np.float32), NP(1) - NP(margin) - K.sum(tf.multiply(x, v), axis=-1)))
 
         def Loss1(y_true, y_pred):
             l_i, l_k, f_i, f_k = y_pred[:, a * 0 : a], y_pred[:, a : a * 2], \
