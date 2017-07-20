@@ -1352,7 +1352,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                     annotations=annotations,
                     data_filenames=data_filelist
                 )
-                learner.save()
+                #learner.save()
 
             if self.params.get_path('learner.show_model_information'):
                 # Load class model container
