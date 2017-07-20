@@ -475,14 +475,38 @@ class KerasMixin(object):
         vector_feature_k_1_drop = Dropout_1(vector_feature_k_1);
         '''
 
-        LSTM = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+        LSTM_1 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_2 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_3 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_4 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_5 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=True)
+        LSTM_6 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=False)
-        #Add=Add()
+        vector_feature_lstm_k = LSTM_1(k_feature);
 
-        vector_feature_lstm_i = LSTM(input_feature);
-        vector_feature_lstm_k = LSTM(k_feature);
-        #vector_feature_1=Add(input_feature,vector_feature_lstm_i)
+        vector_feature_lstm_1 = LSTM_1(input_feature);
+        vector_feature_1=Add([input_feature,vector_feature_lstm_1])
 
+
+        vector_feature_lstm_2=LSTM_2(vector_feature_1)
+        vector_feature_2=Add([vector_feature_1,vector_feature_lstm_2])
+
+        vector_feature_lstm_3=LSTM_3(vector_feature_2)
+        vector_feature_3=Add([vector_feature_2,vector_feature_lstm_3])
+
+        vector_feature_lstm_4=LSTM_4(vector_feature_3)
+        vector_feature_4=Add([vector_feature_3,vector_feature_lstm_4])
+
+        vector_feature_lstm_5=LSTM_5(vector_feature_4)
+        #vector_feature_lstm_i=Add([vector_feature_lstm_1,vector_feature_lstm_2,vector_feature_lstm_3,vector_feature_lstm_4,vector_feature_lstm_5])
+
+        concat_feature=Concatenate(axis=1)([vector_feature_lstm_1,vector_feature_lstm_2,vector_feature_lstm_3,vector_feature_lstm_4,vector_feature_lstm_5])
+        vector_feature_lstm_i=LSTM_6(concat_feature)
 
         Dense_feature_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
         vector_feature_i_1 = Dense_feature_1(vector_feature_lstm_i)
