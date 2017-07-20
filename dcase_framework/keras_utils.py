@@ -557,7 +557,6 @@ class KerasMixin(object):
 
         ### Input
         input_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (word_num, num_feature, ), dtype = 'float32', name = 'raw_feature')
 
         ### Dense
         Dense_feature_1 = Dense(dim_vector,activation='relu')#, kernel_constraint = max_norm(max_value=2, axis=0))
