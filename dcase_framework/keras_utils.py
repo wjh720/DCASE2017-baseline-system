@@ -350,7 +350,9 @@ class KerasMixin(object):
         for item in files:
             for i in range(0,491,5):
                 ve = activity_matrix_dict[item]
-                pdata.append(numpy.argmax(ve, axis = 1).reshape(501, 1).astype(np.int32))
+                x=numpy.argmax(ve, axis = 1)
+                t=x[0].reshape(1, ).astype(np.int32)
+                pdata.append(t)
         pp = numpy.array(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
@@ -489,7 +491,7 @@ class KerasMixin(object):
         print(input_shape)
         #X=input_shape[0]
         #Y=input_shape[1]
-        self.model.add(LSTM(256))
+        self.model.add(LSTM(256,input_shape=(10,200)))
         self.model.add(Dense(512,activation='relu',kernel_initializer='uniform'))
         self.model.add(Dropout(0.2))
         self.model.add(Dense(15,activation='softmax',kernel_initializer='uniform'))
