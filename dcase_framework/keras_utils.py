@@ -286,7 +286,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             x=data[item].feat[0]
-            for i in range(0,500,5):
+            for i in range(0,491,5):
                 tdata=[]
                 for j in range(i,i+10):
                     tdata.append(x[j])
