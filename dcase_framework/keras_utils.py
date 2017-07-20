@@ -112,6 +112,7 @@ import logging
 import numpy
 import copy
 import importlib
+import librosa
 import collections
 from tqdm import tqdm
 from six import iteritems
@@ -282,17 +283,26 @@ class KerasMixin(object):
         '''
 
         #print("@#@$@@ avd !@#@#!!")
-
         pdata=[]
+        sr=22050
         for item in files:
             print(item)
+            y, sr=librosa.load(item)
+            ldata=[]
+            for i in range(499)
+                ldata.append(y[i*sr/25:(i+2)*sr/25])
+            tp=np.array(ldata)
             x=data[item].feat[0]
+            tp=np.concatenate([tp,x[1:500]], axis = 1)
+            pdata.append(tp)
+            '''
             for i in range(0,491,5):
                 tdata=[]
                 for j in range(i,i+10):
                     tdata.append(x[j])
                 tp=numpy.array(tdata)
                 pdata.append(tp)
+            '''
 
             #pdata.append(data[item].feat[0])
         pp = numpy.array(pdata)
