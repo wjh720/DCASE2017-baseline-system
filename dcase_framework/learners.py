@@ -1290,6 +1290,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         print("asdasd")
 
         print(X_training.shape)
+        print(X_1.shape)
         print(Y_training.shape)
 
         print("asdasd")

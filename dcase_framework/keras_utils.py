@@ -563,13 +563,14 @@ class KerasMixin(object):
 
         ### Input
         input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (word_num, 1), dtype = 'float32', name = 'raw_feature')
+        raw_feature = Input(shape = (word_num, ), dtype = 'float32', name = 'raw_feature')
 
         ### LSTM
         LSTM_1 = LSTM(units = dim_vector, activation='tanh', recurrent_activation='hard_sigmoid', \
                     kernel_initializer='glorot_normal',return_sequences=True)
 
-        vector_feature_lstm_1 = LSTM_1(raw_feature)
+        raw_feature_tmp = Reshape((word_num, 1))(raw_feature)
+        vector_feature_lstm_1 = LSTM_1(raw_feature_tmp)
 
         ### Dense
         Dense_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
@@ -606,7 +607,7 @@ class KerasMixin(object):
         vector_feature_i = Dense_4(answer_drop_3)
 
         ### Model
-        self.model = Model(inputs = [input_feature], outputs = [vector_feature_i])
+        self.model = Model(inputs = [input_feature, raw_feature], outputs = [vector_feature_i])
 
         ### Compile
         self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
