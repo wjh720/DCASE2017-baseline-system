@@ -900,7 +900,7 @@ class KerasMixin(object):
         # Save keras model and weight
         keras_model_filename = os.path.splitext(self.filename)[0] + '.model.hdf5'
         model_weights_filename = os.path.splitext(self.filename)[0] + '.weights.hdf5'
-        self.model.save(keras_model_filename)
+        #self.model.save(keras_model_filename)
         self.model.save_weights(model_weights_filename)
 
     def _setup_keras(self):
