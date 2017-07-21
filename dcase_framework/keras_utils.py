@@ -292,23 +292,29 @@ class KerasMixin(object):
 
             y = np.mean(y.T, axis=0)
             #print(y.shape)
+            '''
             ldata=[]
             for i in range(49):
                 ldata.append(y[i*sr/50:(i+2)*sr/50])
             tp=numpy.array(ldata)
             #print(tp.shape)
             ppdata.append(tp)
-
-            x=data[item].feat[0]
+            
+            
             pdata.append(x[0:49])
             '''
-            for i in range(0,491,5):
+            x=data[item].feat[0]
+            for i in range(0,491,10):
                 tdata=[]
+                ldata=[]
                 for j in range(i,i+10):
                     tdata.append(x[j])
-                tp=numpy.array(tdata)
-                pdata.append(tp)
-            '''
+                    ldata.append(y[j*sr/50:(j+2)*sr/50])
+                Tdata=numpy.array(tdata)
+                Ldata=numpy.array(ldata)
+                ppdata.append(Ldata)
+                pdata.append(Tdata)
+            
 
             #pdata.append(data[item].feat[0])
         print('ad')
