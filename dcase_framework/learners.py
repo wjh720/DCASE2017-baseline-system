@@ -1299,12 +1299,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         #Train(X_training, Y_training, validation)
         
         self.model.fit(
-            
-            #{
-             #   'raw_feature' : X_1,
-                #'input_feature' : X_training
-            #},
-            x=X_1,
+            {
+                'raw_feature' : X_1,
+                'input_feature' : X_training
+            },
             y=Y_training,
             batch_size=64,
             epochs=30,#self.learner_params.get_path('training.epochs', 1),

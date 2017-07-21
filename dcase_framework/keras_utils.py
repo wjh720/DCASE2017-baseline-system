@@ -283,9 +283,28 @@ class KerasMixin(object):
                 break
         '''
         import numpy as np
-        #print("@#@$@@ avd !@#@#!!")
+
         pdata=[]
-        ppdata = []
+        rawdata = []
+
+        for item in files:
+            y, sr=soundfile.read(item)
+            rawdata.append(y)
+
+            x=data[item].feat[0]
+            pdata.append(x)
+
+        pdata = np.array(pdata)
+        rawdata = np.array(rawdata)
+
+        print('--------------')
+        print(pdata.shape)
+        print(rawdata.shape)
+        print('--------------')
+
+        return (pdata, rawdata)
+
+        '''
         for item in files:
             #print(item)
             y, sr=soundfile.read(item)
@@ -303,7 +322,7 @@ class KerasMixin(object):
             
             
             pdata.append(x[0:498])
-            '''
+
             x=data[item].feat[0]
             for i in range(0,491,10):
                 tdata=[]
@@ -315,7 +334,6 @@ class KerasMixin(object):
                 Ldata=numpy.array(ldata)
                 ppdata.append(Ldata)
                 pdata.append(Tdata)
-            '''
 
             #pdata.append(data[item].feat[0])
         print('ad')
@@ -330,6 +348,11 @@ class KerasMixin(object):
         time.sleep(3)
 
         return (asd, pp)
+
+
+        '''
+
+        
 
         '''
         if self.learner_params.get_path('input_sequencer.enable'):
@@ -364,6 +387,17 @@ class KerasMixin(object):
         numpy.ndarray
             Activity matrix
         """
+
+        pdata=[]
+        for item in files:
+            ve = activity_matrix_dict[item]
+            pdata.append(ve[0].reshape(15,))
+
+        pdata = np.array(pdata)
+        print(pdata.shape)
+        return pdata
+
+
         '''
         
         pdata = []
@@ -384,6 +418,8 @@ class KerasMixin(object):
             #ve = numpy.argmax(ve, axis = 1)
             pdata.append(ve[0:49])
         pp = numpy.concatenate(pdata)
+        '''
+
         '''
         pdata=[]
         for item in files:
@@ -406,6 +442,7 @@ class KerasMixin(object):
         #print(pp[0:10,0:15])
 
         return pp
+        '''
 
         '''
         if self.learner_params.get_path('input_sequencer.enable'):
@@ -441,9 +478,22 @@ class KerasMixin(object):
         from keras import backend as K
         import tensorflow as tf
         import numpy as np
+        from .dcase_framework.keras_STFT_layer_master.stft import Spectrogram
+
+        
+
+        '''
         self.model = Sequential()
+<<<<<<< HEAD
+
+        
+
+        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764,1)))
+        self.model.add(Dropout(0.25))
+=======
         self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764/2,1)))
         #self.model.add(Dropout(0.25))
+>>>>>>> origin/master
         #self.model.add(BatchNormalization())
         self.model.add(Conv1D(512, 3, activation='relu'))
         #self.model.add(BatchNormalization())
@@ -461,6 +511,8 @@ class KerasMixin(object):
         #self.model.add(MaxPooling1D(pool_size=2))
         #self.model.add(Dropout(0.25))
         self.model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=["accuracy"])
+        '''
+
 
         '''
         a = np.array(dim_vector)
@@ -599,7 +651,7 @@ class KerasMixin(object):
 
 
 
-        '''
+        
         num_feature = 200
         num_label = 15
         dim_vector = 128
@@ -609,8 +661,10 @@ class KerasMixin(object):
         dense_size = 128
 
         ### Input
-        #input_feature = Input(shape = (10,num_feature, ), dtype = 'float32', name = 'input_feature')
+        input_feature = Input(shape = (500, num_feature, ), dtype = 'float32', name = 'input_feature')
         raw_feature = Input(shape = (10,882, ), dtype = 'float32', name = 'raw_feature')
+
+        specgram = Spectrogram(n_dft=512, n_hop=128, input_shape=(len_src, 1))
 
         ### LSTM
         LSTM_1 = LSTM(units = dim_vector,return_sequences=False)
@@ -669,7 +723,7 @@ class KerasMixin(object):
         ### Compile
         self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
 
-        '''
+        
 
         '''
         
