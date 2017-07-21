@@ -572,7 +572,7 @@ class KerasMixin(object):
         
         raw_feature_tmp = Reshape((word_num, 1))(raw_feature)
         vector_feature_lstm_1 = LSTM_1(raw_feature_tmp)
-        
+        '''
         ### Dense
         Dense_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
         feature_1 = Dense_1(input_feature)
@@ -586,7 +586,7 @@ class KerasMixin(object):
         #vector_feature_lstm_1 = LSTM_2(feature_tmp_1)
         
         concat_1 = Concatenate(axis = 1)([feature_tmp_1, vector_feature_lstm_1])
-        '''
+        
         vector_feature_lstm_2 = LSTM_2(concat_1)
 
         ### Dense
@@ -601,10 +601,6 @@ class KerasMixin(object):
         feature_tmp_2 = Reshape((1, dim_vector))(featuer_drop_2)
         concat_2 = Concatenate(axis = 1)([feature_tmp_2, vector_feature_lstm_2])
         vector_feature_lstm_3 = LSTM_3(concat_2)
-        '''
-        LSTM_3 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
-                    kernel_initializer='glorot_normal',return_sequences=False)
-        vector_feature_lstm_3 = LSTM_3(concat_1)
         
         ### Answer Dense
         Dense_3 = Dense(dense_size, activation='relu', kernel_initializer = 'glorot_normal')
@@ -614,7 +610,9 @@ class KerasMixin(object):
 
         Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_4(answer_drop_3)
-        
+        '''
+        Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
+        vector_feature_i = Dense_4(vector_feature_lstm_1)
         ### Model
         self.model = Model(inputs = [input_feature, raw_feature], outputs = [vector_feature_i])
 
