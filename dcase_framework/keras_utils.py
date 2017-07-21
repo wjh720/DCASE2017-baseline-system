@@ -374,6 +374,7 @@ class KerasMixin(object):
         print(pp.shape)
         print(pp[0:5])
         '''
+        '''
         import numpy as np
         pdata=[]
         for item in files:
@@ -381,6 +382,15 @@ class KerasMixin(object):
             #ve = numpy.argmax(ve, axis = 1)
             pdata.append(ve[0:49])
         pp = numpy.concatenate(pdata)
+        '''
+        pdata=[]
+        for item in files:
+            ve = activity_matrix_dict[item]
+            for i in range(0,491,10):
+                for j in range(i,i+10):
+                    pdata.append(ve[0])
+        pp = numpy.concatenate(pdata)
+
         print("pppppppppppppppppp")
         print(pp.shape)
         print(pp[0:5])
