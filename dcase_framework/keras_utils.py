@@ -292,16 +292,16 @@ class KerasMixin(object):
 
             y = np.mean(y.T, axis=0)
             #print(y.shape)
-            
+            x=data[item].feat[0]
             ldata=[]
-            for i in range(499):
+            for i in range(498):
                 ldata.append(y[i*sr/50:(i+2)*sr/50])
             tp=numpy.array(ldata)
             #print(tp.shape)
             ppdata.append(tp)
             
             
-            pdata.append(x[0:499])
+            pdata.append(x[0:498])
             '''
             x=data[item].feat[0]
             for i in range(0,491,10):
@@ -386,7 +386,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0:499])
+            pdata.append(ve[0:498])
         pp = numpy.array(pdata)
 
         print("pppppppppppppppppp")
