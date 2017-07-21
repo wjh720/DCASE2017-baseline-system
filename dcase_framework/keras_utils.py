@@ -383,6 +383,8 @@ class KerasMixin(object):
             pdata.append(ve[0:49])
         pp = numpy.concatenate(pdata)
         '''
+
+        '''
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
@@ -411,7 +413,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([activity_matrix_dict[x] for x in files])
-        '''
+        
         
 
     def create_model(self, input_shape):
