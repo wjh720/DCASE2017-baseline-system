@@ -7,6 +7,7 @@ from keras.models import Model
 from keras import backend as K
 import numpy as np
 
+#from . import stft
 from .stft import Spectrogram, get_spectrogram_model
 from .stft import Logam_layer
 

@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import numpy as np
 import scipy.signal
 from keras.models import Sequential
-from keras.layers.convolutional import Convolution1D
+from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
 from keras.layers import Input, Lambda, merge, Permute, Reshape
 from keras.models import Model
 from keras import backend as K
@@ -157,21 +157,11 @@ def get_spectrogram_model(n_dft, input_shape, trainable=False,
     # layers - one for the real, one for the imaginary
     x = Input(shape=input_shape, name='audio_input', dtype='float32')
 
-    STFT_real = Convolution1D(nb_filter, n_dft,
-                              subsample_length=n_hop,
-                              border_mode=border_mode,
-                              weights=[dft_real_kernels],
-                              bias=False,
-                              name='dft_real',
-                              input_shape=input_shape)(x)
+    print(input_shape)
 
-    STFT_imag = Convolution1D(nb_filter, n_dft,
-                              subsample_length=n_hop,
-                              border_mode=border_mode,
-                              weights=[dft_imag_kernels],
-                              bias=False,
-                              name='dft_imag',
-                              input_shape=input_shape)(x)
+    STFT_real = Conv1D(nb_filter, n_dft, strides = n_hop, padding='valid', use_bias=False, name='dft_real')(x)
+
+    STFT_imag = Conv1D(nb_filter, n_dft, strides = n_hop, padding='valid', use_bias=False, name='dft_imag')(x)
     
     STFT_real.trainable = trainable
     STFT_imag.trainable = trainable
