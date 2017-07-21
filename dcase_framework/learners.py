@@ -1303,11 +1303,11 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 'input_feature' : X_training
             },
             y=Y_training,
-            batch_size=128,
+            batch_size=1,
             epochs=30,#self.learner_params.get_path('training.epochs', 1),
             validation_data=validation,
             verbose=2,
-            shuffle=self.learner_params.get_path('training.shuffle', True)
+            shuffle=False
             #callbacks=callback_list
         )
         
