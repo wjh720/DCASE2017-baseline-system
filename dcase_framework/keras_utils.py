@@ -292,16 +292,16 @@ class KerasMixin(object):
 
             y = np.mean(y.T, axis=0)
             #print(y.shape)
-            '''
+            
             ldata=[]
-            for i in range(49):
+            for i in range(499):
                 ldata.append(y[i*sr/50:(i+2)*sr/50])
             tp=numpy.array(ldata)
             #print(tp.shape)
             ppdata.append(tp)
             
             
-            pdata.append(x[0:49])
+            pdata.append(x[0:499])
             '''
             x=data[item].feat[0]
             for i in range(0,491,10):
@@ -314,7 +314,7 @@ class KerasMixin(object):
                 Ldata=numpy.array(ldata)
                 ppdata.append(Ldata)
                 pdata.append(Tdata)
-            
+            '''
 
             #pdata.append(data[item].feat[0])
         print('ad')
@@ -386,8 +386,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            for i in range(0,491,10):
-                pdata.append(ve[0])
+            pdata.append(ve[0:499])
         pp = numpy.array(pdata)
 
         print("pppppppppppppppppp")
@@ -433,6 +432,22 @@ class KerasMixin(object):
         import tensorflow as tf
         import numpy as np
         
+        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(501,200)))
+        self.model.add(Dropout(0.25))
+        #self.model.add(BatchNormalization())
+        self.model.add(Conv1D(512, 3, activation='relu'))
+        #self.model.add(BatchNormalization())
+        #self.model.add(MaxPooling1D(pool_size=2))
+        self.model.add(Dropout(0.25))
+        self.model.add(Flatten())
+        self.model.add(Dense(15, activation='softmax'))
+        #self.model.add(Conv1D(64, 3, activation='relu'))
+        #self.model.add(BatchNormalization())
+        #self.model.add(Conv1D(64, 3, activation='relu'))
+        #self.model.add(BatchNormalization())
+        #self.model.add(MaxPooling1D(pool_size=2))
+        #self.model.add(Dropout(0.25))
+        self.model.compile(loss='categorical_crossentropy', optimizer='adam',metrics=["accuracy"])
 
         '''
         a = np.array(dim_vector)
@@ -569,6 +584,9 @@ class KerasMixin(object):
 
         '''
 
+
+
+        '''
         num_feature = 200
         num_label = 15
         dim_vector = 128
@@ -588,6 +606,8 @@ class KerasMixin(object):
         #raw_feature_tmp = Reshape((10,20))(input_feature)
         #vector_feature_lstm_1 = LSTM_1(input_feature)
         vector_feature_lstm_1 = LSTM_1(raw_feature)
+        '''
+
 
         '''
         ### Dense
@@ -627,16 +647,16 @@ class KerasMixin(object):
 
         Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_4(answer_drop_3)
-        '''
-        Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
-        vector_feature_i = Dense_4(vector_feature_lstm_1)
+        
+        #Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
+        #vector_feature_i = Dense_4(vector_feature_lstm_1)
         ### Model
         self.model = Model(inputs = [raw_feature ], outputs = [vector_feature_i])
 
         ### Compile
         self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
 
-
+        '''
 
         '''
         
