@@ -441,7 +441,7 @@ class KerasMixin(object):
         import tensorflow as tf
         import numpy as np
         self.model = Sequential()
-        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764/3,1)))
+        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764/2,1)))
         #self.model.add(Dropout(0.25))
         #self.model.add(BatchNormalization())
         self.model.add(Conv1D(512, 3, activation='relu'))
