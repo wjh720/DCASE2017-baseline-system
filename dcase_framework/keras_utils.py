@@ -616,7 +616,7 @@ class KerasMixin(object):
         Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_4(vector_feature_lstm_1)
         ### Model
-        self.model = Model(inputs = [input_feature ''',raw_feature'''], outputs = [vector_feature_i])
+        self.model = Model(inputs = [input_feature ], outputs = [vector_feature_i])
 
         ### Compile
         self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
