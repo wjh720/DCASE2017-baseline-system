@@ -79,7 +79,7 @@ def Logam_layer(name='log_amplitude'):
     a Keras layer : Keras's Lambda layer for log-amplitude-ing.
     '''
     def logam(x):
-        log_spec = 10 * K.log(K.maximum(x, 1e-10))/K.log(10)
+        log_spec = 10. * K.log(K.maximum(x, 1e-10))/K.log(10.)
         log_spec = log_spec - K.max(log_spec)  # [-?, 0]
         log_spec = K.maximum(log_spec, -80.0)  # [-80, 0]
         return log_spec

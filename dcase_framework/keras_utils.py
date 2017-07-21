@@ -674,17 +674,9 @@ class KerasMixin(object):
         print('vqe', raw_spec.get_shape())
 
 
-        ### LSTM
-        LSTM_1 = LSTM(units = dim_vector,return_sequences=False)
-        #vector_feature_lstm_3=LSTM_1(input_feature)
-        Flatten_1=Flatten()
-        #raw_feature_tmp = Reshape((10,20))(input_feature)
-        #vector_feature_lstm_1 = LSTM_1(input_feature)
-        vector_feature_lstm_1 = LSTM_1(raw_feature)
-        '''
+        
 
-
-        '''
+        
         ### Dense
         Dense_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
         feature_1 = Dense_1(input_feature)

@@ -208,7 +208,7 @@ def Melspectrogram(n_dft, input_shape, trainable, n_hop=None,
     if K.image_dim_ordering() == 'th':
         Melgram.add(Permute((2, 1, 3), name='ch_freq_time'))
     else:
-        Melgram.add(Permute((3, 2, 1), name='ch_freq_time'))
+        Melgram.add(Permute((2, 3, 1), name='ch_freq_time'))
     # output dot product of them
     return Melgram
 
