@@ -321,7 +321,7 @@ class KerasMixin(object):
         asd = np.array(pdata)
         #asd = asd.reshape(asd.shape[0], 200, 1)
         print('sfv')
-        pp = concatenate(ppdata)
+        pp = numpy.concatenate(ppdata)
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
         print(asd.shape)
@@ -384,11 +384,17 @@ class KerasMixin(object):
         pp = numpy.concatenate(pdata)
         '''
 
-        '''
-        pdata=[]
         for item in files:
+            #print(item)
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0])
+            for i in range(498):
+                pdata.append(ve[0])
+            #print(tp.shape)
+            
+        #pdata=[]
+        #for item in files:
+        #    ve = activity_matrix_dict[item]
+        #    pdata.append(ve[0])
         pp = numpy.array(pdata)
 
         print("pppppppppppppppppp")
@@ -413,7 +419,7 @@ class KerasMixin(object):
 
         else:
             return numpy.vstack([activity_matrix_dict[x] for x in files])
-        
+        '''
         
 
     def create_model(self, input_shape):
