@@ -293,14 +293,14 @@ class KerasMixin(object):
             y = np.mean(y.T, axis=0)
             #print(y.shape)
             ldata=[]
-            for i in range(50):
+            for i in range(499):
                 ldata.append(y[i*sr/50:(i+2)*sr/50])
             tp=numpy.array(ldata)
             #print(tp.shape)
             ppdata.append(tp)
 
             x=data[item].feat[0]
-            pdata.append(x[0:50])
+            pdata.append(x[1:500])
             '''
             for i in range(0,491,5):
                 tdata=[]
@@ -372,7 +372,7 @@ class KerasMixin(object):
         for item in files:
             ve = activity_matrix_dict[item]
             #ve = numpy.argmax(ve, axis = 1)
-            pdata.append(ve[0:50])
+            pdata.append(ve[1:500])
         pp = numpy.concatenate(pdata)
         print("pppppppppppppppppp")
         print(pp.shape)
@@ -558,7 +558,7 @@ class KerasMixin(object):
         dim_vector = 128
         margin = 0.5
         k_size = 256
-        word_num = 1764
+        word_num = 1000
         dense_size = 128
 
         ### Input
@@ -569,7 +569,7 @@ class KerasMixin(object):
         LSTM_1 = LSTM(units = dim_vector,return_sequences=False)
         #vector_feature_lstm_3=LSTM_1(input_feature)
         Flatten_1=Flatten()
-        raw_feature_tmp = Reshape((1,word_num))(raw_feature)
+        raw_feature_tmp = Reshape((100,word_num/100))(raw_feature)
         vector_feature_lstm_1 = LSTM_1(raw_feature_tmp)
         '''
         ### Dense
