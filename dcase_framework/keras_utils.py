@@ -295,8 +295,8 @@ class KerasMixin(object):
             x=data[item].feat[0]
             ldata=[]
             for i in range(498):
-                ldata.append(y[i*sr/50:i*sr/50+441])
-                #ldata.append(y[i*sr/50:(i+1)*sr/50])
+                #ldata.append(y[i*sr/50:i*sr/50+441])
+                ldata.append(y[i*sr/50:(i+1)*sr/50])
             tp=numpy.array(ldata)
             #print(tp.shape)
             ppdata.append(tp)
@@ -323,7 +323,7 @@ class KerasMixin(object):
         #asd = asd.reshape(asd.shape[0], 200, 1)
         print('sfv')
         pp = numpy.concatenate(ppdata)
-        pp=pp.reshape(pp.shape[0],1764/4,1)
+        pp=pp.reshape(pp.shape[0],1764/2,1)
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
         print(asd.shape)
@@ -442,16 +442,16 @@ class KerasMixin(object):
         import tensorflow as tf
         import numpy as np
         self.model = Sequential()
-        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764/4,1)))
+        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764/2,1)))
         #self.model.add(Dropout(0.25))
         #self.model.add(BatchNormalization())
-        self.model.add(Conv1D(512, 3, activation='relu'))
+        #self.model.add(Conv1D(512, 3, activation='relu'))
         #self.model.add(BatchNormalization())
         self.model.add(MaxPooling1D(pool_size=2))
-        self.model.add(Conv1D(512, 3, activation='relu'))
+        #self.model.add(Conv1D(512, 3, activation='relu'))
         self.model.add(Conv1D(512, 3, activation='relu'))
         self.model.add(MaxPooling1D(pool_size=2))
-        self.model.add(Dropout(0.25))
+        #self.model.add(Dropout(0.25))
         self.model.add(Flatten())
         self.model.add(Dense(15, activation='softmax'))
         #self.model.add(Conv1D(64, 3, activation='relu'))
