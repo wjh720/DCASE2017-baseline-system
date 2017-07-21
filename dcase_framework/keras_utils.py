@@ -319,7 +319,7 @@ class KerasMixin(object):
             #pdata.append(data[item].feat[0])
         print('ad')
         asd = np.concatenate(pdata)
-        asd = asd.reshape(asd.shape[0], 200, 1)
+        #asd = asd.reshape(asd.shape[0], 200, 1)
         print('sfv')
         pp = np.concatenate(ppdata)
         print("ppppppppppppppppppppppppppppppp")
