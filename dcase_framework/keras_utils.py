@@ -569,7 +569,7 @@ class KerasMixin(object):
         dense_size = 128
 
         ### Input
-        input_feature = Input(shape = (num_feature,1, ), dtype = 'float32', name = 'input_feature')
+        input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
         #raw_feature = Input(shape = (word_num, ), dtype = 'float32', name = 'raw_feature')
 
         ### LSTM
