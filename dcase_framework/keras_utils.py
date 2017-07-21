@@ -602,6 +602,8 @@ class KerasMixin(object):
         concat_2 = Concatenate(axis = 1)([feature_tmp_2, vector_feature_lstm_2])
         vector_feature_lstm_3 = LSTM_3(concat_2)
         '''
+        LSTM_3 = LSTM(units = dim_vector, dropout = 0.2, activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal',return_sequences=False)
         vector_feature_lstm_3 = LSTM_3(concat_1)
         
         ### Answer Dense
