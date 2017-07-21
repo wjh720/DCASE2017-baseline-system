@@ -566,12 +566,12 @@ class KerasMixin(object):
         raw_feature = Input(shape = (word_num, ), dtype = 'float32', name = 'raw_feature')
 
         ### LSTM
-        LSTM_1 = LSTM(units = dim_vector, activation='tanh', recurrent_activation='hard_sigmoid', \
-                    kernel_initializer='glorot_normal',return_sequences=False)
+        LSTM_1 = LSTM(units = dim_vector, '''activation='tanh', recurrent_activation='hard_sigmoid', \
+                    kernel_initializer='glorot_normal','''return_sequences=False)
         #vector_feature_lstm_3=LSTM_1(input_feature)
         Flatten_1=Flatten()
         raw_feature_tmp = Reshape((word_num, 1))(raw_feature)
-        vector_feature_lstm_1 = Flatten_1(raw_feature_tmp)
+        vector_feature_lstm_1 = LSTM_1(raw_feature_tmp)
         '''
         ### Dense
         Dense_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
