@@ -7,8 +7,8 @@ from keras.models import Model
 from keras import backend as K
 import numpy as np
 
-import Spectrogram, get_spectrogram_model
-import Logam_layer
+from .stft import Spectrogram, get_spectrogram_model
+from .stft import Logam_layer
 
 
 def _mel_frequencies(n_mels=128, fmin=0.0, fmax=11025.0):
