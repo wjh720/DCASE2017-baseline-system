@@ -322,6 +322,7 @@ class KerasMixin(object):
         #asd = asd.reshape(asd.shape[0], 200, 1)
         print('sfv')
         pp = numpy.concatenate(ppdata)
+        pp=pp.reshape(pp.shape[0],1764,1)
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
         print(asd.shape)
@@ -383,7 +384,7 @@ class KerasMixin(object):
             pdata.append(ve[0:49])
         pp = numpy.concatenate(pdata)
         '''
-
+        pdata=[]
         for item in files:
             #print(item)
             ve = activity_matrix_dict[item]
@@ -440,7 +441,7 @@ class KerasMixin(object):
         import tensorflow as tf
         import numpy as np
         self.model = Sequential()
-        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(498,1764)))
+        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764,1)))
         self.model.add(Dropout(0.25))
         #self.model.add(BatchNormalization())
         self.model.add(Conv1D(512, 3, activation='relu'))
