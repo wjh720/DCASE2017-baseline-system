@@ -583,7 +583,7 @@ class KerasMixin(object):
                     kernel_initializer='glorot_normal',return_sequences=True)
         
         feature_tmp_1 = Reshape((1, dim_vector))(featuer_drop_1)
-        vector_feature_lstm_1 = LSTM_2(feature_tmp_1)
+        #vector_feature_lstm_1 = LSTM_2(feature_tmp_1)
         
         concat_1 = Concatenate(axis = 1)([feature_tmp_1, vector_feature_lstm_1])
         vector_feature_lstm_2 = LSTM_2(concat_1)
