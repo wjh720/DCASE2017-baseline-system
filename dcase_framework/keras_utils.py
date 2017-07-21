@@ -318,10 +318,10 @@ class KerasMixin(object):
 
             #pdata.append(data[item].feat[0])
         print('ad')
-        asd = np.concatenate(pdata)
+        asd = np.array(pdata)
         #asd = asd.reshape(asd.shape[0], 200, 1)
         print('sfv')
-        pp = np.concatenate(ppdata)
+        pp = np.array(ppdata)
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
         print(asd.shape)
@@ -388,7 +388,7 @@ class KerasMixin(object):
             ve = activity_matrix_dict[item]
             for i in range(0,491,10):
                 pdata.append(ve[0])
-        pp = numpy.concatenate(pdata)
+        pp = numpy.array(pdata)
 
         print("pppppppppppppppppp")
         print(pp.shape)
