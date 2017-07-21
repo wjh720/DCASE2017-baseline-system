@@ -667,14 +667,14 @@ class KerasMixin(object):
 
         specgram = Melspectrogram(n_dft=512,
                                  input_shape=(raw_size, 2), 
-                                 trainable=True,
-                                 sr=44100)
+                                 trainable=False,
+                                 sr=11025)
 
         raw_spec = specgram(raw_feature)
         print('vqe', raw_spec.get_shape())
 
         fla = Flatten()
-        fla_raw = fla(raw_spec)
+        fla_raw = fla(input_feature)
 
         Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_4(fla_raw)
