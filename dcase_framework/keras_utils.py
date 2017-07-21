@@ -387,8 +387,7 @@ class KerasMixin(object):
         for item in files:
             ve = activity_matrix_dict[item]
             for i in range(0,491,10):
-                for j in range(i,i+10):
-                    pdata.append(ve[0])
+                pdata.append(ve[0])
         pp = numpy.concatenate(pdata)
 
         print("pppppppppppppppppp")
