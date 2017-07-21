@@ -388,6 +388,7 @@ class KerasMixin(object):
             Activity matrix
         """
 
+        import numpy as np
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
