@@ -313,6 +313,7 @@ class KerasMixin(object):
             #pdata.append(data[item].feat[0])
         print('ad')
         asd = np.concatenate(pdata)
+        asd = asd.reshape(asd.shape[0], 200, 1)
         print('sfv')
         pp = np.concatenate(ppdata)
         print("ppppppppppppppppppppppppppppppp")
@@ -562,15 +563,17 @@ class KerasMixin(object):
         dense_size = 128
 
         ### Input
-        input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
+        input_feature = Input(shape = (num_feature,1, ), dtype = 'float32', name = 'input_feature')
         raw_feature = Input(shape = (word_num, ), dtype = 'float32', name = 'raw_feature')
 
         ### LSTM
         LSTM_1 = LSTM(units = dim_vector,return_sequences=False)
         #vector_feature_lstm_3=LSTM_1(input_feature)
         Flatten_1=Flatten()
-        raw_feature_tmp = Reshape((200,1))(input_feature)
-        vector_feature_lstm_1 = LSTM_1(raw_feature_tmp)
+        #raw_feature_tmp = Reshape((84,word_num/84))(raw_feature)
+        #vector_feature_lstm_1 = LSTM_1(raw_feature_tmp)
+        vector_feature_lstm_1 = LSTM_1(input_feature)
+
         '''
         ### Dense
         Dense_1 = Dense(dim_vector,activation='relu', kernel_initializer = 'glorot_normal')
