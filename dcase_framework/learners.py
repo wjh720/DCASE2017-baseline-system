@@ -1175,7 +1175,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                     {
                         'out_1' : Y_training
                     },
-                    batch_size=128,
+                    batch_size=256,
                     epochs=1,
                     verbose=2,
                     shuffle = True,
@@ -1303,7 +1303,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
                 'input_feature' : X_training
             },
             y=Y_training,
-            batch_size=1,
+            batch_size=256,
             epochs=30,#self.learner_params.get_path('training.epochs', 1),
             #validation_data=validation,
             validation_split = 0.1,
