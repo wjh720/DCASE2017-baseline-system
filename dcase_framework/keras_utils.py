@@ -309,7 +309,7 @@ class KerasMixin(object):
                 ldata=[]
                 for j in range(i,i+10):
                     tdata.append(x[j])
-                    ldata.append(y[j*sr/50:(j+2)*sr/50])
+                    ldata.append(y[j*sr/50:(j+1)*sr/50])
                 Tdata=numpy.array(tdata)
                 Ldata=numpy.array(ldata)
                 ppdata.append(Ldata)
