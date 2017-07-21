@@ -650,9 +650,6 @@ class KerasMixin(object):
 
         '''
 
-
-
-        
         num_feature = 200
         num_label = 15
         dim_vector = 128
@@ -660,12 +657,18 @@ class KerasMixin(object):
         k_size = 256
         word_num = 1764
         dense_size = 128
+        input_size = 501
+        raw_size = 441001
 
         ### Input
-        input_feature = Input(shape = (500, num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (10,882, ), dtype = 'float32', name = 'raw_feature')
+        input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
+        raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
 
-        specgram = Spectrogram(n_dft=512, n_hop=128, input_shape=(len_src, 1))
+        specgram = Spectrogram(n_dft=512, n_hop=128, input_shape=(raw_size, 2))
+
+        raw_spec = specgram(raw_feature)
+        print('vqe', raw_spec.get_shape())
+        
 
         ### LSTM
         LSTM_1 = LSTM(units = dim_vector,return_sequences=False)
