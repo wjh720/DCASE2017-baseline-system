@@ -295,7 +295,8 @@ class KerasMixin(object):
             x=data[item].feat[0]
             ldata=[]
             for i in range(498):
-                ldata.append(y[i*sr/50:(i+1)*sr/50])
+                ldata.append(y[i*sr/50:i*sr/50+441])
+                #ldata.append(y[i*sr/50:(i+1)*sr/50])
             tp=numpy.array(ldata)
             #print(tp.shape)
             ppdata.append(tp)
@@ -441,7 +442,7 @@ class KerasMixin(object):
         import tensorflow as tf
         import numpy as np
         self.model = Sequential()
-        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764/2,1)))
+        self.model.add(Conv1D(256, 3, activation='relu', input_shape=(1764/4,1)))
         #self.model.add(Dropout(0.25))
         #self.model.add(BatchNormalization())
         self.model.add(Conv1D(512, 3, activation='relu'))
