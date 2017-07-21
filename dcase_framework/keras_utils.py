@@ -294,7 +294,8 @@ class KerasMixin(object):
             x=data[item].feat[0]
             pdata.append(x)
 
-        pdata = np.array(pdata)
+        #pdata = np.array(pdata)
+        pdata = np.concatenate(pdata)
         rawdata = np.array(rawdata)
 
         print('--------------')
@@ -302,7 +303,8 @@ class KerasMixin(object):
         print(rawdata.shape)
         print('--------------')
 
-        return (pdata, rawdata)
+        #return (pdata, rawdata)
+        return (pdata, pdata)
 
         '''
         for item in files:
@@ -392,9 +394,11 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(15,))
+            #pdata.append(ve[0].reshape(15,))
+            pdata.append(ve)
 
-        pdata = np.array(pdata)
+        #pdata = np.array(pdata)
+        pdata = np.concatenate(pdata)
         print(pdata.shape)
         return pdata
 
@@ -662,9 +666,12 @@ class KerasMixin(object):
         raw_size = 441001
 
         ### Input
-        input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
+        #input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
+        input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
+        #raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
+        raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
+        '''
         specgram = Melspectrogram(n_dft=512,
                                  input_shape=(raw_size, 2), 
                                  trainable=False,
@@ -681,9 +688,17 @@ class KerasMixin(object):
 
         fla = Flatten()
         fla_raw = fla(conv_2_input)
+        '''
+        Dense_2 = Dense(dim_vector,activation='relu')
+        asd = Dense_2(input_feature)
 
-        Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
-        vector_feature_i = Dense_4(fla_raw)
+        Dense_3 = Dense(dim_vector,activation='relu')
+        cd = Dense_3(asd)
+
+
+
+        Dense_4 = Dense(num_label, activation='softmax', name = 'out_1')
+        vector_feature_i = Dense_4(cd)
 
         ### Model
         self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
