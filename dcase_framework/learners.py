@@ -1300,8 +1300,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         
         self.model.fit(
             {
-                #'raw_feature' : X_1,
-                'input_feature' : X_training
+                'raw_feature' : X_1,
+                #'input_feature' : X_training
             },
             y=Y_training,
             batch_size=256,

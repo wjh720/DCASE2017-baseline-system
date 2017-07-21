@@ -578,16 +578,16 @@ class KerasMixin(object):
         dense_size = 128
 
         ### Input
-        input_feature = Input(shape = (10,num_feature, ), dtype = 'float32', name = 'input_feature')
-        #raw_feature = Input(shape = (word_num, ), dtype = 'float32', name = 'raw_feature')
+        #input_feature = Input(shape = (10,num_feature, ), dtype = 'float32', name = 'input_feature')
+        raw_feature = Input(shape = (10,882, ), dtype = 'float32', name = 'raw_feature')
 
         ### LSTM
         LSTM_1 = LSTM(units = dim_vector,return_sequences=False)
         #vector_feature_lstm_3=LSTM_1(input_feature)
         Flatten_1=Flatten()
         #raw_feature_tmp = Reshape((10,20))(input_feature)
-        vector_feature_lstm_1 = LSTM_1(input_feature)
         #vector_feature_lstm_1 = LSTM_1(input_feature)
+        vector_feature_lstm_1 = LSTM_1(raw_feature)
 
         '''
         ### Dense
@@ -631,7 +631,7 @@ class KerasMixin(object):
         Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_4(vector_feature_lstm_1)
         ### Model
-        self.model = Model(inputs = [input_feature ], outputs = [vector_feature_i])
+        self.model = Model(inputs = [raw_feature ], outputs = [vector_feature_i])
 
         ### Compile
         self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
