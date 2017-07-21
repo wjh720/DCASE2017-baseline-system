@@ -566,8 +566,7 @@ class KerasMixin(object):
         raw_feature = Input(shape = (word_num, ), dtype = 'float32', name = 'raw_feature')
 
         ### LSTM
-        LSTM_1 = LSTM(units = dim_vector, activation='tanh', recurrent_activation='hard_sigmoid', \
-                    kernel_initializer='glorot_normal',return_sequences=False)
+        LSTM_1 = LSTM(units = dim_vector,return_sequences=False)
         #vector_feature_lstm_3=LSTM_1(input_feature)
         Flatten_1=Flatten()
         raw_feature_tmp = Reshape((word_num/4, 4))(raw_feature)
