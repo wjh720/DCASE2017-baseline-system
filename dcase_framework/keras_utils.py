@@ -479,7 +479,7 @@ class KerasMixin(object):
         from keras import backend as K
         import tensorflow as tf
         import numpy as np
-        from .dcase_framework.keras_STFT_layer_master.stft import Spectrogram
+        from .keras_STFT_layer_master.stft import Spectrogram
 
         
 
