@@ -323,7 +323,7 @@ class KerasMixin(object):
         #asd = asd.reshape(asd.shape[0], 200, 1)
         print('sfv')
         pp = numpy.concatenate(ppdata)
-        pp=pp.reshape(pp.shape[0],1764/2,1)
+        pp=pp.reshape(pp.shape[0],1764/4,1)
         print("ppppppppppppppppppppppppppppppp")
         print(pp.shape)
         print(asd.shape)
