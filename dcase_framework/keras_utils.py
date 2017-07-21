@@ -673,8 +673,21 @@ class KerasMixin(object):
         raw_spec = specgram(raw_feature)
         print('vqe', raw_spec.get_shape())
 
+        fla = Flatten()
+        fla_raw = fla(raw_spec)
 
-        
+        Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
+        vector_feature_i = Dense_4(fla_raw)
+
+        ### Model
+        self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
+
+        ### Compile
+        self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
+
+
+
+        '''
 
         
         ### Dense
@@ -722,7 +735,7 @@ class KerasMixin(object):
 
         ### Compile
         self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
-
+        '''
         
 
         '''
