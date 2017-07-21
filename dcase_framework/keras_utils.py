@@ -555,7 +555,7 @@ class KerasMixin(object):
 
         num_feature = 200
         num_label = 15
-        dim_vector = 16
+        dim_vector = 128
         margin = 0.5
         k_size = 256
         word_num = 1764
@@ -569,7 +569,7 @@ class KerasMixin(object):
         LSTM_1 = LSTM(units = dim_vector,return_sequences=False)
         #vector_feature_lstm_3=LSTM_1(input_feature)
         Flatten_1=Flatten()
-        raw_feature_tmp = Reshape((word_num/4, 4))(raw_feature)
+        raw_feature_tmp = Reshape((1,word_num))(raw_feature)
         vector_feature_lstm_1 = LSTM_1(raw_feature_tmp)
         '''
         ### Dense
