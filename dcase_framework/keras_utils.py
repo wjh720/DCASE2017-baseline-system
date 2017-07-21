@@ -673,8 +673,14 @@ class KerasMixin(object):
         raw_spec = specgram(raw_feature)
         print('vqe', raw_spec.get_shape())
 
+        Conv_1 = Conv1D(dim_vector, 1, activation='relu')
+        conv_1_input = Conv_1(input_feature)
+
+        Conv_2 = Conv1D(dim_vector, 1, activation='relu')
+        conv_2_input = Conv_2(conv_1_input)
+
         fla = Flatten()
-        fla_raw = fla(input_feature)
+        fla_raw = fla(conv_2_input)
 
         Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_4(fla_raw)
