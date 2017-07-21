@@ -287,7 +287,7 @@ class KerasMixin(object):
         pdata=[]
         ppdata = []
         for item in files:
-            print(item)
+            #print(item)
             y, sr=soundfile.read(item)
 
             y = np.mean(y.T, axis=0)
@@ -567,8 +567,9 @@ class KerasMixin(object):
 
         ### LSTM
         LSTM_1 = LSTM(units = dim_vector, activation='tanh', recurrent_activation='hard_sigmoid', \
-                    kernel_initializer='glorot_normal',return_sequences=True)
-
+                    kernel_initializer='glorot_normal',return_sequences=False)
+        vector_feature_lstm_3=LSTM_1(input_feature)
+        '''
         raw_feature_tmp = Reshape((word_num, 1))(raw_feature)
         vector_feature_lstm_1 = LSTM_1(raw_feature_tmp)
 
@@ -597,7 +598,7 @@ class KerasMixin(object):
         feature_tmp_2 = Reshape((1, dim_vector))(featuer_drop_2)
         concat_2 = Concatenate(axis = 1)([feature_tmp_2, vector_feature_lstm_2])
         vector_feature_lstm_3 = LSTM_3(concat_2)
-
+        '''
         ### Answer Dense
         Dense_3 = Dense(dense_size, activation='relu', kernel_initializer = 'glorot_normal')
         answer_3 = Dense_3(vector_feature_lstm_3)
@@ -605,7 +606,7 @@ class KerasMixin(object):
 
         Dense_4 = Dense(num_label, activation='softmax', kernel_initializer = 'glorot_normal', name = 'out_1')
         vector_feature_i = Dense_4(answer_drop_3)
-
+        
         ### Model
         self.model = Model(inputs = [input_feature, raw_feature], outputs = [vector_feature_i])
 
