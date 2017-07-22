@@ -656,17 +656,25 @@ class KerasMixin(object):
         '''
 
         def my_loss(y_true, y_pred):
+            '''
             a = y_pred[:,0:15]
             b = y_pred[:,15:-1]
             b = K.reshape(b,(-1, 15))
             print("rrrrrrrrrrrrrrrrrrrrrrrr")
             print("asavad ",a.get_shape)
             #a = K.repeat_elements(a,28*9,axis=0)
-            
-            return K.categorical_crossentropy(a, b)
+            '''
+            return K.mean(y_pred)
 
         def func(X):
             return tf.reduce_sum(X,1)
+
+        def shit(X):
+            a = X[:,0:15]
+            b = X[:,15:-1]
+            b = K.reshape(b,(-1, 15))
+            return K.categorical_crossentropy(a, b)
+
 
         num_feature = 200
         num_label = 15
@@ -738,7 +746,8 @@ class KerasMixin(object):
         conv_9_input = Conv_9(pool_4_input)
         conv_10_input =Conv_10(conv_9_input)
         conv_10_input_re = Reshape((28*9*15,))(conv_10_input)
-        vector_feature_i = Concatenate(axis=1,name='out_1')([y_true,conv_10_input_re])
+        concat_1 = Concatenate(axis=1,name='out_1')([y_true,conv_10_input_re])
+        vector_feature_i = Lambda(shit,output_shape=(1,),name='out_1')(concat_1)
 
         print("ffffffffffffffffffffffff")
 
