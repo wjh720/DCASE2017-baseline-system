@@ -473,7 +473,7 @@ class KerasMixin(object):
 
         from keras.models import Sequential, Model
         from keras.layers import Dense, Dropout, Flatten
-        from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
+        from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D, AveragePooling2D
         from keras.layers import Dense, Dropout, Activation, Flatten, Input, Dense, LSTM, Lambda, Embedding, Reshape
         from keras.layers.merge import Concatenate
         from keras.layers import BatchNormalization
