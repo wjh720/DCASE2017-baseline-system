@@ -294,8 +294,8 @@ class KerasMixin(object):
             x=data[item].feat[0]
             pdata.append(x)
 
-        #pdata = np.array(pdata)
-        pdata = np.concatenate(pdata)
+        pdata = np.array(pdata)
+        #pdata = np.concatenate(pdata)
         rawdata = np.array(rawdata)
 
         print('--------------')
@@ -303,8 +303,8 @@ class KerasMixin(object):
         print(rawdata.shape)
         print('--------------')
 
-        #return (pdata, rawdata)
-        return (pdata, pdata)
+        return (pdata, rawdata)
+        #return (pdata, pdata)
 
         '''
         for item in files:
@@ -394,11 +394,11 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            #pdata.append(ve[0].reshape(15,))
-            pdata.append(ve)
+            pdata.append(ve[0].reshape(15,))
+            #pdata.append(ve)
 
-        #pdata = np.array(pdata)
-        pdata = np.concatenate(pdata)
+        pdata = np.array(pdata)
+        #pdata = np.concatenate(pdata)
         print(pdata.shape)
         return pdata
 
