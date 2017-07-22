@@ -674,7 +674,7 @@ class KerasMixin(object):
         
         specgram = Melspectrogram(n_dft=512,
                                  input_shape=(raw_size, 2), 
-                                 trainable=False,
+                                 trainable=True,
                                  sr=11025)
         
         raw_spec = specgram(raw_feature)
