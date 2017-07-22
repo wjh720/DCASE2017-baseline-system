@@ -723,7 +723,7 @@ class KerasMixin(object):
 
         #Flatten_input = Flatten()(pool_4_input)
         Conv_9 = Conv2D(15, (1, 1))
-        conv_9_input = Conv_8(pool_4_input)
+        conv_9_input = Conv_9(pool_4_input)
         S1 = Permute((2,3,1))(conv_9_input)
         Soft = Activation('softmax')
         Soft_1_input = Soft(S1)
