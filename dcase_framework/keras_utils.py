@@ -671,7 +671,7 @@ class KerasMixin(object):
         #raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
         raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
-        '''
+        
         specgram = Melspectrogram(n_dft=512,
                                  input_shape=(raw_size, 2), 
                                  trainable=False,
@@ -688,13 +688,14 @@ class KerasMixin(object):
 
         fla = Flatten()
         fla_raw = fla(conv_2_input)
+        
         '''
         Dense_2 = Dense(dim_vector,activation='relu')
         asd = Dense_2(input_feature)
 
         Dense_3 = Dense(dim_vector,activation='relu')
         cd = Dense_3(asd)
-
+        '''
 
 
         Dense_4 = Dense(num_label, activation='softmax', name = 'out_1')
