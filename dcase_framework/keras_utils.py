@@ -731,6 +731,7 @@ class KerasMixin(object):
         Conv_10 = Conv2D(15, (1, 1), activation='softmax',name='out_1')
         conv_9_input = Conv_9(pool_4_input)
         vector_feature_i =Conv_10(conv_9_input)
+        print("ffffffffffffffffffffffff")
 
         #Conv_9 = Conv2D(1, (1, 1),activation='relu')
         #conv_9_input = Conv_8(pool_4_input)
