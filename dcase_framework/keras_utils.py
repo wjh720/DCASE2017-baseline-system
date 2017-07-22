@@ -655,6 +655,9 @@ class KerasMixin(object):
 
         '''
 
+        def func(X):
+            return K.reduce_sum(X,1)
+
         num_feature = 200
         num_label = 15
         dim_vector = 128
@@ -684,9 +687,7 @@ class KerasMixin(object):
         #print('vqe', raw_spec.get_shape())
 
         Conv_1 = Conv2D(32, (3, 3), activation='relu')
-        Batch_1 = BatchNormalization()
         Conv_2 = Conv2D(32, (3, 3), activation='relu')
-        Batch_2 = BatchNormalization()
         Pool_1 = MaxPooling2D(pool_size=(2, 2))
         conv_1_input = Conv_1(input_feat)
         conv_2_input = Conv_2(conv_1_input)
@@ -721,9 +722,13 @@ class KerasMixin(object):
         pool_4_input = Pool_4(conv_8_input)
 
         Flatten_input = Flatten()(pool_4_input)
+        Conv_9 = Conv2D(15, (1, 1))
+        conv_9_input = Conv_8(pool_4_input)
+        Soft = Softmax(axis=1)(conv_9_input)
 
+        Lam = Lambda(func, output_shape = (15, ), name = 'out_1')(Soft)
         Dense_1 = Dense(15, activation='softmax', name = 'out_1')
-        vector_feature_i = Dense_1(Flatten_input)
+        vector_feature_i = Dense_1(Lam)
 
 
         '''
