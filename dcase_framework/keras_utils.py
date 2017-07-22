@@ -715,7 +715,7 @@ class KerasMixin(object):
         drop_4_input = Dropout(0.2)(conv_7_input)
 
         Conv_8 = Conv2D(64, (1, 1), activation='relu')
-        conv_8_input = Conv_8(drop_3_input)
+        conv_8_input = Conv_8(drop_4_input)
         #drop_3_input = Dropout(0.2)(conv_6_input)
 
         Pool_4 = AveragePooling2D(pool_size=(2, 2))
@@ -727,9 +727,9 @@ class KerasMixin(object):
         S1 = Permute((2,3,1))(conv_9_input)
         Soft = Activation('softmax')
         Soft_1_input = Soft(S1)
-        S2 = Permute((3,1,2))(conv_9_input)
+        S2 = Permute((3,1,2))(Soft_1_input)
 
-        Lam = Lambda(func, output_shape = (15, ))(Soft_1_input)
+        Lam = Lambda(func, output_shape = (15, ))(S2)
         Dense_1 = Dense(15, activation='softmax', name = 'out_1')
         vector_feature_i = Dense_1(Lam)
 
