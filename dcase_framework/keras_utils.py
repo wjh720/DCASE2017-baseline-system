@@ -679,7 +679,7 @@ class KerasMixin(object):
         
         raw_spec = specgram(raw_feature)'''
         input_feat=Reshape((501,200,1))(input_feature)
-        print('vqe', raw_spec.get_shape())
+        #print('vqe', raw_spec.get_shape())
 
         Conv_1 = Conv2D(32, (3, 3), activation='relu')
         Conv_2 = Conv2D(32, (3, 3), activation='relu')
