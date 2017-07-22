@@ -666,18 +666,18 @@ class KerasMixin(object):
         raw_size = 441001
 
         ### Input
-        #input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
-        input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
+        input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
+        #input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
         #raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
         raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
-        
+        '''
         specgram = Melspectrogram(n_dft=512,
                                  input_shape=(raw_size, 2), 
                                  trainable=False,
                                  sr=11025)
-
-        raw_spec = specgram(raw_feature)
+        
+        raw_spec = specgram(raw_feature)'''
         input_feat=Reshape((501,200,1))(input_feature)
         print('vqe', raw_spec.get_shape())
 
