@@ -724,7 +724,7 @@ class KerasMixin(object):
         Flatten_input = Flatten()(pool_4_input)
         Conv_9 = Conv2D(15, (1, 1))
         conv_9_input = Conv_8(pool_4_input)
-        Soft = Softmax(axis=1)(conv_9_input)
+        Soft = softmax(axis=1)(conv_9_input)
 
         Lam = Lambda(func, output_shape = (15, ), name = 'out_1')(Soft)
         Dense_1 = Dense(15, activation='softmax', name = 'out_1')
