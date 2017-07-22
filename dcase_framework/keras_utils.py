@@ -710,7 +710,7 @@ class KerasMixin(object):
         pool_3_input = Pool_3(conv_6_input)
         drop_3_input = Dropout(0.2)(pool_3_input)
 
-        Conv_7 = Conv2D(128, (3, 3), activation='relu')
+        Conv_7 = Conv2D(64, (3, 3), activation='relu')
         conv_7_input = Conv_7(drop_3_input)
         drop_4_input = Dropout(0.2)(conv_7_input)
 
@@ -721,7 +721,7 @@ class KerasMixin(object):
         Pool_4 = AveragePooling2D(pool_size=(2, 2))
         pool_4_input = Pool_4(conv_8_input)
 
-        Flatten_input = Flatten()(pool_4_input)
+        #Flatten_input = Flatten()(pool_4_input)
         Conv_9 = Conv2D(15, (1, 1))
         conv_9_input = Conv_8(pool_4_input)
         S1 = Permute((2,3,1))(conv_9_input)
