@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(28 * 9, axis = 0))
+            pdata.append(ve[0].reshape(15, ))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -681,9 +681,18 @@ class KerasMixin(object):
 
             ans = []
             for i in range(num_asd):
-                ans.append(K.categorical_crossentropy(y_true[:,i], y_pred[:,i]))
+                ans.append(K.categorical_crossentropy(y_true[:], y_pred[:,i]))
             return K.mean(tf.stack(ans))
 
+        def mode(y_true, y_pred):
+            a = K.argmax(y_pred, axis = 2)
+            ans = []
+            for i in range(15):
+                tmp = K.equal(a, i)
+                ans.append(K.sum(tmp, axis = 1))
+            c = tf.stack(a)
+            d = K.argmax(K.transpose(c), axis = 1)
+            return K.mean(K.equal(y_true, d))
 
         def func(X):
             return tf.reduce_sum(X,1)
@@ -803,7 +812,7 @@ class KerasMixin(object):
         self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
 
         ### Compile
-        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam')#, metrics=["accuracy"])
+        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=[mode])
 
 
 
@@ -1295,7 +1304,7 @@ class KerasMixin(object):
         # Save keras model and weight
         keras_model_filename = os.path.splitext(self.filename)[0] + '.model.hdf5'
         model_weights_filename = os.path.splitext(self.filename)[0] + '.weights.hdf5'
-        self.model.save(keras_model_filename)
+        #self.model.save(keras_model_filename)
         self.model.save_weights(model_weights_filename)
 
     def _setup_keras(self):
