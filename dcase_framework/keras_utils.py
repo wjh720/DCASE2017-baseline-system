@@ -771,7 +771,7 @@ class KerasMixin(object):
         Conv_10 = Conv2D(15, (1, 1), padding='same', activation='softmax')
         conv_9_input = Conv_9(drop_5_input)
         drop_6_input = Dropout(0.2)(conv_9_input)
-
+        print("fffffffffffffffffffffff")
         conv_10_input =Conv_10(drop_6_input)
         vector_feature_i = Reshape((28*9, 15), name = 'out_1')(conv_10_input)
         #concat_1 = Concatenate(axis=1,name='out_1')([y_true,conv_10_input_re])
