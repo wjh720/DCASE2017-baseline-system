@@ -671,20 +671,22 @@ class KerasMixin(object):
         raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
-        '''
+        
         specgram = Melspectrogram(n_dft=512,
                                  input_shape=(raw_size, 2), 
                                  trainable=False,
                                  sr=11025)
         
-        raw_spec = specgram(raw_feature)'''
+        raw_spec = specgram(raw_feature)
+
+        
         input_feat=Reshape((501,200,1))(input_feature)
         #print('vqe', raw_spec.get_shape())
 
         Conv_1 = Conv2D(32, (3, 3), activation='relu')
         Conv_2 = Conv2D(32, (3, 3), activation='relu')
         Pool_1 = MaxPooling2D(pool_size=(2, 2))
-        conv_1_input = Conv_1(input_feat)
+        conv_1_input = Conv_1(raw_spec)
         conv_2_input = Conv_2(conv_1_input)
         pool_1_input = Pool_1(conv_2_input)
         drop_1_input = Dropout(0.2)(pool_1_input)
