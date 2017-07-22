@@ -729,7 +729,7 @@ class KerasMixin(object):
         Soft_1_input = Soft(S1)
         S2 = Permute((3,1,2))(conv_9_input)
 
-        Lam = Lambda(func, output_shape = (15, ), name = 'out_1')(Soft_1_input)
+        Lam = Lambda(func, output_shape = (15, ))(Soft_1_input)
         Dense_1 = Dense(15, activation='softmax', name = 'out_1')
         vector_feature_i = Dense_1(Lam)
 
