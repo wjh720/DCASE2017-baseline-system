@@ -678,18 +678,49 @@ class KerasMixin(object):
                                  sr=11025)
 
         raw_spec = specgram(raw_feature)
+        input_feat=Reshape((501,200,1))(input_feature)
         print('vqe', raw_spec.get_shape())
 
-        Conv_1 = Conv1D(dim_vector, 1, activation='relu')
-        conv_1_input = Conv_1(input_feature)
+        Conv_1 = Conv2D(32, (3, 3), activation='relu')
+        Conv_2 = Conv2D(32, (3, 3), activation='relu')
+        Pool_1 = MaxPooling2D(pool_size=(2, 2))
+        conv_1_input = Conv_1(input_feat)
+        conv_2_input = Conv_2(conv_1_input)
+        pool_1_input = MaxPooling2D(conv_2_input)
+        drop_1_input = Dropout(0.2)(pool_1_input)
 
+        Conv_3 = Conv2D(64, (3, 3), activation='relu')
+        Conv_4 = Conv2D(64, (3, 3), activation='relu')
+        Pool_2 = MaxPooling2D(pool_size=(2, 2))
+        conv_3_input = Conv_1(drop_1_input)
+        conv_4_input = Conv_2(conv_3_input)
+        pool_2_input = MaxPooling2D(conv_4_input)
+        drop_2_input = Dropout(0.2)(pool_2_input)
+
+        Conv_5 = Conv2D(128, (3, 3), activation='relu')
+        conv_5_input = Conv_1(drop_2_input)
+        drop_3_input = Dropout(0.2)(conv_5_input)
+
+        Conv_6 = Conv2D(128, (1, 1), activation='relu')
+        conv_6_input = Conv_1(drop_3_input)
+        #drop_3_input = Dropout(0.2)(conv_6_input)
+
+        Pool_3 = AveragePooling2D(pool_size=(2, 2))
+        pool_3_input = MaxPooling2D(conv_6_input)
+
+        Flatten_input = Flatten()(pool_3_input)
+
+        Dense_1 = Dense(15, activation='softmax')
+        vector_feature_i = Dense_1(Flatten_input)
+        '''
         Conv_2 = Conv1D(dim_vector, 1, activation='relu')
         conv_2_input = Conv_2(conv_1_input)
+        Dense(15, activation='softmax')
 
         fla = Flatten()
         fla_raw = fla(conv_2_input)
         
-        '''
+        
         Dense_2 = Dense(dim_vector,activation='relu')
         asd = Dense_2(input_feature)
 
