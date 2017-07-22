@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(28 * 9, axis = 0))
+            pdata.append(ve[0].reshape(1, 15).repeat(31, axis = 0))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -729,7 +729,7 @@ class KerasMixin(object):
 
         Conv_1 = Conv2D(32, (3, 3), padding='same', activation='relu')
         Conv_2 = Conv2D(32, (3, 3), padding='same', activation='relu')
-        Pool_1 = MaxPooling2D(pool_size=(1, 3))
+        Pool_1 = MaxPooling2D(pool_size=(1, 2))
         conv_1_input = Conv_1(input_feat)
         conv_2_input = Conv_2(conv_1_input)
         pool_1_input = Pool_1(conv_2_input)
@@ -745,10 +745,10 @@ class KerasMixin(object):
 
         Conv_5 = Conv2D(64, (3, 3), padding='same', activation='relu')
         Conv_6 = Conv2D(64, (3, 3), padding='same', activation='relu')
-        Pool_5 = MaxPooling2D(pool_size=(2, 2))
+        Pool_5 = MaxPooling2D(pool_size=(2, 3))
         Conv_11 = Conv2D(64, (3, 3), padding='same', activation='relu')
         Conv_7 = Conv2D(64, (3, 3), padding='same', activation='relu')
-        Pool_3 = MaxPooling2D(pool_size=(1, 2))
+        Pool_3 = MaxPooling2D(pool_size=(1, 3))
         conv_5_input = Conv_5(drop_2_input)
         conv_6_input = Conv_6(conv_5_input)
         pool_5_input = Pool_5(conv_6_input)
