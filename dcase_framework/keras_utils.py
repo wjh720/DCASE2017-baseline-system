@@ -686,6 +686,7 @@ class KerasMixin(object):
 
         def mode(y_true, y_pred):
             a = K.argmax(y_pred, axis = 2)
+            aa = K.argmax(y_true, axis = 1)
             ans = []
             for i in range(15):
                 tmp = K.equal(a, i)
@@ -695,7 +696,7 @@ class KerasMixin(object):
                 ans.append(b)
             c = tf.stack(ans)
             d = K.argmax(K.transpose(c), axis = 1)
-            return K.mean(K.equal(y_true, d))
+            return K.mean(K.equal(aa, d))
 
         def func(X):
             return tf.reduce_sum(X,1)
