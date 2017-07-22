@@ -726,11 +726,12 @@ class KerasMixin(object):
 
         Dense_3 = Dense(dim_vector,activation='relu')
         cd = Dense_3(asd)
-        '''
+        
 
 
         Dense_4 = Dense(num_label, activation='softmax', name = 'out_1')
         vector_feature_i = Dense_4(cd)
+        '''
 
         ### Model
         self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
