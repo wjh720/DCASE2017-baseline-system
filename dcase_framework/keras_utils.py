@@ -728,7 +728,7 @@ class KerasMixin(object):
 
         #Flatten_input = Flatten()(pool_4_input)
         Conv_9 = Conv2D(128, (1, 1), activation='relu')
-        Conv_10 = Conv2D(15, (1, 1), activation='softmax',name='out_1')
+        Conv_10 = Conv2D(15, (1, 1), activation='softmax',name='out_1',output_shape=(28,9,15))
         conv_9_input = Conv_9(pool_4_input)
         vector_feature_i =Conv_10(conv_9_input)
         print("ffffffffffffffffffffffff")
