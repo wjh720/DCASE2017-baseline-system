@@ -737,7 +737,7 @@ class KerasMixin(object):
 
         Conv_3 = Conv2D(32, (3, 3), padding='same', activation='relu')
         Conv_4 = Conv2D(32, (3, 3), padding='same', activation='relu')
-        Pool_2 = MaxPooling2D(pool_size=(2, 3))
+        Pool_2 = MaxPooling2D(pool_size=(2, 2))
         conv_3_input = Conv_3(drop_1_input)
         conv_4_input = Conv_4(conv_3_input)
         pool_2_input = Pool_2(conv_4_input)
@@ -745,7 +745,7 @@ class KerasMixin(object):
 
         Conv_5 = Conv2D(64, (3, 3), padding='same', activation='relu')
         Conv_6 = Conv2D(64, (3, 3), padding='same', activation='relu')
-        Pool_5 = MaxPooling2D(pool_size=(2, 2))
+        Pool_5 = MaxPooling2D(pool_size=(2, 3))
         Conv_11 = Conv2D(64, (3, 3), padding='same', activation='relu')
         Conv_7 = Conv2D(64, (3, 3), padding='same', activation='relu')
         Pool_3 = MaxPooling2D(pool_size=(2, 3))
