@@ -689,8 +689,7 @@ class KerasMixin(object):
         Batch_2 = BatchNormalization()
         Pool_1 = MaxPooling2D(pool_size=(2, 2))
         conv_1_input = Conv_1(input_feat)
-        batch_1_input = BatchNormalization()(conv_1_input)
-        conv_2_input = Conv_2(batch_1_input)
+        conv_2_input = Conv_2(conv_1_input)
         pool_1_input = Pool_1(conv_2_input)
         drop_1_input = Dropout(0.2)(pool_1_input)
 
