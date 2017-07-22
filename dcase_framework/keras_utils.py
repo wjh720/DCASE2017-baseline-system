@@ -675,10 +675,10 @@ class KerasMixin(object):
             #a = K.repeat_elements(a,28*9,axis=0)
             '''
 
-            ans = tf.zeros(batch_size)
+            ans = []
             for i in range(batch_size):
-                ans[i] = K.categorical_crossentropy(y_true[i], y_pred[i])
-            return K.mean(ans)
+                ans.append(K.categorical_crossentropy(y_true[i], y_pred[i]))
+            return K.mean(tf.pack(ans))
 
 
         def func(X):
