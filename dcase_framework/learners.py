@@ -1307,7 +1307,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             },
             {
                 'out_1' : Y_training
-            }
+            },
             batch_size=32,
             epochs=30,#self.learner_params.get_path('training.epochs', 1),
             validation_data=validation,
