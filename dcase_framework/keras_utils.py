@@ -735,27 +735,27 @@ class KerasMixin(object):
         pool_1_input = Pool_1(conv_2_input)
         drop_1_input = Dropout(0.2)(pool_1_input)
 
-        Conv_3 = Conv2D(32, (3, 3), activation='relu')
-        Conv_4 = Conv2D(32, (3, 3), activation='relu')
+        Conv_3 = Conv2D(64, (3, 3), activation='relu')
+        Conv_4 = Conv2D(64, (3, 3), activation='relu')
         Pool_2 = MaxPooling2D(pool_size=(2, 2))
         conv_3_input = Conv_3(drop_1_input)
         conv_4_input = Conv_4(conv_3_input)
         pool_2_input = Pool_2(conv_4_input)
         drop_2_input = Dropout(0.2)(pool_2_input)
 
-        Conv_5 = Conv2D(64, (3, 3), activation='relu')
-        Conv_6 = Conv2D(64, (3, 3), activation='relu')
+        Conv_5 = Conv2D(128, (3, 3), activation='relu')
+        Conv_6 = Conv2D(128, (3, 3), activation='relu')
         Pool_3 = MaxPooling2D(pool_size=(2, 2))
         conv_5_input = Conv_5(drop_2_input)
         conv_6_input = Conv_6(conv_5_input)
         pool_3_input = Pool_3(conv_6_input)
         drop_3_input = Dropout(0.2)(pool_3_input)
 
-        Conv_7 = Conv2D(128, (3, 3), activation='relu')
+        Conv_7 = Conv2D(256, (3, 3), activation='relu')
         conv_7_input = Conv_7(drop_3_input)
         drop_4_input = Dropout(0.2)(conv_7_input)
 
-        Conv_8 = Conv2D(128, (1, 1), activation='relu')
+        Conv_8 = Conv2D(256, (1, 1), activation='relu')
         conv_8_input = Conv_8(drop_4_input)
         #drop_3_input = Dropout(0.2)(conv_6_input)
 
@@ -763,7 +763,7 @@ class KerasMixin(object):
         pool_4_input = Pool_4(conv_8_input)
 
         #Flatten_input = Flatten()(pool_4_input)
-        Conv_9 = Conv2D(256, (1, 1), activation='relu')
+        Conv_9 = Conv2D(512, (1, 1), activation='relu')
         Conv_10 = Conv2D(15, (1, 1), activation='softmax')
         conv_9_input = Conv_9(pool_4_input)
         conv_10_input =Conv_10(conv_9_input)
