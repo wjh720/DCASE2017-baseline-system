@@ -1265,9 +1265,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         self.create_model(input_shape=self._get_input_size(data=data))
 
         print("@#@$@@ Builded !@#@#!!")
-
+        '''
         if self.show_extra_debug:
             self.log_model_summary()
+        '''
 
         # Create callbacks
         callback_list = self.create_callback_list()
