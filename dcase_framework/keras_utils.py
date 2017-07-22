@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(15, ))
+            pdata.append(ve[0].reshape(1, 15).repeat(28 * 9))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -681,12 +681,12 @@ class KerasMixin(object):
 
             ans = []
             for i in range(num_asd):
-                ans.append(K.categorical_crossentropy(y_true[:], y_pred[:,i]))
+                ans.append(K.categorical_crossentropy(y_true[:, i], y_pred[:,i]))
             return K.mean(tf.stack(ans))
 
         def mode(y_true, y_pred):
             a = K.argmax(y_pred, axis = 2)
-            aa = K.argmax(y_true, axis = 1)
+            aa = K.argmax(y_true, axis = 2)
             ans = []
             for i in range(15):
                 tmp = K.equal(a, i)
@@ -696,7 +696,7 @@ class KerasMixin(object):
                 ans.append(b)
             c = tf.stack(ans)
             d = K.argmax(K.transpose(c), axis = 1)
-            return K.mean(K.equal(aa, d))
+            return K.mean(K.equal(aa[:, 0], d))
 
         def func(X):
             return tf.reduce_sum(X,1)
