@@ -664,6 +664,7 @@ class KerasMixin(object):
         dense_size = 128
         input_size = 501
         raw_size = 441001
+        num_asd = 28 * 9
 
         def my_loss(y_true, y_pred):
             '''
@@ -679,8 +680,8 @@ class KerasMixin(object):
             print("asavad ",y_pred.get_shape)
 
             ans = []
-            for i in range(batch_size):
-                ans.append(K.categorical_crossentropy(y_true[i], y_pred[i]))
+            for i in range(num_asd):
+                ans.append(K.categorical_crossentropy(y_true[:,i], y_pred[:,i]))
             return K.mean(tf.stack(ans))
 
 
