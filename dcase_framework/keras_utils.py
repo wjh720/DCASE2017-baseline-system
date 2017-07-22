@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(28 * 9))
+            pdata.append(ve[0].reshape(1, 15).repeat(28 * 9, axis = 0))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -816,7 +816,7 @@ class KerasMixin(object):
         self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
 
         ### Compile
-        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam')#, metrics=[mode])
+        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=[mode])
 
 
 
