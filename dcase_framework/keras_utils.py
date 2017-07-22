@@ -689,8 +689,9 @@ class KerasMixin(object):
             ans = []
             for i in range(15):
                 tmp = K.equal(a, i)
-                ans.append(K.sum(tmp, axis = 1))
-            c = tf.stack(a)
+                b = K.sum(tmp, axis = 1)
+                ans.append(b)
+            c = tf.stack(ans)
             d = K.argmax(K.transpose(c), axis = 1)
             return K.mean(K.equal(y_true, d))
 
