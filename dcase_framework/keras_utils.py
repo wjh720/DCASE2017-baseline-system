@@ -656,7 +656,7 @@ class KerasMixin(object):
         '''
 
         def func(X):
-            return K.reduce_sum(X,1)
+            return tf.reduce_sum(X,1)
 
         num_feature = 200
         num_label = 15
