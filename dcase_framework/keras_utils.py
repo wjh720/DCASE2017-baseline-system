@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape( 15,))
+            pdata.append(ve[0].reshape( 1,15,).repeat(28*9))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -659,7 +659,9 @@ class KerasMixin(object):
             a = y_pred[:,0:15]
             b = y_pred[:,15:-1]
             b = K.reshape(b,(-1, 15))
-            a = K.repeat_elements(a,28*9,axis=0)
+            print("rrrrrrrrrrrrrrrrrrrrrrrr")
+            print("asavad ",a.get_shape)
+            #a = K.repeat_elements(a,28*9,axis=0)
             
             return K.categorical_crossentropy(a, b)
 
