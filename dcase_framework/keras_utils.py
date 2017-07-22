@@ -731,10 +731,11 @@ class KerasMixin(object):
 
         #Flatten_input = Flatten()(pool_4_input)
         Conv_9 = Conv2D(128, (1, 1), activation='relu')
-        Conv_10 = Conv2D(15, (1, 1), activation='softmax',name='out_1')
+        Conv_10 = Conv2D(15, (1, 1), activation='softmax')
         conv_9_input = Conv_9(pool_4_input)
-        conv_9_input_re = Reshape((28*9*15,))(conv_9_input)
-        vector_feature_i =Conv_10(conv_9_input_re)
+        conv_10_input =Conv_10(conv_9_input)
+        vector_feature_i = Reshape((28*9*15,),name='out_1')(conv_10_input)
+
         print("ffffffffffffffffffffffff")
 
         #Conv_9 = Conv2D(1, (1, 1),activation='relu')
