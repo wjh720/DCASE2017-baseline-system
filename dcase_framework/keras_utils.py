@@ -658,7 +658,7 @@ class KerasMixin(object):
         def my_loss(y_true, y_pred):
             a = K.repeat_elements(y_true, 28 * 9, axis = 0)
             b = K.reshape(y_pred,(-1, 15))
-            return K.categorical_crossentropy(b, a)
+            return K.categorical_crossentropy(a, b)
 
         def func(X):
             return tf.reduce_sum(X,1)
@@ -728,7 +728,7 @@ class KerasMixin(object):
 
         #Flatten_input = Flatten()(pool_4_input)
         Conv_9 = Conv2D(128, (1, 1), activation='relu')
-        Conv_10 = Conv2D(15, (1, 1), activation='softmax',name='out_1',output_shape=(28,9,15))
+        Conv_10 = Conv2D(15, (1, 1), activation='softmax',name='out_1')
         conv_9_input = Conv_9(pool_4_input)
         vector_feature_i =Conv_10(conv_9_input)
         print("ffffffffffffffffffffffff")
