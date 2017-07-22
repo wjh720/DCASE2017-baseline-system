@@ -816,7 +816,7 @@ class KerasMixin(object):
         self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
 
         ### Compile
-        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=[mode])
+        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam')#, metrics=[mode])
 
 
 

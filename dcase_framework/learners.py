@@ -1242,7 +1242,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             (X_validation, X_v_1) = self.prepare_data(data=data, files=validation_files)
             Y_validation = self.prepare_activity(activity_matrix_dict=activity_matrix_dict, files=validation_files)
 
-            validation = ({'raw_feature' : X_v_1, 'input_feature' : X_validation}, Y_validation)
+            validation = ({'raw_feature' : X_v_1, 'input_feature' : X_validation}, {'out_1' : Y_validation})
             if self.show_extra_debug:
                 self.logger.debug('  Validation items \t[{validation:d}]'.format(validation=len(X_validation)))
         else:
