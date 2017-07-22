@@ -655,6 +655,11 @@ class KerasMixin(object):
 
         '''
 
+        def my_loss(y_true, y_pred):
+            a = y_true.repeat(28 * 9, axis = 0)
+            b = y_pred.reshape(-1, 15)
+            return K.categorical_crossentropy(b, a)
+
         def func(X):
             return tf.reduce_sum(X,1)
 
@@ -722,12 +727,16 @@ class KerasMixin(object):
         pool_4_input = Pool_4(conv_8_input)
 
         #Flatten_input = Flatten()(pool_4_input)
+        Conv_9 = Conv2D(128, (1, 1), activation='relu')
+        Conv_10 = Conv2D(15, (1, 1), activation='softmax',name='out_1')
+        conv_9_input = Conv_9(pool_4_input)
+        vector_feature_i =Conv_10(conv_9_input)
 
         #Conv_9 = Conv2D(1, (1, 1),activation='relu')
         #conv_9_input = Conv_8(pool_4_input)
-        pool_4_input_1 = Reshape((28,9*64, ))(pool_4_input)
-        Conv_9 = Conv1D(15,1,activation='softmax')
-        conv_9_input = Conv_9(pool_4_input_1)
+        #pool_4_input_1 = Reshape((28,9*64, ))(pool_4_input)
+        #Conv_9 = Conv1D(15,1,activation='softmax')
+        #conv_9_input = Conv_9(pool_4_input_1)
         #Conv_9 = Conv2D(15, (1, 1))
         #conv_9_input = Conv_9(pool_4_input)
         '''
@@ -736,9 +745,9 @@ class KerasMixin(object):
         Soft_1_input = Soft(S1)
         S2 = Permute((1,2))(Soft_1_input)
         '''
-        Lam = Lambda(func, output_shape = (15, ))(conv_9_input)
-        Dense_1 = Dense(15, activation='softmax', name = 'out_1')
-        vector_feature_i = Dense_1(Lam)
+        #Lam = Lambda(func, output_shape = (15, ))(conv_9_input)
+        #Dense_1 = Dense(15, activation='softmax', name = 'out_1')
+        #vector_feature_i = Dense_1(Lam)
 
 
         '''
@@ -766,7 +775,7 @@ class KerasMixin(object):
         self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
 
         ### Compile
-        self.model.compile(loss = {'out_1' : 'categorical_crossentropy'}, optimizer = 'adam', metrics=["accuracy"])
+        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=["accuracy"])
 
 
 
