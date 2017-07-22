@@ -656,8 +656,8 @@ class KerasMixin(object):
         '''
 
         def my_loss(y_true, y_pred):
-            a = y_true.repeat(28 * 9, axis = 0)
-            b = y_pred.reshape(-1, 15)
+            a = K.repeat_elements(y_true, 28 * 9, axis = 0)
+            b = K.reshape(y_pred,(-1, 15))
             return K.categorical_crossentropy(b, a)
 
         def func(X):
