@@ -727,7 +727,7 @@ class KerasMixin(object):
         #conv_9_input = Conv_8(pool_4_input)
         pool_4_input_1 = Reshape((28,9*64, ))(pool_4_input)
         Conv_9 = Conv1D(15,1,activation='softmax')
-        conv_9_input = Conv_9(pool_4_input_1,ac)
+        conv_9_input = Conv_9(pool_4_input_1)
         #Conv_9 = Conv2D(15, (1, 1))
         #conv_9_input = Conv_9(pool_4_input)
         '''
