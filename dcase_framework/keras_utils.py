@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape( 1,15,).repeat(28*9))
+            pdata.append(ve[0].reshape(1, 15).repeat(28 * 9, axis = 0))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -655,6 +655,16 @@ class KerasMixin(object):
 
         '''
 
+        num_feature = 200
+        num_label = 15
+        dim_vector = 128
+        margin = 0.5
+        batch_size = 32
+        word_num = 1764
+        dense_size = 128
+        input_size = 501
+        raw_size = 441001
+
         def my_loss(y_true, y_pred):
             '''
             a = y_pred[:,0:15]
@@ -664,31 +674,26 @@ class KerasMixin(object):
             print("asavad ",a.get_shape)
             #a = K.repeat_elements(a,28*9,axis=0)
             '''
-            return K.mean(y_pred)
+
+            ans = tf.zeros(batch_size)
+            for i in range(batch_size):
+                ans[i] = K.categorical_crossentropy(y_true[i], y_pred[i])
+            return K.mean(ans)
+
 
         def func(X):
             return tf.reduce_sum(X,1)
 
+        '''
         def shit(X):
             a = X[:,0:15]
             b = X[:,15:-1]
             b = K.reshape(b,(-1, 15))
             return K.categorical_crossentropy(a, b)
-
-
-        num_feature = 200
-        num_label = 15
-        dim_vector = 128
-        margin = 0.5
-        k_size = 256
-        word_num = 1764
-        dense_size = 128
-        input_size = 501
-        raw_size = 441001
+        '''
 
         ### Input
         input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
-        y_true = Input(shape = (15,),dtype = 'float32', name = 'y_true')
         #input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
         raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
@@ -745,9 +750,9 @@ class KerasMixin(object):
         Conv_10 = Conv2D(15, (1, 1), activation='softmax')
         conv_9_input = Conv_9(pool_4_input)
         conv_10_input =Conv_10(conv_9_input)
-        conv_10_input_re = Reshape((28*9*15,))(conv_10_input)
-        concat_1 = Concatenate(axis=1,name='out_1')([y_true,conv_10_input_re])
-        vector_feature_i = Lambda(shit,output_shape=(1,),name='out_1')(concat_1)
+        vector_feature_i = Reshape((28*9, 15), name = 'out_1')(conv_10_input)
+        #concat_1 = Concatenate(axis=1,name='out_1')([y_true,conv_10_input_re])
+        #vector_feature_i = Lambda(shit,output_shape=(1,),name='out_1')(concat_1)
 
         print("ffffffffffffffffffffffff")
 
@@ -791,7 +796,7 @@ class KerasMixin(object):
         '''
 
         ### Model
-        self.model = Model(inputs = [raw_feature, input_feature,y_true], outputs = [vector_feature_i])
+        self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
 
         ### Compile
         self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=["accuracy"])

@@ -1304,7 +1304,6 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             {
                 'raw_feature' : X_1,
                 'input_feature' : X_training,
-                'y_true':Y_training
             },
             y=Y_training,
             batch_size=32,
