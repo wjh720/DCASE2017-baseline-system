@@ -1041,7 +1041,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         """
 
-        from keras.models import Sequential, Model
+        #from keras.models import Sequential, Model
+        '''
         from keras.layers import Dense, Dropout, Flatten
         from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D
         from keras.layers import Dense, Dropout, Activation, Flatten, Input, Dense, LSTM, Lambda, Embedding, Reshape
@@ -1052,7 +1053,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         from keras import backend as K
         import tensorflow as tf
         import numpy as np
-
+        '''
         path = '/data/tmpsrt1/DCASE2017-baseline-system/applications/'
         num_epoch = 30
         batch_size = 256
