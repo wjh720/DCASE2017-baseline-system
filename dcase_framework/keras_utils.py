@@ -675,6 +675,9 @@ class KerasMixin(object):
             #a = K.repeat_elements(a,28*9,axis=0)
             '''
 
+            print("asavad ",y_true.get_shape)
+            print("asavad ",y_pred.get_shape)
+
             ans = []
             for i in range(batch_size):
                 ans.append(K.categorical_crossentropy(y_true[i], y_pred[i]))
