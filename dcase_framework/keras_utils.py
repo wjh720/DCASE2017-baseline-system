@@ -689,7 +689,9 @@ class KerasMixin(object):
             ans = []
             for i in range(15):
                 tmp = K.equal(a, i)
-                b = K.sum(tmp, axis = 1)
+                print("asavad ", tmp.get_shape)
+                b = tf.reduce_sum(tmp, axis = 1, keep_dims=False)
+                print("asavad ", b.get_shape)
                 ans.append(b)
             c = tf.stack(ans)
             d = K.argmax(K.transpose(c), axis = 1)
