@@ -710,7 +710,7 @@ class KerasMixin(object):
 
         Flatten_input = Flatten()(pool_3_input)
 
-        Dense_1 = Dense(15, activation='softmax')
+        Dense_1 = Dense(15, activation='softmax', name = 'out_1')
         vector_feature_i = Dense_1(Flatten_input)
         '''
         Conv_2 = Conv1D(dim_vector, 1, activation='relu')
