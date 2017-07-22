@@ -735,7 +735,7 @@ class KerasMixin(object):
         conv_9_input = Conv_9(pool_4_input)
         conv_10_input =Conv_10(conv_9_input)
         conv_10_input_re = Reshape((28*9*15,))(conv_10_input)
-        vector_feature_i = Concatenate(axis=0,name='out_1')([y_true,conv_10_input_re])
+        vector_feature_i = Concatenate(axis=1,name='out_1')([y_true,conv_10_input_re])
 
         print("ffffffffffffffffffffffff")
 
