@@ -730,10 +730,10 @@ class KerasMixin(object):
         conv_9_input = Conv_9(pool_4_input_1)
         #Conv_9 = Conv2D(15, (1, 1))
         #conv_9_input = Conv_9(pool_4_input)
-        S1 = Permute((2,1))(conv_9_input)
+        S1 = Permute((1,2))(conv_9_input)
         Soft = Activation('softmax')
         Soft_1_input = Soft(S1)
-        S2 = Permute((2,1))(Soft_1_input)
+        S2 = Permute((1,2))(Soft_1_input)
 
         Lam = Lambda(func, output_shape = (15, ))(S2)
         Dense_1 = Dense(15, activation='softmax', name = 'out_1')
