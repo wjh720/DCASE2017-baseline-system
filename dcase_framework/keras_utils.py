@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15,).repeat(28*9, axis = 0))
+            pdata.append(ve[0].reshape( 15,))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -656,12 +656,10 @@ class KerasMixin(object):
         '''
 
         def my_loss(y_true, y_pred):
-            print ('asddvs : ', y_pred.get_shape())
-            print ('asddvs : ', y_true.get_shape())
-            #a = K.repeat_elements(y_true, 28 * 9, axis = 0)
-            a=K.reshape(y_true,(-1,15))
-            print("who?????????????????????")
-            b = K.reshape(y_pred,(-1, 15))
+            a = y_pred[:,0:15]
+            b = y_pred[:,15:-1]
+            a = K.repeat_elements(a,28*9,axis=0)
+            b = K.reshape(b,(-1, 15))
             return K.categorical_crossentropy(a, b)
 
         def func(X):
@@ -679,6 +677,7 @@ class KerasMixin(object):
 
         ### Input
         input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
+        y_true = Input(shape = (15,),dtype = 'float32', name = 'y_true')
         #input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
         raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
@@ -735,7 +734,8 @@ class KerasMixin(object):
         Conv_10 = Conv2D(15, (1, 1), activation='softmax')
         conv_9_input = Conv_9(pool_4_input)
         conv_10_input =Conv_10(conv_9_input)
-        vector_feature_i = Reshape((28*9*15,),name='out_1')(conv_10_input)
+        conv_10_input_re = Reshape((28*9*15,))(conv_10_input)
+        vector_feature_i = Concatenate(axis=0,name='out_1')([y_true,conv_10_input_re])
 
         print("ffffffffffffffffffffffff")
 
@@ -779,7 +779,7 @@ class KerasMixin(object):
         '''
 
         ### Model
-        self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
+        self.model = Model(inputs = [raw_feature, input_feature,y_true], outputs = [vector_feature_i])
 
         ### Compile
         self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=["accuracy"])

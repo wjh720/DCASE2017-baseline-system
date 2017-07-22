@@ -1265,7 +1265,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         self.create_model(input_shape=self._get_input_size(data=data))
 
         print("@#@$@@ Builded !@#@#!!")
-        
+
         if self.show_extra_debug:
             self.log_model_summary()
 
@@ -1303,7 +1303,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         self.model.fit(
             {
                 'raw_feature' : X_1,
-                'input_feature' : X_training
+                'input_feature' : X_training,
+                'y_true':Y_training
             },
             y=Y_training,
             batch_size=32,
