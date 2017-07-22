@@ -664,7 +664,7 @@ class KerasMixin(object):
         dense_size = 128
         input_size = 501
         raw_size = 441001
-        num_asd = 28 * 9
+        num_asd = 28 * 1
 
         def my_loss(y_true, y_pred):
             '''
