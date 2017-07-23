@@ -727,6 +727,21 @@ class KerasMixin(object):
         input_feat=Reshape((501,200,1))(input_feature)
         #print('vqe', raw_spec.get_shape())
 
+        Conv_1 = Conv2D(64, (1, 200), padding='same', activation='relu')
+        Conv_2 = Conv2D(64, (1, 200), padding='same', activation='relu')
+        Conv_3 = Conv2D(15, (1, 200), padding='same', activation='softmax')
+
+        conv_1_input = Conv_1(input_feat)
+        drop_1_input = Dropout(0.2)(conv_1_input)
+        conv_2_input = Conv_2(drop_1_input)
+        drop_2_input = Dropout(0.2)(conv_2_input)
+        conv_3_input = Conv_3(drop_2_input)
+
+        vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
+
+
+
+        '''
         Conv_1 = Conv2D(32, (3, 3), padding='same', activation='relu')
         Conv_2 = Conv2D(32, (3, 3), padding='same', activation='relu')
         Pool_1 = MaxPooling2D(pool_size=(1, 2))
@@ -781,6 +796,7 @@ class KerasMixin(object):
         vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_10_input)
         #concat_1 = Concatenate(axis=1,name='out_1')([y_true,conv_10_input_re])
         #vector_feature_i = Lambda(shit,output_shape=(1,),name='out_1')(concat_1)
+        '''
 
         print("ffffffffffffffffffffffff")
 
