@@ -759,21 +759,29 @@ class KerasMixin(object):
         conv_6 = Conv_6(raw_feat)
         conv_6_bh = BatchNormalization()(conv_6)
 
-        conv_7 = Conv_7(conv_6)
+        conv_7 = Conv_7(conv_6_bh)
         conv_7_bh = BatchNormalization()(conv_7)
 
-        conv_8 = Conv_8(conv_7)
+        conv_8 = Conv_8(conv_7_bh)
         conv_8_bh = BatchNormalization()(conv_8)
         drop_8 = Dropout(0.2)(conv_8_bh)
 
-        conv_1 = Conv_1(conv_8)
-        drop_1 = Dropout(0.2)(conv_1)
+        conv_1 = Conv_1(drop_8)
+        conv_1_bh = BatchNormalization()(conv_1)
+        drop_1 = Dropout(0.2)(conv_1_bh)
+
         conv_2 = Conv_2(drop_1)
-        drop_2 = Dropout(0.2)(conv_2)
+        conv_2_bh = BatchNormalization()(conv_2)
+        drop_2 = Dropout(0.2)(conv_2_bh)
+
         conv_3 = Conv_3(drop_2)
-        drop_3 = Dropout(0.2)(conv_3)
+        conv_3_bh = BatchNormalization()(conv_3)
+        drop_3 = Dropout(0.2)(conv_3_bh)
+
         conv_4 = Conv_4(drop_3)
-        drop_4 = Dropout(0.2)(conv_4)
+        conv_4_bh = BatchNormalization()(conv_4)
+        drop_4 = Dropout(0.2)(conv_4_bh)
+        
         vector_feature_i = Conv_5(drop_4)
 
 
