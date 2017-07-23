@@ -395,7 +395,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(1285, axis = 0))
+            pdata.append(ve[0].reshape(1, 15).repeat(1281, axis = 0))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -473,6 +473,7 @@ class KerasMixin(object):
 
 
         from keras.models import Sequential, Model
+        from keras.layers.advanced_activations import LeakyReLU, PReLU
         from keras.layers import Dense, Dropout, Flatten,Permute
         from keras.layers import Conv1D, MaxPooling1D,Conv2D,MaxPooling2D, AveragePooling2D
         from keras.layers import Dense, Dropout, Activation, Flatten, Input, Dense, LSTM, Lambda, Embedding, Reshape
@@ -665,7 +666,7 @@ class KerasMixin(object):
         dense_size = 128
         input_size = 501
         raw_size = 441001
-        num_asd = 1285
+        num_asd = 1281
 
         def my_loss(y_true, y_pred):
             '''
@@ -747,29 +748,47 @@ class KerasMixin(object):
 
         vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
         '''
-        Conv_6 = Conv1D(8, 3, strides=3, activation='relu')
-        Conv_9 = Conv1D(16, 3, strides=3, activation='relu')
-        Conv_7 = Conv1D(32, 7, strides=5, activation='relu')
-        Conv_8 = Conv1D(32, 7, strides=5, activation='relu')
-        Conv_1 = Conv1D(64, 3, padding='causal', activation='relu',dilation_rate=1)
-        Conv_2 = Conv1D(64, 3, padding='causal', activation='relu',dilation_rate=2)
-        Conv_3 = Conv1D(64, 3, padding='causal', activation='relu',dilation_rate=4)
-        Conv_4 = Conv1D(128, 3, padding='causal', activation='relu',dilation_rate=8)
-        Conv_5 = Conv1D(15, 3, padding='causal', activation='softmax',dilation_rate=16,name='out_1')
+
+        Conv_6 = Conv1D(8, 7, strides=3)
+        Conv_11 = Conv1D(16,7,strides=3)
+        Conv_7 = Conv1D(16, 7, strides=5)
+        Conv_8 = Conv1D(32, 7, strides=5)
+
+        Conv_1 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=1)
+        Conv_2 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=2)
+        Conv_3 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=4)
+        Conv_4 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=8)
+        Conv_5 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=16)
+
+        Conv_9 = Conv1D(128, 3, activation='relu')
+        Conv_10 = Conv1D(15, 3, activation='softmax', name='out_1')
 
         conv_6 = Conv_6(raw_feat)
-        conv_9 = Conv_9(conv_6)
-        conv_7 = Conv_7(conv_9)
-        conv_8 = Conv_8(conv_7)
-        conv_1 = Conv_1(conv_8)
-        drop_1 = Dropout(0.2)(conv_1)
-        conv_2 = Conv_2(drop_1)
-        drop_2 = Dropout(0.2)(conv_2)
-        conv_3 = Conv_3(drop_2)
-        drop_3 = Dropout(0.2)(conv_3)
-        conv_4 = Conv_4(drop_3)
-        drop_4 = Dropout(0.2)(conv_4)
-        vector_feature_i = Conv_5(drop_4)
+        conv_6_ok = LeakyReLU(alpha=.001)(conv_6)
+
+        conv_11 = Conv_11(conv_6_ok)
+        conv_11_ok = LeakyReLU(alpha=.001)(conv_11)
+
+        conv_7 = Conv_7(conv_11_ok)
+        conv_7_ok = LeakyReLU(alpha=.001)(conv_7)
+
+        conv_8 = Conv_8(conv_7_ok)
+        conv_8_ok = LeakyReLU(alpha=.001)(conv_8)
+        drop_8 = Dropout(0.2)(conv_8_ok)
+
+        conv_1 = Conv_1(drop_8)
+        conv_2 = Conv_2(conv_1)
+        conv_3 = Conv_3(conv_2)
+        conv_4 = Conv_4(conv_3)
+        conv_5 = Conv_5(conv_4)
+        drop_1 = Dropout(0.2)(conv_4)
+
+        res_1 = Add()([drop_8, drop_1])
+
+        conv_9 = Conv_9(res_1)
+        drop_9 = Dropout(0.2)(conv_9)
+        vector_feature_i = Conv_10(drop_9)
+
 
 
 
