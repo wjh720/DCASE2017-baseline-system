@@ -667,7 +667,7 @@ class KerasMixin(object):
         input_size = 501
         raw_size = 441001
         num_asd = 386
-        wave_size = 64
+        wave_size = 32
 
         def my_loss(y_true, y_pred):
             '''
