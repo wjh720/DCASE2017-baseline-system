@@ -760,8 +760,8 @@ class KerasMixin(object):
         Conv_3 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=4)
         Conv_4 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=8)
         Conv_5 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=16)
-        Conv_13 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=32)
-        Conv_14 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=64)
+        Conv_13 = Conv1D(64, 3, padding='causal', activation='relu',dilation_rate=32)
+        Conv_14 = Conv1D(64, 3, padding='causal', activation='relu',dilation_rate=64)
         #Conv_15 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=128)
         #Conv_16 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=256)
 
