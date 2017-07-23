@@ -750,7 +750,7 @@ class KerasMixin(object):
         '''
 
         Conv_6 = Conv1D(8, 7, strides=5)
-        Conv_11 = Conv1D(16,7,strides=3)
+        Conv_11 = Conv1D(16,7,strides=5)
         Conv_7 = Conv1D(16, 7, strides=5)
         Conv_8 = Conv1D(32, 7, strides=5)
         Conv_12 = Conv1D(32, 7, strides=5)
@@ -782,7 +782,7 @@ class KerasMixin(object):
 
         conv_12 = Conv_12(conv_8_ok)
         conv_12_ok = LeakyReLU(alpha=.001)(conv_12)
-        drop_12 = Dropout(0.2)(conv_12_ok)
+        drop_12 = Dropout(0.2)(conv_8_ok)
 
         conv_1 = Conv_1(drop_12)
         conv_2 = Conv_2(conv_1)
