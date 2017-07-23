@@ -289,6 +289,7 @@ class KerasMixin(object):
 
         for item in files:
             y, sr=soundfile.read(item)
+            y = np.mean(y.T, axis=0)
             rawdata.append(y)
 
             x=data[item].feat[0]
@@ -719,7 +720,7 @@ class KerasMixin(object):
         ### Input
         input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
         #input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (raw_size, 2), dtype = 'float32', name = 'raw_feature')
+        raw_feature = Input(shape = (raw_size, 1), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
         
