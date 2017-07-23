@@ -771,34 +771,34 @@ class KerasMixin(object):
         conv_6_ok = LeakyReLU(alpha=.001)(conv_6)
 
         conv_11 = Conv_11(conv_6_ok)
-        conv_11_ok = LeakyReLU(alpha=.001)(conv_11)
-        drop_7 = Dropout(0.1)(conv_11_ok)
+        drop_7 = LeakyReLU(alpha=.001)(conv_11)
+        #drop_7 = Dropout(0.1)(conv_11_ok)
 
         conv_7 = Conv_7(drop_7)
         conv_7_ok = LeakyReLU(alpha=.001)(conv_7)
 
         conv_8 = Conv_8(conv_7_ok)
-        conv_8_ok = LeakyReLU(alpha=.001)(conv_8)
-        drop_12 = Dropout(0.1)(conv_8_ok)
+        drop_12 = LeakyReLU(alpha=.001)(conv_8)
+        #drop_12 = Dropout(0.1)(conv_8_ok)
 
-        conv_1 = Conv_1(drop_12)
-        drop_1 = Dropout(0.1)(conv_1)
+        drop_1 = Conv_1(drop_12)
+        #drop_1 = Dropout(0.1)(conv_1)
 
         conv_2_con = Concatenate(axis=2)([drop_12, drop_1])
-        conv_2 = Conv_2(conv_2_con)
-        drop_2 = Dropout(0.1)(conv_2)
+        drop_2 = Conv_2(conv_2_con)
+        #drop_2 = Dropout(0.1)(conv_2)
 
         conv_3_con = Concatenate(axis=2)([drop_12, drop_1, drop_2])
-        conv_3 = Conv_3(conv_3_con)
-        drop_3 = Dropout(0.1)(conv_3)
+        drop_3 = Conv_3(conv_3_con)
+        #drop_3 = Dropout(0.1)(conv_3)
 
         conv_4_con = Concatenate(axis=2)([drop_12, drop_1, drop_2, drop_3])
-        conv_4 = Conv_4(conv_4_con)
-        drop_4 = Dropout(0.1)(conv_4)
+        drop_4 = Conv_4(conv_4_con)
+        #drop_4 = Dropout(0.1)(conv_4)
 
         conv_5_con = Concatenate(axis=2)([drop_12, drop_1, drop_2, drop_3, drop_4])
-        conv_5 = Conv_5(conv_5_con)
-        drop_5 = Dropout(0.2)(conv_5)
+        drop_5 = Conv_5(conv_5_con)
+        #drop_5 = Dropout(0.2)(conv_5)
 
         '''
         conv_1 = Conv_1(drop_12)
@@ -826,8 +826,8 @@ class KerasMixin(object):
         #res_1 = Add()([drop_12, drop_1])
 
         conv_9 = Conv_9(drop_5)
-        drop_9 = Dropout(0.2)(conv_9)
-        vector_feature_i = Conv_10(drop_9)
+        #drop_9 = Dropout(0.2)(conv_9)
+        vector_feature_i = Conv_10(conv_9)
 
 
 
