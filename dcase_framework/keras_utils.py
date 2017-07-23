@@ -751,7 +751,7 @@ class KerasMixin(object):
         Conv_3 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4)
         Conv_4 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=8)
         Conv_5 = Conv1D(15, 3, padding='causal', activation='softmax',dilation_rate=16,name='out_1')
-        conv_1 = Conv_1(input_feature)
+        conv_1 = Conv_1(raw_spec)
         drop_1 = Dropout(0.2)(conv_1)
         conv_2 = Conv_2(drop_1)
         drop_2 = Dropout(0.2)(conv_2)
