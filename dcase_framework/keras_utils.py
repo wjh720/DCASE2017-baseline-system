@@ -765,7 +765,7 @@ class KerasMixin(object):
         Conv_8 = Conv2D(256, (1, 1), padding='same', activation='relu')
         Conv_12 = Conv2D(256, (1, 1), padding='same', activation='relu')
         conv_8_input = Conv_8(drop_4_input)
-        conv_12_input = Conv_8(conv_8_input)
+        conv_12_input = Conv_12(conv_8_input)
 
         Pool_4 = AveragePooling2D(pool_size=(2, 2))
         pool_4_input = Pool_4(conv_12_input)
