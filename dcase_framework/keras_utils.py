@@ -787,7 +787,7 @@ class KerasMixin(object):
         conv_5 = Conv_5(conv_4)
         drop_1 = Dropout(0.2)(conv_4)
 
-        res_1 = Add()([drop_8, drop_1])
+        res_1 = Add()([drop_12, drop_1])
 
         conv_9 = Conv_9(res_1)
         drop_9 = Dropout(0.2)(conv_9)
