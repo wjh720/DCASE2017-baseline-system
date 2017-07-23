@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(62, axis = 0))
+            pdata.append(ve[0].reshape(1, 15).repeat(500, axis = 0))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -664,7 +664,7 @@ class KerasMixin(object):
         dense_size = 128
         input_size = 501
         raw_size = 441001
-        num_asd = 62 * 1
+        num_asd = 500
 
         def my_loss(y_true, y_pred):
             '''
