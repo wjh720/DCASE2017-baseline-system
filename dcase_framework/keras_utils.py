@@ -762,8 +762,8 @@ class KerasMixin(object):
         Conv_5 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=16)
         Conv_13 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=32)
         Conv_14 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=64)
-        #Conv_15 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=128)
-        #Conv_16 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=256)
+        Conv_15 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=128)
+        Conv_16 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=256)
 
         Conv_9 = Conv1D(128, 3, activation='relu')
         Conv_10 = Conv1D(15, 3, activation='softmax', name='out_1')
@@ -776,32 +776,37 @@ class KerasMixin(object):
 
         conv_7 = Conv_7(conv_11_ok)
         conv_7_ok = LeakyReLU(alpha=.001)(conv_7)
+        drop_7 = Dropout(0.2)(conv_7_ok)
 
-        conv_8 = Conv_8(conv_7_ok)
+        conv_8 = Conv_8(drop_7)
         conv_8_ok = LeakyReLU(alpha=.001)(conv_8)
 
         conv_12 = Conv_12(conv_8_ok)
         conv_12_ok = LeakyReLU(alpha=.001)(conv_12)
-        drop_12 = Dropout(0.2)(conv_8_ok)
+        drop_12 = Dropout(0.2)(conv_12_ok)
 
         conv_1 = Conv_1(drop_12)
-        conv_1_add = Add()([conv_1,drop_12])
+        conv_1_add = Add()([conv_1, drop_12])
         conv_2 = Conv_2(conv_1_add)
-        conv_2_add = Add()([conv_2,conv_1_add])
+        conv_2_add = Add()([conv_2, conv_1_add, drop_12])
         conv_3 = Conv_3(conv_2_add)
-        conv_3_add = Add()([conv_3,conv_2_add])
+        conv_3_add = Add()([conv_3, conv_2_add, conv_1_add, drop_12])
         conv_4 = Conv_4(conv_3_add)
-        conv_4_add = Add()([conv_4,conv_3_add])
+        conv_4_add = Add()([conv_4, conv_3_add, conv_2_add, conv_1_add, drop_12])
         conv_5 = Conv_5(conv_4_add)
-        conv_5_add = Add()([conv_5,conv_4_add])
+        conv_5_add = Add()([conv_5, conv_4_add, conv_3_add, conv_2_add, conv_1_add, drop_12])
+
+        '''
         conv_13 = Conv_13(conv_5_add)
         conv_13_add = Add()([conv_13,conv_5_add])
         conv_14 = Conv_14(conv_13_add)
+        conv_14_add = Add()([conv_14,conv_13_add])
+        conv_15 = Conv_15(conv_14_add)
+        conv_15_add = Add()([conv_15,conv_14_add])
+        conv_16 = Conv_16(conv_15_add)
         '''
-        conv_15 = Conv_15(conv_14)
-        conv_16 = Conv_16(conv_15)
-        '''
-        drop_1 = Dropout(0.2)(conv_14)
+
+        drop_1 = Dropout(0.2)(conv_5_add)
 
         #res_1 = Add()([drop_12, drop_1])
 
