@@ -720,7 +720,7 @@ class KerasMixin(object):
         ### Input
         input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
         #input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (raw_size, 1), dtype = 'float32', name = 'raw_feature')
+        raw_feature = Input(shape = (raw_size, ), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
         
@@ -732,7 +732,7 @@ class KerasMixin(object):
         raw_spec = specgram(raw_feature)
 
 
-        #input_feat=Reshape((501,1,200))(input_feature)
+        raw_feat=Reshape((raw_size,1,))(raw_feature)
         #print('vqe', raw_spec.get_shape())
         '''
         Conv_1 = Conv1D(256, 3, padding='same', activation='relu')
@@ -756,7 +756,7 @@ class KerasMixin(object):
         Conv_4 = Conv1D(128, 3, padding='causal', activation='relu',dilation_rate=8)
         Conv_5 = Conv1D(15, 3, padding='causal', activation='softmax',dilation_rate=16,name='out_1')
 
-        conv_6 = Conv_6(raw_feature)
+        conv_6 = Conv_6(raw_feat)
         conv_7 = Conv_7(conv_6)
         conv_8 = Conv_8(conv_7)
         conv_1 = Conv_1(conv_8)
