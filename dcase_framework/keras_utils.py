@@ -778,8 +778,8 @@ class KerasMixin(object):
         conv_7_ok = LeakyReLU(alpha=.001)(conv_7)
 
         conv_8 = Conv_8(conv_7_ok)
-        drop_12 = LeakyReLU(alpha=.001)(conv_8)
-        #drop_12 = Dropout(0.1)(conv_8_ok)
+        conv_8_ok = LeakyReLU(alpha=.001)(conv_8)
+        drop_12 = Dropout(0.2)(conv_8_ok)
 
         drop_1 = Conv_1(drop_12)
         #drop_1 = Dropout(0.1)(conv_1)
@@ -826,8 +826,8 @@ class KerasMixin(object):
         #res_1 = Add()([drop_12, drop_1])
 
         conv_9 = Conv_9(drop_5)
-        #drop_9 = Dropout(0.2)(conv_9)
-        vector_feature_i = Conv_10(conv_9)
+        drop_9 = Dropout(0.3)(conv_9)
+        vector_feature_i = Conv_10(drop_9)
 
 
 
