@@ -733,7 +733,7 @@ class KerasMixin(object):
 
         #input_feat=Reshape((501,1,200))(input_feature)
         #print('vqe', raw_spec.get_shape())
-
+        '''
         Conv_1 = Conv1D(256, 3, padding='same', activation='relu')
         Conv_2 = Conv1D(512, 3, padding='same', activation='relu')
         Conv_3 = Conv1D(15, 3, padding='same', activation='softmax')
@@ -745,6 +745,21 @@ class KerasMixin(object):
         conv_3_input = Conv_3(drop_2_input)
 
         vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
+        '''
+        Conv_1 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1)
+        Conv_2 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2)
+        Conv_3 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4)
+        Conv_4 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=8)
+        Conv_5 = Conv1D(15, 3, padding='causal', activation='relu',dilation_rate=16)
+        conv_1 = Conv_1(input_feature)
+        drop_1 = Dropout(0.2)(conv_1)
+        conv_2 = Conv_2(drop_1)
+        drop_2 = Dropout(0.2)(conv_2)
+        conv_3 = Conv_3(drop_2)
+        drop_3 = Dropout(0.2)(conv_3)
+        conv_4 = Conv_4(drop_3)
+        drop_4 = Dropout(0.2)(conv_4)
+        conv_5 = Conv_5(drop_4)
 
 
 
