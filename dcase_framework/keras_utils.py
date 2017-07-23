@@ -746,13 +746,13 @@ class KerasMixin(object):
 
         vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
         '''
-        Conv_6 = Conv1D(7, 7, strides=7, activation='relu')
-        Conv_7 = Conv1D(49, 7, strides=7, activation='relu')
-        Conv_8 = Conv1D(49*7, 7, strides=7, activation='relu')
-        Conv_1 = Conv1D(512, 3, padding='causal', activation='relu',dilation_rate=1)
-        Conv_2 = Conv1D(512, 3, padding='causal', activation='relu',dilation_rate=2)
-        Conv_3 = Conv1D(512, 3, padding='causal', activation='relu',dilation_rate=4)
-        Conv_4 = Conv1D(512, 3, padding='causal', activation='relu',dilation_rate=8)
+        Conv_6 = Conv1D(8, 7, strides=7, activation='relu')
+        Conv_7 = Conv1D(64, 7, strides=7, activation='relu')
+        Conv_8 = Conv1D(128, 7, strides=7, activation='relu')
+        Conv_1 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1)
+        Conv_2 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2)
+        Conv_3 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4)
+        Conv_4 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=8)
         Conv_5 = Conv1D(15, 3, padding='causal', activation='softmax',dilation_rate=16,name='out_1')
 
         conv_6 = Conv_6(raw_feature)
