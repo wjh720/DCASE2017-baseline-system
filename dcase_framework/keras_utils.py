@@ -761,7 +761,7 @@ class KerasMixin(object):
         Conv_4 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=8)
         Conv_5 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=16)
         Conv_13 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=32)
-        #Conv_14 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=64)
+        Conv_14 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=64)
         #Conv_15 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=128)
         #Conv_16 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=256)
 
@@ -790,12 +790,12 @@ class KerasMixin(object):
         conv_4 = Conv_4(conv_3)
         conv_5 = Conv_5(conv_4)
         conv_13 = Conv_13(conv_5)
-        '''
         conv_14 = Conv_14(conv_13)
+        '''
         conv_15 = Conv_15(conv_14)
         conv_16 = Conv_16(conv_15)
         '''
-        drop_1 = Dropout(0.2)(conv_13)
+        drop_1 = Dropout(0.2)(conv_14)
 
         #res_1 = Add()([drop_12, drop_1])
 
