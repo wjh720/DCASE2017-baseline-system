@@ -760,11 +760,11 @@ class KerasMixin(object):
         conv_6_bh = BatchNormalization()(conv_6)
 
         conv_7 = Conv_7(conv_6_bh)
-        conv_7_bh = BatchNormalization()(conv_7)
+        #conv_7_bh = BatchNormalization()(conv_7)
 
-        conv_8 = Conv_8(conv_7_bh)
-        conv_8_bh = BatchNormalization()(conv_8)
-        drop_8 = Dropout(0.2)(conv_8_bh)
+        conv_8 = Conv_8(conv_7)
+        #conv_8_bh = BatchNormalization()(conv_8)
+        drop_8 = Dropout(0.2)(conv_8)
 
         conv_1 = Conv_1(drop_8)
         #conv_1_bh = BatchNormalization()(conv_1)
