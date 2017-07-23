@@ -723,14 +723,14 @@ class KerasMixin(object):
         raw_feature = Input(shape = (raw_size, ), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
-        
+        '''
         specgram = Melspectrogram(n_dft=512,
                                  input_shape=(raw_size, 2), 
                                  trainable=True,
                                  sr=11025)
         
         raw_spec = specgram(raw_feature)
-
+        '''
 
         raw_feat=Reshape((raw_size,1,))(raw_feature)
         #print('vqe', raw_spec.get_shape())
