@@ -724,12 +724,12 @@ class KerasMixin(object):
         raw_spec = specgram(raw_feature)
 
 
-        input_feat=Reshape((501,200,1))(input_feature)
+        input_feat=Reshape((501,1,200))(input_feature)
         #print('vqe', raw_spec.get_shape())
 
-        Conv_1 = Conv2D(64, (1, 200), padding='same', activation='relu')
-        Conv_2 = Conv2D(64, (1, 200), padding='same', activation='relu')
-        Conv_3 = Conv2D(15, (1, 200), padding='same', activation='softmax')
+        Conv_1 = Conv2D(64, (1, 1), padding='same', activation='relu')
+        Conv_2 = Conv2D(64, (1, 1), padding='same', activation='relu')
+        Conv_3 = Conv2D(15, (1, 1), padding='same', activation='softmax')
 
         conv_1_input = Conv_1(input_feat)
         drop_1_input = Dropout(0.2)(conv_1_input)
