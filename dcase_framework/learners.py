@@ -1298,7 +1298,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         print("asdasd")
 
         #Train(X_training, Y_training, validation)
-        tbCallBack = keras.callbacks.TensorBoard(log_dir='./Graph', histogram_freq=0, write_graph=True, write_images=True)
+        tbCallBack = keras.callbacks.TensorBoard(log_dir='../Graph', histogram_freq=0, write_graph=True, write_images=True)
         
         self.model.fit(
             {
