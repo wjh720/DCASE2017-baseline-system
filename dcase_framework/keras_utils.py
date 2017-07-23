@@ -394,7 +394,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(500, axis = 0))
+            pdata.append(ve[0].reshape(1, 15).repeat(501, axis = 0))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -664,7 +664,7 @@ class KerasMixin(object):
         dense_size = 128
         input_size = 501
         raw_size = 441001
-        num_asd = 500
+        num_asd = 501
 
         def my_loss(y_true, y_pred):
             '''
@@ -727,8 +727,8 @@ class KerasMixin(object):
         input_feat=Reshape((501,1,200))(input_feature)
         #print('vqe', raw_spec.get_shape())
 
-        Conv_1 = Conv2D(64, (1, 1), padding='same', activation='relu')
-        Conv_2 = Conv2D(64, (1, 1), padding='same', activation='relu')
+        Conv_1 = Conv2D(256, (1, 1), padding='same', activation='relu')
+        Conv_2 = Conv2D(512, (1, 1), padding='same', activation='relu')
         Conv_3 = Conv2D(15, (1, 1), padding='same', activation='softmax')
 
         conv_1_input = Conv_1(input_feat)
