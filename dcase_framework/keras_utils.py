@@ -395,7 +395,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(701, axis = 0))
+            pdata.append(ve[0].reshape(1, 15).repeat(386, axis = 0))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -666,7 +666,8 @@ class KerasMixin(object):
         dense_size = 128
         input_size = 501
         raw_size = 441001
-        num_asd = 701
+        num_asd = 386
+        wave_size = 64
 
         def my_loss(y_true, y_pred):
             '''
@@ -753,17 +754,17 @@ class KerasMixin(object):
         Conv_11 = Conv1D(16, 7,strides=5)
         Conv_7 = Conv1D(32, 7, strides=5)
         Conv_8 = Conv1D(32, 7, strides=3)
-        Conv_12 = Conv1D(32, 7, strides=3)
+        Conv_12 = Conv1D(wave_size, 7, strides=3)
 
-        Conv_1 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=1)
-        Conv_2 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=2)
-        Conv_3 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=4)
-        Conv_4 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=8)
-        Conv_5 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=16)
-        Conv_13 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=32)
-        Conv_14 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=64)
-        Conv_15 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=128)
-        Conv_16 = Conv1D(32, 3, padding='causal', activation='relu',dilation_rate=256)
+        Conv_1 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=1)
+        Conv_2 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=2)
+        Conv_3 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=4)
+        Conv_4 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=8)
+        Conv_5 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=16)
+        Conv_13 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=32)
+        Conv_14 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=64)
+        Conv_15 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=128)
+        Conv_16 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=256)
 
         Conv_9 = Conv1D(128, 3, activation='relu')
         Conv_10 = Conv1D(15, 3, activation='softmax', name='out_1')
