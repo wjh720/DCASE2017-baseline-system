@@ -784,19 +784,19 @@ class KerasMixin(object):
         conv_1 = Conv_1(drop_12)
         drop_1 = Dropout(0.1)(conv_1)
 
-        conv_2_con = Concatenate(axis=1)([drop_12, drop_1])
+        conv_2_con = Concatenate(axis=2)([drop_12, drop_1])
         conv_2 = Conv_2(conv_2_con)
         drop_2 = Dropout(0.1)(conv_2)
 
-        conv_3_con = Concatenate(axis=1)([drop_12, drop_1, drop_2])
+        conv_3_con = Concatenate(axis=2)([drop_12, drop_1, drop_2])
         conv_3 = Conv_3(conv_3_con)
         drop_3 = Dropout(0.1)(conv_3)
 
-        conv_4_con = Concatenate(axis=1)([drop_12, drop_1, drop_2, drop_3])
+        conv_4_con = Concatenate(axis=2)([drop_12, drop_1, drop_2, drop_3])
         conv_4 = Conv_4(conv_4_con)
         drop_4 = Dropout(0.1)(conv_4)
 
-        conv_5_con = Concatenate(axis=1)([drop_12, drop_1, drop_2, drop_3, drop_4])
+        conv_5_con = Concatenate(axis=2)([drop_12, drop_1, drop_2, drop_3, drop_4])
         conv_5 = Conv_5(conv_5_con)
         drop_5 = Dropout(0.2)(conv_5)
 
