@@ -698,6 +698,13 @@ class KerasMixin(object):
             d = K.argmax(K.transpose(c), axis = 1)
             return K.mean(K.equal(aa[:, 0], d))
 
+        def mean_acc(y_true, y_pred):
+            a = K.argmax(y_pred, axis = 2)
+            aa = K.argmax(y_true, axis = 2)
+
+            tmp = K.equal(a, aa)
+            return K.mean(K.mean(tf.cast(tmp, tf.float32)))
+
         def func(X):
             return tf.reduce_sum(X,1)
 
@@ -724,14 +731,14 @@ class KerasMixin(object):
         raw_spec = specgram(raw_feature)
 
 
-        input_feat=Reshape((501,1,200))(input_feature)
+        #input_feat=Reshape((501,1,200))(input_feature)
         #print('vqe', raw_spec.get_shape())
 
-        Conv_1 = Conv2D(256, (1, 1), padding='same', activation='relu')
-        Conv_2 = Conv2D(512, (1, 1), padding='same', activation='relu')
-        Conv_3 = Conv2D(15, (1, 1), padding='same', activation='softmax')
+        Conv_1 = Conv1D(256, 3, padding='same', activation='relu')
+        Conv_2 = Conv1D(512, 3, padding='same', activation='relu')
+        Conv_3 = Conv1D(15, 3, padding='same', activation='softmax')
 
-        conv_1_input = Conv_1(input_feat)
+        conv_1_input = Conv_1(input_feature)
         drop_1_input = Dropout(0.2)(conv_1_input)
         conv_2_input = Conv_2(drop_1_input)
         drop_2_input = Dropout(0.2)(conv_2_input)
@@ -843,7 +850,7 @@ class KerasMixin(object):
         self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
 
         ### Compile
-        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=[mode])
+        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=[mode, mean_acc])
 
 
 
