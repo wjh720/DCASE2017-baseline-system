@@ -746,9 +746,9 @@ class KerasMixin(object):
 
         vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
         '''
-        Conv_6 = Conv1D(7, 7, stride=7, activation='relu')
-        Conv_7 = Conv1D(49, 7, stride=7, activation='relu')
-        Conv_8 = Conv1D(49*7, 7, stride=7, activation='relu')
+        Conv_6 = Conv1D(7, 7, strides=7, activation='relu')
+        Conv_7 = Conv1D(49, 7, strides=7, activation='relu')
+        Conv_8 = Conv1D(49*7, 7, strides=7, activation='relu')
         Conv_1 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1)
         Conv_2 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2)
         Conv_3 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4)
