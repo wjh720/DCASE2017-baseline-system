@@ -667,7 +667,7 @@ class KerasMixin(object):
         input_size = 501
         raw_size = 441001
         num_asd = 386
-        wave_size = 32
+        wave_size = 64
 
         def my_loss(y_true, y_pred):
             '''
@@ -753,7 +753,7 @@ class KerasMixin(object):
         Conv_6 = Conv1D(8, 7, strides=5)
         Conv_11 = Conv1D(16, 7,strides=5)
         Conv_7 = Conv1D(32, 7, strides=5)
-        Conv_8 = Conv1D(32, 7, strides=3)
+        Conv_8 = Conv1D(64, 7, strides=3)
         Conv_12 = Conv1D(wave_size, 7, strides=3)
 
         Conv_1 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=1)
@@ -786,6 +786,7 @@ class KerasMixin(object):
         conv_12_ok = LeakyReLU(alpha=.001)(conv_12)
         drop_12 = Dropout(0.15)(conv_12_ok)
 
+        '''
         conv_1 = Conv_1(drop_12)
         conv_1_add = Add()([conv_1, drop_12])
         conv_2 = Conv_2(conv_1_add)
@@ -796,6 +797,19 @@ class KerasMixin(object):
         conv_4_add = Add()([conv_4, conv_3_add, conv_2_add, conv_1_add, drop_12])
         conv_5 = Conv_5(conv_4_add)
         conv_5_add = Add()([conv_5, conv_4_add, conv_3_add, conv_2_add, conv_1_add, drop_12])
+        drop_5 = Dropout(0.2)(conv_5_add)
+        '''
+
+        conv_1 = Conv_1(drop_12)
+        conv_1_add = Add()([conv_1, drop_12])
+        conv_2 = Conv_2(conv_1_add)
+        conv_2_add = Add()([conv_2, conv_1_add])
+        conv_3 = Conv_3(conv_2_add)
+        conv_3_add = Add()([conv_3, conv_2_add])
+        conv_4 = Conv_4(conv_3_add)
+        conv_4_add = Add()([conv_4, conv_3_add])
+        conv_5 = Conv_5(conv_4_add)
+        conv_5_add = Add()([conv_5, conv_4_add])
         drop_5 = Dropout(0.2)(conv_5_add)
 
         '''
