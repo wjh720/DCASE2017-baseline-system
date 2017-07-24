@@ -674,7 +674,7 @@ class KerasMixin(object):
         word_num = 1764
         dense_size = 128
         input_size = 501
-        raw_size = 440000
+        raw_size = 441001
         num_asd = 118
         wave_size = 32
 
@@ -731,7 +731,7 @@ class KerasMixin(object):
         ### Input
         input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
         #input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        #raw_feature = Input(shape = (raw_size, ), dtype = 'float32', name = 'raw_feature')
+        raw_feature = Input(shape = (raw_size, ), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
         '''
