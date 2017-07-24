@@ -784,7 +784,7 @@ class KerasMixin(object):
 
         conv_9_input = Conv_9_input(drop_0)
         drop_9_input = Dropout(0.25)(conv_9_input)
-        vector_feature_i = Conv_10(drop_9_input)
+        vector_feature_i = Conv_10_input(drop_9_input)
         
 
         '''
