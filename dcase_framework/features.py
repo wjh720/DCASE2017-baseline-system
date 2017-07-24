@@ -782,11 +782,17 @@ class FeatureExtractor(object):
 
                 # Extract features
                 
-                if True:
+                if True
                     extractor_func = getattr(self, '_{}'.format('mel'), None)
                     data_mel = extractor_func(data=data, params=current_extractor_params)
                     extractor_func = getattr(self, '_{}'.format('mfcc'), None)
                     data_mfcc = extractor_func(data=data, params=current_extractor_params)
+
+                    print(data_mel[:5])
+
+                    import numpy as np
+                    data_mel = np.array(data_mel)
+                    data_mfcc = np.array(data_mfcc)
 
                     print(data_mel.shape)
                     print(data_mfcc.shape)
