@@ -777,6 +777,9 @@ class FeatureExtractor(object):
                     # By pass
                     data = y
 
+
+                print(extractor_name)
+
                 # Extract features
                 extractor_func = getattr(self, '_{}'.format(extractor_name), None)
                 if extractor_func is not None:
