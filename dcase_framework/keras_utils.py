@@ -745,7 +745,7 @@ class KerasMixin(object):
         conv_01 = Conv_01(conv_00)
         conv_02 = Conv_02(conv_01)
         drop_0 = Dropout(0.2)(conv_02)
-
+        '''
         Conv_1 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
         Conv_2 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
         Conv_3 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4, kernel_initializer = 'glorot_normal')
@@ -775,15 +775,16 @@ class KerasMixin(object):
         conv_5s = Conv_5(conv_4s)
         conv_6s = Conv_6(conv_5s)
         drop_2 = Dropout(0.2)(conv_6s)
-
+        
         res_1 = Add()([drop_0,conv_4])
+        '''
+        Conv_9_input = Conv1D(128, 3, activation='relu')
+        Conv_10_input = Conv1D(15, 3, activation='softmax', name='out_1')
 
-        Conv_9 = Conv1D(128, 3, activation='relu')
-        Conv_10 = Conv1D(15, 3, activation='softmax', name='out_1')
-
-        conv_9 = Conv_9(res_1)
-        drop_9 = Dropout(0.25)(conv_9)
-        vector_feature_i = Conv_10(drop_9)
+        conv_9_input = Conv_9_input(drop_0)
+        drop_9_input = Dropout(0.25)(conv_9_input)
+        conv_10_input = Conv_10(drop_9_input)
+        vector_feature_i = BatchNormalization()(conv_10_input)
 
         '''
         Conv_1 = Conv1D(256, 3, padding='same', activation='relu')
