@@ -741,9 +741,9 @@ class KerasMixin(object):
         Conv_01 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
         Conv_02 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
 
-        conv_00 = Conv1D(input_feature)
-        conv_01 = Conv1D(conv_00)
-        conv_02 = Conv1D(conv_01)
+        conv_00 = Conv_00(input_feature)
+        conv_01 = Conv_01(conv_00)
+        conv_02 = Conv_02(conv_01)
         drop_0 = Dropout(0.2)(conv_02)
 
         Conv_1 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
