@@ -750,11 +750,11 @@ class KerasMixin(object):
         vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
         '''
 
-        Conv_6 = Conv1D(8, 7, strides=7, kernel_initializer = 'glorot_normal')
-        Conv_11 = Conv1D(16, 7,strides=7, kernel_initializer = 'glorot_normal')
-        Conv_7 = Conv1D(wave_size, 7, strides=7, kernel_initializer = 'glorot_normal')
-        #Conv_8 = Conv1D(32, 7, strides=3)
-        #Conv_12 = Conv1D(wave_size, 7, strides=3)
+        Conv_6 = Conv1D(8, 7, strides=5, kernel_initializer = 'glorot_normal')
+        Conv_11 = Conv1D(16, 7,strides=3, kernel_initializer = 'glorot_normal')
+        Conv_7 = Conv1D(wave_size, 7, strides=5, kernel_initializer = 'glorot_normal')
+        Conv_8 = Conv1D(32, 7, strides=3,kernel_initializer = 'glorot_normal')
+        Conv_12 = Conv1D(wave_size, 7, strides=3,kernel_initializer = 'glorot_normal')
 
         Conv_1 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
         Conv_2 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
