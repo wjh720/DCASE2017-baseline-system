@@ -782,7 +782,7 @@ class FeatureExtractor(object):
 
                 # Extract features
                 
-                if True
+                if True:
                     extractor_func = getattr(self, '_{}'.format('mel'), None)
                     data_mel = extractor_func(data=data, params=current_extractor_params)
                     extractor_func = getattr(self, '_{}'.format('mfcc'), None)
