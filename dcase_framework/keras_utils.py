@@ -743,7 +743,29 @@ class KerasMixin(object):
         raw_spec = specgram(raw_feature)
         '''
 
+        Conv_00 = Conv1D(128, 3, activation='relu', kernel_initializer = 'glorot_normal')
+        Conv_01 = Conv1D(128, 3, activation='relu', kernel_initializer = 'glorot_normal')
+        Pool_0 = MaxPooling1D(pool_size=2)
+        conv_00 = Conv_00(input_feature)
+        conv_01 = Conv_01(conv_00)
+        pool_0 = Pool_0(conv_01)
+        drop_0 = Dropout(0.2)(pool_0)
 
+        Conv_10 = Conv1D(256, 3, activation='relu', kernel_initializer = 'glorot_normal')
+        Conv_11 = Conv1D(256, 3, activation='relu', kernel_initializer = 'glorot_normal')
+        Pool_1 = MaxPooling1D(pool_size=2)
+        conv_10 = Conv_10(drop_0)
+        conv_11 = Conv_11(conv_10)
+        pool_1 = Pool_1(conv_11)
+        drop_1 = Dropout(0.2)(pool_1)
+
+        Conv_20 = Conv1D(512, 3, activation='relu', kernel_initializer = 'glorot_normal')
+        Conv_21 = Conv1D(15, 3, activation='softmax', kernel_initializer = 'glorot_normal',name='out_1')
+        conv_20 = Conv_9_input(drop_1)
+        drop_2 = Dropout(0.25)(conv_20)
+        vector_feature_i = Conv_21(drop2)
+
+        #Conv_02 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
 
         '''
         ###!@3
