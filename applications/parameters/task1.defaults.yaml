@@ -12,7 +12,7 @@ sets:
         fold_list: [1, 2, 3, 4]
         evaluation_mode: folds
     feature_stacker:
-      stacking_recipe: mfcc
+      stacking_recipe: mel
     feature_aggregator:
       enable: true
       aggregation_recipe: flatten
@@ -108,7 +108,7 @@ sets:
         fold_list: [1, 2, 3, 4]
         evaluation_mode: folds
     feature_stacker:
-      stacking_recipe: mfcc
+      stacking_recipe: mel
     feature_aggregator:
       enable: true
       aggregation_recipe: flatten
@@ -429,7 +429,7 @@ defaults:
     #  - [extractor (string)]=0                                                     => specified channel and full vector
     # Multiple vector can be concatenate together with ";" delimiter
     # ==========================================================
-    stacking_recipe: mfcc
+    stacking_recipe: mel
 
   # ==========================================================
   # Feature normalizer

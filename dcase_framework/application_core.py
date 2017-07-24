@@ -1351,12 +1351,12 @@ class AcousticSceneClassificationAppCore(AppCore):
                     data_generators=self.DataGenerators if self.params.get_path('learner.parameters.generator.enable') else None,
                 )
 
-                f = open('asd.txt', 'w')
-                f.write(data)
+                f = open('asd.txt', 'r')
+                asd=f.read()
                 f.close()
 
                 learner.learn(
-                    data=data,
+                    data=(data,asd),
                     annotations=annotations,
                     data_filenames=data_filelist
                 )
