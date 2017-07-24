@@ -294,11 +294,11 @@ class KerasMixin(object):
             y = np.mean(y.T, axis=0)
             #rawdata.append(y[:440000])
 
-            asd = librosa.feature.melspectrogram(y, sr)
+            #asd = librosa.feature.melspectrogram(y, sr)
 
             #print(asd.shape) #128, 862
-            asd = asd.T
-            rawdata.append(asd)
+            #asd = asd.T
+            rawdata.append(y)
 
             x=data[item].feat[0]
             pdata.append(x)
