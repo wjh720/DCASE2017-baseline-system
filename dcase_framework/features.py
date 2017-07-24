@@ -781,9 +781,14 @@ class FeatureExtractor(object):
                 #print(extractor_name)
 
                 # Extract features
-                extractor_func = getattr(self, '_{}'.format(extractor_name), None)
-                if extractor_func is not None:
-                    data = extractor_func(data=data, params=current_extractor_params)
+                
+                if True:
+                    extractor_func = getattr(self, '_{}'.format('mel'), None)
+                    data_mel = extractor_func(data=data, params=current_extractor_params)
+                    extractor_func = getattr(self, '_{}'.format('mfcc'), None)
+                    data_mfcc = extractor_func(data=data, params=current_extractor_params)
+
+                    data = np.concatenate([data_mel, data_mfcc], axis = 1)
 
                     # Feature extraction meta information
                     meta = {

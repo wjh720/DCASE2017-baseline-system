@@ -285,34 +285,34 @@ class KerasMixin(object):
         import numpy as np
 
         pdata=[]
-        rawdata = []
+        #rawdata = []
 
         print('asdasdasda')
 
         for item in files:
-            y, sr=soundfile.read(item)
-            y = np.mean(y.T, axis=0)
+            #y, sr=soundfile.read(item)
+            #y = np.mean(y.T, axis=0)
             #rawdata.append(y[:440000])
 
             #asd = librosa.feature.melspectrogram(y, sr)
 
             #print(asd.shape) #128, 862
             #asd = asd.T
-            rawdata.append(y)
+            #rawdata.append(y)
 
             x=data[item].feat[0]
             pdata.append(x)
 
         pdata = np.array(pdata)
         #pdata = np.concatenate(pdata)
-        rawdata = np.array(rawdata)
+        #rawdata = np.array(rawdata)
 
         print('--------------')
         print(pdata.shape)
-        print(rawdata.shape)
+        #print(rawdata.shape)
         print('--------------')
 
-        return (pdata, rawdata)
+        return pdata
         #return (pdata, pdata)
 
         '''
@@ -403,9 +403,9 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(118, axis = 0))
+            #pdata.append(ve[0].reshape(1, 15).repeat(118, axis = 0))
             #pdata.append(ve)
-            #pdata.append(ve[0])
+            pdata.append(ve[0])
 
         pdata = np.array(pdata)
         #pdata = np.concatenate(pdata)
@@ -728,11 +728,15 @@ class KerasMixin(object):
             return K.categorical_crossentropy(a, b)
         '''
 
+        '''
         ### Input
         input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
         #input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
         raw_feature = Input(shape = (raw_size, ), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
+        '''
+
+        
 
         '''
         specgram = Melspectrogram(n_dft=512,
@@ -741,6 +745,8 @@ class KerasMixin(object):
                                  sr=11025)
         
         raw_spec = specgram(raw_feature)
+        '''
+
         '''
 
         Conv_00 = Conv1D(128, 3, activation='relu', kernel_initializer = 'glorot_normal')
@@ -766,6 +772,7 @@ class KerasMixin(object):
         vector_feature_i = Conv_21(drop_2)
 
         #Conv_02 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
+        '''
 
         '''
         ###!@3
@@ -965,7 +972,7 @@ class KerasMixin(object):
         #vector_feature_i = Lambda(shit,output_shape=(1,),name='out_1')(concat_1)
         '''
 
-        print("ffffffffffffffffffffffff")
+        #print("ffffffffffffffffffffffff")
 
         #Conv_9 = Conv2D(1, (1, 1),activation='relu')
         #conv_9_input = Conv_8(pool_4_input)
@@ -1007,10 +1014,10 @@ class KerasMixin(object):
         '''
 
         ### Model
-        self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
+        #self.model = Model(inputs = [raw_feature, input_feature], outputs = [vector_feature_i])
 
         ### Compile
-        self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=[mode, mean_acc])
+        #self.model.compile(loss = {'out_1' : my_loss}, optimizer = 'adam', metrics=[mode, mean_acc])
 
 
 

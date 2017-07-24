@@ -1229,7 +1229,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         activity_matrix_dict = self._get_target_matrix_dict(data=data, annotations=annotations)
 
         # Process data
-        (X_training, X_1) = self.prepare_data(data=data, files=training_files)
+        #(X_training, X_1) = self.prepare_data(data=data, files=training_files)
+        X_training = self.prepare_data(data=data, files=training_files)
 
 
         Y_training = self.prepare_activity(activity_matrix_dict=activity_matrix_dict, files=training_files)
@@ -1239,10 +1240,10 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         # Process validation data
         if validation_files:
-            (X_validation, X_v_1) = self.prepare_data(data=data, files=validation_files)
+            X_validation = self.prepare_data(data=data, files=validation_files)
             Y_validation = self.prepare_activity(activity_matrix_dict=activity_matrix_dict, files=validation_files)
 
-            validation = ({'raw_feature' : X_v_1, 'input_feature' : X_validation}, {'out_1' : Y_validation})
+            validation = (X_validation, Y_validation)
             if self.show_extra_debug:
                 self.logger.debug('  Validation items \t[{validation:d}]'.format(validation=len(X_validation)))
         else:
@@ -1291,8 +1292,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         print("asdasd")
 
         print(X_training.shape)
-        print(X_1.shape)
-        print(X_1)
+        #print(X_1.shape)
+        #print(X_1)
         print(Y_training.shape)
 
         print("asdasd")
@@ -1301,13 +1302,8 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         tbCallBack = keras.callbacks.TensorBoard(log_dir='../Graph', histogram_freq=0, write_graph=True, write_images=True)
         checkpointer = ModelCheckpoint(filepath='/data/tmpsrt1/log_new/wph', save_best_only=True, period = 10, verbose = 1,save_weights_only = True)
         self.model.fit(
-            {
-                'raw_feature' : X_1,
-                'input_feature' : X_training,
-            },
-            {
-                'out_1' : Y_training
-            },
+            x = X_training,
+            y = Y_training,
             batch_size=64,
             epochs=10000,#self.learner_params.get_path('training.epochs', 1),
             validation_data=validation,
