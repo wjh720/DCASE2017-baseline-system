@@ -763,7 +763,7 @@ class KerasMixin(object):
         Conv_21 = Conv1D(15, 3, activation='softmax', kernel_initializer = 'glorot_normal',name='out_1')
         conv_20 = Conv_20(drop_1)
         drop_2 = Dropout(0.25)(conv_20)
-        vector_feature_i = Conv_21(drop2)
+        vector_feature_i = Conv_21(drop_2)
 
         #Conv_02 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
 
