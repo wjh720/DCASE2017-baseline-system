@@ -1296,7 +1296,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
         print(Y_training.shape)
 
         print("asdasd")
-
+        from keras.callbacks import ModelCheckpoint
         #Train(X_training, Y_training, validation)
         tbCallBack = keras.callbacks.TensorBoard(log_dir='../Graph', histogram_freq=0, write_graph=True, write_images=True)
         checkpointer = ModelCheckpoint(filepath='log_new/', save_best_only=True, period = 10, verbose = 1)
