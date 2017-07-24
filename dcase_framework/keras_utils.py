@@ -816,7 +816,7 @@ class KerasMixin(object):
         #conv_5_add = Dropout(0.2)(conv_5_add_1)
 
         conv_13 = Conv_13(conv_5_add)
-
+        '''
         Conv_1s = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
         Conv_2s = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
         Conv_3s = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=4, kernel_initializer = 'glorot_normal')
@@ -835,15 +835,17 @@ class KerasMixin(object):
         conv_5s = Conv_5s(conv_4s_add)
         #conv_5s_add = Add()([conv_5s, conv_4s_add])
         '''
+        
         conv_13_add = Add()([conv_13,conv_5_add])
         conv_14 = Conv_14(conv_13_add)
+        '''
         conv_14_add = Add()([conv_14,conv_13_add])
         conv_15 = Conv_15(conv_14_add)
         conv_15_add = Add()([conv_15,conv_14_add])
         conv_16 = Conv_16(conv_15_add)
         conv_16_add = Add()([conv_16,conv_15_add])
         '''
-        drop_5 = Dropout(0.2)(conv_5s)
+        drop_5 = Dropout(0.2)(conv_14)
 
         #res_1 = Add()([drop_12, drop_1])
 
