@@ -731,7 +731,7 @@ class KerasMixin(object):
         ### Input
         input_feature = Input(shape = (input_size, num_feature, ), dtype = 'float32', name = 'input_feature')
         #input_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'input_feature')
-        raw_feature = Input(shape = (raw_size, ), dtype = 'float32', name = 'raw_feature')
+        #raw_feature = Input(shape = (raw_size, ), dtype = 'float32', name = 'raw_feature')
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
 
         '''
