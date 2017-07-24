@@ -778,8 +778,8 @@ class FeatureExtractor(object):
                     data = y
 
 
-                #print(extractor_name)
-
+                print(extractor_name)
+                '''
                 # Extract features
                 
                 if True:
@@ -788,7 +788,7 @@ class FeatureExtractor(object):
                     extractor_func = getattr(self, '_{}'.format('mfcc'), None)
                     data_mfcc = extractor_func(data=data, params=current_extractor_params)
 
-                    '''
+                    
                     print(data_mel[:5])
 
                     import numpy as np
@@ -800,9 +800,26 @@ class FeatureExtractor(object):
 
                     data = np.concatenate([data_mel, data_mfcc], axis = 1)
                     print(data.shape)
-                    '''
+                    
                     data = data_mel
+                    '''
+                extractor_func = getattr(self, '_{}'.format(extractor_name), None)
+                if extractor_func is not None:
+                    data = extractor_func(data=data, params=current_extractor_params)
 
+                    # Feature extraction meta information
+                    meta = {
+                        'parameters': current_extractor_params,
+                        'datetime': strftime("%Y-%m-%d %H:%M:%S", gmtime()),
+                        'audio_file': audio_file,
+                        'extractor_version': self.__version__,
+                    }
+
+                    # Create feature container
+                    feature_container = FeatureContainer(features=data, meta=meta)
+                    if self.store and extractor_name in storage_paths:
+                        feature_container.save(filename=storage_paths[extractor_name])
+                    feature_repository[extractor_name] = feature_container
                     # Feature extraction meta information
                     meta = {
                         'parameters': current_extractor_params,
