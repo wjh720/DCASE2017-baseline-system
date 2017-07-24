@@ -287,6 +287,8 @@ class KerasMixin(object):
         pdata=[]
         rawdata = []
 
+        print('asdasdasda')
+
         for item in files:
             y, sr=soundfile.read(item)
             y = np.mean(y.T, axis=0)
@@ -294,7 +296,9 @@ class KerasMixin(object):
 
             asd = librosa.feature.melspectrogram(y, sr)
 
-            print(asd.shape)
+            #print(asd.shape) #128, 862
+            asd = asd.T
+            rawdata.append(asd)
 
             x=data[item].feat[0]
             pdata.append(x)
