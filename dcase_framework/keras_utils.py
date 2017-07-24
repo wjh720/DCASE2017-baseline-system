@@ -667,7 +667,7 @@ class KerasMixin(object):
         input_size = 501
         raw_size = 441001
         num_asd = 1281
-        wave_size = 32
+        wave_size = 64
 
         def my_loss(y_true, y_pred):
             '''
@@ -751,7 +751,7 @@ class KerasMixin(object):
         '''
 
         Conv_6 = Conv1D(8, 7, strides=7, kernel_initializer = 'glorot_normal')
-        Conv_11 = Conv1D(16, 7,strides=7, kernel_initializer = 'glorot_normal')
+        Conv_11 = Conv1D(32, 7,strides=7, kernel_initializer = 'glorot_normal')
         Conv_7 = Conv1D(wave_size, 7, strides=7, kernel_initializer = 'glorot_normal')
         #Conv_8 = Conv1D(32, 7, strides=3)
         #Conv_12 = Conv1D(wave_size, 7, strides=3)
