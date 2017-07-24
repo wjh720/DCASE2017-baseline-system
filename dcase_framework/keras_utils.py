@@ -666,7 +666,7 @@ class KerasMixin(object):
 
         '''
 
-        num_feature = 200
+        num_feature = 100
         num_label = 15
         dim_vector = 128
         margin = 0.5
