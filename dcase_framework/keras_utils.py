@@ -776,12 +776,12 @@ class KerasMixin(object):
         conv_6s = Conv_6(conv_5s)
         drop_2 = Dropout(0.2)(conv_6s)
 
-        #res_1 = Add()([drop_2,drop_1])
+        res_1 = Add()([drop_0,conv_4])
 
         Conv_9 = Conv1D(128, 3, activation='relu')
         Conv_10 = Conv1D(15, 3, activation='softmax', name='out_1')
 
-        conv_9 = Conv_9(drop_0)
+        conv_9 = Conv_9(res_1)
         drop_9 = Dropout(0.25)(conv_9)
         vector_feature_i = Conv_10(drop_9)
 
