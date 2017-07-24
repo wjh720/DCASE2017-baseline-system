@@ -1328,6 +1328,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                         )
                         data[audio_filename] = FeatureContainer(features=[feature_data])
 
+
                     # Inject audio_filename to the features filenames for the raw data generator
                     feature_filenames['_audio_filename'] = audio_filename
                     data_filelist[audio_filename] = feature_filenames

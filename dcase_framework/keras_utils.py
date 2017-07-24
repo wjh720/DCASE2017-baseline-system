@@ -301,6 +301,7 @@ class KerasMixin(object):
             #rawdata.append(y)
 
             x=data[item].feat[0]
+            print(x.shape)
             pdata.append(x)
 
         pdata = np.array(pdata)
@@ -736,7 +737,7 @@ class KerasMixin(object):
         #raw_feature = Input(shape = (num_feature, ), dtype = 'float32', name = 'raw_feature')
         '''
 
-        
+
 
         '''
         specgram = Melspectrogram(n_dft=512,

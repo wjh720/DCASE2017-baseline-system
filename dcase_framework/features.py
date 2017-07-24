@@ -788,6 +788,7 @@ class FeatureExtractor(object):
                     extractor_func = getattr(self, '_{}'.format('mfcc'), None)
                     data_mfcc = extractor_func(data=data, params=current_extractor_params)
 
+                    '''
                     print(data_mel[:5])
 
                     import numpy as np
@@ -799,6 +800,8 @@ class FeatureExtractor(object):
 
                     data = np.concatenate([data_mel, data_mfcc], axis = 1)
                     print(data.shape)
+                    '''
+                    data = data_mel
 
                     # Feature extraction meta information
                     meta = {
