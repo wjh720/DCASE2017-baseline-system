@@ -1351,11 +1351,18 @@ class AcousticSceneClassificationAppCore(AppCore):
                     data_generators=self.DataGenerators if self.params.get_path('learner.parameters.generator.enable') else None,
                 )
 
+                f = open('asd.txt', 'w')
+                f.write(data)
+                f.close()
+
                 learner.learn(
                     data=data,
                     annotations=annotations,
                     data_filenames=data_filelist
                 )
+                import time
+                print('end')
+                time.sleep(10000)
                 learner.save()
 
                 '''
@@ -1451,7 +1458,7 @@ class AcousticSceneClassificationAppCore(AppCore):
                              file=sys.stdout,
                              leave=False,
                              miniters=1,
-                             disable=self.disable_progress_bar,
+                             disable=sellf.disable_progress_bar,
                              ascii=self.use_ascii_progress_bar)
 
         for fold in fold_progress:
