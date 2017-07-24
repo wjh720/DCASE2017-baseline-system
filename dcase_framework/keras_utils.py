@@ -290,7 +290,7 @@ class KerasMixin(object):
         for item in files:
             y, sr=soundfile.read(item)
             y = np.mean(y.T, axis=0)
-            rawdata.append(y)
+            rawdata.append(y[:440000])
 
             x=data[item].feat[0]
             pdata.append(x)
@@ -395,7 +395,7 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(497, axis = 0))
+            pdata.append(ve[0].reshape(1, 15).repeat(100, axis = 0))
             #pdata.append(ve)
 
         pdata = np.array(pdata)
@@ -665,8 +665,8 @@ class KerasMixin(object):
         word_num = 1764
         dense_size = 128
         input_size = 501
-        raw_size = 441001
-        num_asd = 497
+        raw_size = 440000
+        num_asd = 100
         wave_size = 32
 
         def my_loss(y_true, y_pred):
@@ -746,6 +746,14 @@ class KerasMixin(object):
         conv_02 = Conv_02(conv_01)
         batch_input = BatchNormalization()(conv_02)
         drop_0 = Dropout(0.2)(batch_input)
+
+        Conv_03 = Conv1D(128, 3, activation='relu', kernel_initializer = 'glorot_normal')
+        Conv_04 = Conv1D(15, 3, activation='softmax', kernel_initializer = 'glorot_normal')
+
+        conv_03_input = Conv_03(drop_0)
+        drop_03_input = Dropout(0.25)(conv_03_input)
+        vector_input = Conv_04(drop_03_input)
+
         '''
         Conv_1 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
         Conv_2 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
@@ -779,12 +787,7 @@ class KerasMixin(object):
         
         res_1 = Add()([drop_0,conv_4])
         '''
-        Conv_9_input = Conv1D(128, 3, activation='relu')
-        Conv_10_input = Conv1D(15, 3, activation='softmax', name='out_1')
-
-        conv_9_input = Conv_9_input(drop_0)
-        drop_9_input = Dropout(0.25)(conv_9_input)
-        vector_feature_i = Conv_10_input(drop_9_input)
+        
         
 
         '''
@@ -801,12 +804,12 @@ class KerasMixin(object):
         vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
         '''
 
-        '''
-        Conv_6 = Conv1D(8, 7, strides=5, kernel_initializer = 'glorot_normal')
-        Conv_11 = Conv1D(16, 7,strides=3, kernel_initializer = 'glorot_normal')
-        Conv_7 = Conv1D(wave_size, 7, strides=5, kernel_initializer = 'glorot_normal')
-        Conv_8 = Conv1D(32, 7, strides=3,kernel_initializer = 'glorot_normal')
-        Conv_12 = Conv1D(wave_size, 7, strides=3,kernel_initializer = 'glorot_normal')
+        
+        Conv_6 = Conv1D(8, 11, strides=11, kernel_initializer = 'glorot_normal')
+        Conv_11 = Conv1D(16, 11,strides=10, kernel_initializer = 'glorot_normal')
+        Conv_7 = Conv1D(wave_size, 11, strides=8, kernel_initializer = 'glorot_normal')
+        #Conv_8 = Conv1D(32, 7, strides=3,kernel_initializer = 'glorot_normal')
+        #Conv_12 = Conv1D(wave_size, 7, strides=3,kernel_initializer = 'glorot_normal')
 
         Conv_1 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
         Conv_2 = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
@@ -831,14 +834,31 @@ class KerasMixin(object):
         conv_7_ok = LeakyReLU(alpha=.001)(conv_7)
         drop_7 = Dropout(0.1)(conv_7_ok)
 
-        conv_8 = Conv_8(drop_7)
-        conv_8_ok = LeakyReLU(alpha=.001)(conv_8)
-        
+        conv_1 = Conv_1(drop_7)
+        conv_1_add = Add()([conv_1, drop_7])
+        conv_2 = Conv_2(conv_1_add)
+        conv_2_add = Add()([conv_2, conv_1_add])
+        conv_3 = Conv_3(conv_2_add)
+        conv_3_add = Add()([conv_3, conv_2_add])
+        conv_4 = Conv_4(conv_3_add)
+        conv_4_add = Add()([conv_4, conv_3_add])
+        conv_5 = Conv_5(conv_4_add)
+        conv_5_add = Add()([conv_5, conv_4_add])
 
-        conv_12 = Conv_12(conv_8_ok)
-        conv_12_ok = LeakyReLU(alpha=.001)(conv_12)
-        drop_12 = Dropout(0.15)(conv_12_ok)
+        conv_13 = Conv_13(conv_5_add)
+        conv_13_add = Add()([conv_13, conv_5_add])
+        conv_14 = Conv_14(conv_13_add)
+        conv_14_add = Add()([conv_14, conv_13_add])
+        drop_14 = Dropout(0.2)(conv_14_add)
+
+        Conv_9_input = Conv1D(128, 3, activation='relu', kernel_initializer = 'glorot_normal')
+        Conv_10_input = Conv1D(15, 3, activation='softmax', kernel_initializer = 'glorot_normal')
+
+        conv_9_input = Conv_9_input(drop_14)
+        drop_9_input = Dropout(0.25)(conv_9_input)
+        vector_raw = Conv_10_input(drop_9_input)
         
+        vector_feature_i = Concatenate(axis = 1, name = 'out_1')([vector_raw, vector_input])
 
         '''
         #conv_1 = Conv_1(drop_12)
@@ -854,20 +874,9 @@ class KerasMixin(object):
         #drop_5 = Dropout(0.2)(conv_5_add)
         '''
 
-        conv_1 = Conv_1(drop_12)
-        conv_1_add = Add()([conv_1, drop_12])
-        conv_2 = Conv_2(conv_1_add)
-        conv_2_add = Add()([conv_2, conv_1_add])
-        conv_3 = Conv_3(conv_2_add)
-        conv_3_add = Add()([conv_3, conv_2_add])
-        conv_4 = Conv_4(conv_3_add)
-        conv_4_add = Add()([conv_4, conv_3_add])
-        conv_5 = Conv_5(conv_4_add)
-        conv_5_add = Add()([conv_5, conv_4_add])
+        '''
 
-        #conv_5_add = Dropout(0.2)(conv_5_add_1)
-
-        conv_13 = Conv_13(conv_5_add)
+        
         '''
         '''
         Conv_1s = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
