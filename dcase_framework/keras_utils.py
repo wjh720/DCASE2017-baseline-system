@@ -736,6 +736,55 @@ class KerasMixin(object):
 
         raw_feat=Reshape((raw_size,1,))(raw_feature)
         #print('vqe', raw_spec.get_shape())
+
+        Conv_00 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
+        Conv_01 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
+        Conv_02 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
+
+        conv_00 = Conv1D(input_feature)
+        conv_01 = Conv1D(conv_00)
+        conv_02 = Conv1D(conv_01)
+        drop_0 = Dropout(0.2)(conv_02)
+
+        Conv_1 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
+        Conv_2 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
+        Conv_3 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4, kernel_initializer = 'glorot_normal')
+        Conv_4 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=8, kernel_initializer = 'glorot_normal')
+        Conv_5 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=16, kernel_initializer = 'glorot_normal')
+        Conv_6 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=32, kernel_initializer = 'glorot_normal')
+
+        conv_1 = Conv_1(drop_0)
+        conv_2 = Conv_2(conv_1)
+        conv_3 = Conv_3(conv_2)
+        conv_4 = Conv_4(conv_3)
+        conv_5 = Conv_5(conv_4)
+        conv_6 = Conv_6(conv_5)
+        drop_1 = Dropout(0.2)(conv_6)
+
+        Conv_1s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
+        Conv_2s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
+        Conv_3s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4, kernel_initializer = 'glorot_normal')
+        Conv_4s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=8, kernel_initializer = 'glorot_normal')
+        Conv_5s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=16, kernel_initializer = 'glorot_normal')
+        Conv_6s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=32, kernel_initializer = 'glorot_normal')
+
+        conv_1s = Conv_1s(drop_1)
+        conv_2s = Conv_2s(conv_1s)
+        conv_3s = Conv_3(conv_2s)
+        conv_4s = Conv_4(conv_3s)
+        conv_5s = Conv_5(conv_4s)
+        conv_6s = Conv_6(conv_5s)
+        drop_2 = Dropout(0.2)(conv_6s)
+
+        res_1 = Add()([drop_2,drop_1])
+
+        Conv_9 = Conv1D(128, 3, activation='relu')
+        Conv_10 = Conv1D(15, 3, activation='softmax', name='out_1')
+
+        conv_9 = Conv_9(res_1)
+        drop_9 = Dropout(0.25)(conv_9)
+        vector_feature_i = Conv_10(drop_9)
+
         '''
         Conv_1 = Conv1D(256, 3, padding='same', activation='relu')
         Conv_2 = Conv1D(512, 3, padding='same', activation='relu')
@@ -750,6 +799,7 @@ class KerasMixin(object):
         vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
         '''
 
+        '''
         Conv_6 = Conv1D(8, 7, strides=5, kernel_initializer = 'glorot_normal')
         Conv_11 = Conv1D(16, 7,strides=3, kernel_initializer = 'glorot_normal')
         Conv_7 = Conv1D(wave_size, 7, strides=5, kernel_initializer = 'glorot_normal')
@@ -789,17 +839,17 @@ class KerasMixin(object):
         
 
         '''
-        conv_1 = Conv_1(drop_12)
-        conv_1_add = Add()([conv_1, drop_12])
-        conv_2 = Conv_2(conv_1_add)
-        conv_2_add = Add()([conv_2, conv_1_add, drop_12])
-        conv_3 = Conv_3(conv_2_add)
-        conv_3_add = Add()([conv_3, conv_2_add, conv_1_add, drop_12])
-        conv_4 = Conv_4(conv_3_add)
-        conv_4_add = Add()([conv_4, conv_3_add, conv_2_add, conv_1_add, drop_12])
-        conv_5 = Conv_5(conv_4_add)
-        conv_5_add = Add()([conv_5, conv_4_add, conv_3_add, conv_2_add, conv_1_add, drop_12])
-        drop_5 = Dropout(0.2)(conv_5_add)
+        #conv_1 = Conv_1(drop_12)
+        #conv_1_add = Add()([conv_1, drop_12])
+        #conv_2 = Conv_2(conv_1_add)
+        #conv_2_add = Add()([conv_2, conv_1_add, drop_12])
+        #conv_3 = Conv_3(conv_2_add)
+        #conv_3_add = Add()([conv_3, conv_2_add, conv_1_add, drop_12])
+        #conv_4 = Conv_4(conv_3_add)
+        #conv_4_add = Add()([conv_4, conv_3_add, conv_2_add, conv_1_add, drop_12])
+        #conv_5 = Conv_5(conv_4_add)
+        #conv_5_add = Add()([conv_5, conv_4_add, conv_3_add, conv_2_add, conv_1_add, drop_12])
+        #drop_5 = Dropout(0.2)(conv_5_add)
         '''
 
         conv_1 = Conv_1(drop_12)
@@ -816,6 +866,7 @@ class KerasMixin(object):
         #conv_5_add = Dropout(0.2)(conv_5_add_1)
 
         conv_13 = Conv_13(conv_5_add)
+        '''
         '''
         Conv_1s = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
         Conv_2s = Conv1D(wave_size, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
@@ -835,15 +886,18 @@ class KerasMixin(object):
         conv_5s = Conv_5s(conv_4s_add)
         #conv_5s_add = Add()([conv_5s, conv_4s_add])
         '''
+        '''
         
         conv_13_add = Add()([conv_13,conv_5_add])
         conv_14 = Conv_14(conv_13_add)
+        '''
         '''
         conv_14_add = Add()([conv_14,conv_13_add])
         conv_15 = Conv_15(conv_14_add)
         conv_15_add = Add()([conv_15,conv_14_add])
         conv_16 = Conv_16(conv_15_add)
         conv_16_add = Add()([conv_16,conv_15_add])
+        '''
         '''
         drop_5 = Dropout(0.2)(conv_14)
 
@@ -852,7 +906,7 @@ class KerasMixin(object):
         conv_9 = Conv_9(drop_5)
         drop_9 = Dropout(0.25)(conv_9)
         vector_feature_i = Conv_10(drop_9)
-
+        '''
 
 
 
