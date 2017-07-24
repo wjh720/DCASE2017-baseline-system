@@ -289,8 +289,12 @@ class KerasMixin(object):
 
         for item in files:
             y, sr=soundfile.read(item)
-            y = np.mean(y.T, axis=0)
-            rawdata.append(y[:440000])
+            #y = np.mean(y.T, axis=0)
+            #rawdata.append(y[:440000])
+
+            asd = librosa.feature.melspectrogram(y, sr)
+
+            print(asd.shape)
 
             x=data[item].feat[0]
             pdata.append(x)
@@ -395,8 +399,9 @@ class KerasMixin(object):
         pdata=[]
         for item in files:
             ve = activity_matrix_dict[item]
-            pdata.append(ve[0].reshape(1, 15).repeat(992, axis = 0))
+            #pdata.append(ve[0].reshape(1, 15).repeat(992, axis = 0))
             #pdata.append(ve)
+            pdata.append(ve[0])
 
         pdata = np.array(pdata)
         #pdata = np.concatenate(pdata)
@@ -734,6 +739,10 @@ class KerasMixin(object):
         raw_spec = specgram(raw_feature)
         '''
 
+
+
+        '''
+        ###!@3
         raw_feat=Reshape((raw_size,1,))(raw_feature)
         #print('vqe', raw_spec.get_shape())
 
@@ -753,56 +762,6 @@ class KerasMixin(object):
         conv_03_input = Conv_03(drop_0)
         drop_03_input = Dropout(0.25)(conv_03_input)
         vector_input = Conv_04(drop_03_input)
-
-        '''
-        Conv_1 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
-        Conv_2 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
-        Conv_3 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4, kernel_initializer = 'glorot_normal')
-        Conv_4 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=8, kernel_initializer = 'glorot_normal')
-        Conv_5 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=16, kernel_initializer = 'glorot_normal')
-        Conv_6 = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=32, kernel_initializer = 'glorot_normal')
-
-        conv_1 = Conv_1(drop_0)
-        conv_2 = Conv_2(conv_1)
-        conv_3 = Conv_3(conv_2)
-        conv_4 = Conv_4(conv_3)
-        conv_5 = Conv_5(conv_4)
-        conv_6 = Conv_6(conv_5)
-        drop_1 = Dropout(0.2)(conv_6)
-
-        Conv_1s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=1, kernel_initializer = 'glorot_normal')
-        Conv_2s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=2, kernel_initializer = 'glorot_normal')
-        Conv_3s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=4, kernel_initializer = 'glorot_normal')
-        Conv_4s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=8, kernel_initializer = 'glorot_normal')
-        Conv_5s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=16, kernel_initializer = 'glorot_normal')
-        Conv_6s = Conv1D(256, 3, padding='causal', activation='relu',dilation_rate=32, kernel_initializer = 'glorot_normal')
-
-        conv_1s = Conv_1s(drop_1)
-        conv_2s = Conv_2s(conv_1s)
-        conv_3s = Conv_3(conv_2s)
-        conv_4s = Conv_4(conv_3s)
-        conv_5s = Conv_5(conv_4s)
-        conv_6s = Conv_6(conv_5s)
-        drop_2 = Dropout(0.2)(conv_6s)
-        
-        res_1 = Add()([drop_0,conv_4])
-        '''
-        
-        
-
-        '''
-        Conv_1 = Conv1D(256, 3, padding='same', activation='relu')
-        Conv_2 = Conv1D(512, 3, padding='same', activation='relu')
-        Conv_3 = Conv1D(15, 3, padding='same', activation='softmax')
-
-        conv_1_input = Conv_1(input_feature)
-        drop_1_input = Dropout(0.2)(conv_1_input)
-        conv_2_input = Conv_2(drop_1_input)
-        drop_2_input = Dropout(0.2)(conv_2_input)
-        conv_3_input = Conv_3(drop_2_input)
-
-        vector_feature_i = Reshape((-1, 15), name = 'out_1')(conv_3_input)
-        '''
 
         
         Conv_6 = Conv1D(8, 11, strides=11, kernel_initializer = 'glorot_normal')
@@ -859,6 +818,8 @@ class KerasMixin(object):
         vector_raw = Conv_10_input(drop_9_input)
         
         vector_feature_i = Concatenate(axis = 1, name = 'out_1')([vector_raw, vector_input])
+
+        '''
 
         '''
         #conv_1 = Conv_1(drop_12)
