@@ -811,10 +811,10 @@ class KerasMixin(object):
         conv_4 = Conv_4(conv_3_add)
         conv_4_add = Add()([conv_4, conv_3_add])
         conv_5 = Conv_5(conv_4_add)
-        conv_5_add = Add()([conv_5, conv_4_add])
-        drop_5 = Dropout(0.2)(conv_5_add)
+        conv_5_add_1 = Add()([conv_5, conv_4_add])
 
-        '''
+        conv_5_add = Dropout(0.2)(conv_5_add_1)
+
         conv_13 = Conv_13(conv_5_add)
         conv_13_add = Add()([conv_13,conv_5_add])
         conv_14 = Conv_14(conv_13_add)
@@ -822,7 +822,9 @@ class KerasMixin(object):
         conv_15 = Conv_15(conv_14_add)
         conv_15_add = Add()([conv_15,conv_14_add])
         conv_16 = Conv_16(conv_15_add)
-        '''
+        conv_16_add = Add()([conv_16,conv_15_add])
+        
+        drop_5 = Dropout(0.2)(conv_16_add)
 
         #res_1 = Add()([drop_12, drop_1])
 
