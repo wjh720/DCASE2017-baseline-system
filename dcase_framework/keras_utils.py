@@ -305,6 +305,9 @@ class KerasMixin(object):
             pdata.append(x)
 
         pdata = np.array(pdata)
+        f = file("feat_1.npy", "wb")
+        np.save(f,pdata)
+        f.close()
         #pdata = np.concatenate(pdata)
         #rawdata = np.array(rawdata)
 
