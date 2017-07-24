@@ -1299,7 +1299,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
 
         #Train(X_training, Y_training, validation)
         tbCallBack = keras.callbacks.TensorBoard(log_dir='../Graph', histogram_freq=0, write_graph=True, write_images=True)
-        
+        checkpointer = ModelCheckpoint(filepath='log_new/', save_best_only=True, period = 10, verbose = 1)
         self.model.fit(
             {
                 'raw_feature' : X_1,
@@ -1314,7 +1314,7 @@ class SceneClassifierMLP(SceneClassifier, KerasMixin):
             #validation_split = 0.1,
             verbose=2,
             shuffle=True,
-            callbacks=[tbCallBack]
+            callbacks=[tbCallBack,checkpointer]
         )
         
 
